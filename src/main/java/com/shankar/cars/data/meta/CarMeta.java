@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-@Entity(name = "ApplicationMeta")
 public class CarMeta {
 	
 	@Getter
