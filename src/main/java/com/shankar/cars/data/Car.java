@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-@Entity(name = "Application")
+@Entity(name = "Car")
 public class Car {
 	
 	@Id
@@ -16,6 +16,11 @@ public class Car {
 	@Getter
 	@Setter
 	protected Long car_id;
+	
+	@Index
+	@Getter
+	@Setter
+	protected Long user_id;
 	
 	@Index
 	@Getter
@@ -31,5 +36,15 @@ public class Car {
 	@Getter
 	@Setter
 	protected String car_url;
+	
+	@Index
+	@Getter
+	@Setter
+	protected Long created_time;
+	
+	@Index
+	@Getter
+	@Setter
+	protected Long update_time;
 
 }

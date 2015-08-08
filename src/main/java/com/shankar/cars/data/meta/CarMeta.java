@@ -16,6 +16,10 @@ public class CarMeta {
 	
 	@Getter
 	@Setter
+	public Long user_id;
+	
+	@Getter
+	@Setter
 	public Long car_model;
 	
 	@Getter

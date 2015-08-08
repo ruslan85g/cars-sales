@@ -15,7 +15,9 @@ import javax.ws.rs.core.Response;
 import lombok.extern.java.Log;
 
 import com.shankar.cars.data.Car;
+import com.shankar.cars.data.User;
 import com.shankar.cars.data.meta.CarMeta;
+import com.shankar.cars.data.persist.CarDBService;
 
 @Path("/cars")
 @Log
@@ -24,6 +26,8 @@ public class CarsServlet {
 	HttpServletRequest request;
 	@Context
 	HttpServletResponse response;
+	
+	CarDBService carDBService = new CarDBService();
 
 	@Path("/get/{car_id}")
 	@GET
@@ -58,29 +62,41 @@ public class CarsServlet {
 	@Path("/save")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response newApplication(CarMeta carMeta) {
+	public Response newApplication(User user, CarMeta carMeta) {
 
 		log.info("Start newApplication ");
-		Response resp = null;
-		Car car = new Car();
-		car.setCar_id(carMeta.getCar_id());
+	
+		Car car = null;
+		
+		
+		/*if(user == null ){
+			Response.serverError().status(Response.Status.BAD_REQUEST).entity( "User not found" ).build();
+		}*/
+		
+		try{ 
+		
+		if(carMeta.getCar_id() != null){
+		  car = carDBService.load(Car.class, carMeta.getCar_id() );
+		  car.setUpdate_time(System.currentTimeMillis());
+		}else{
+		  car = new Car();
+		  car.setCreated_time(System.currentTimeMillis());
+		}
+		
 		car.setCar_model(carMeta.getCar_model());
 		car.setCar_name(carMeta.getCar_name());
 		car.setCar_url(carMeta.getCar_url());
-		/*
-		 * 
-		 * try{ ApplicationLogic al = new ApplicationLogic(); Boolean flag =
-		 * al.saveApplication( appMeta );
-		 * 
-		 * if(flag){ resp = Response.ok().build(); }else{ resp =
-		 * Response.notModified().build(); }
-		 * 
-		 * }catch(Exception e){ log.info("Exception::" + e.getMessage()); resp =
-		 * Response.serverError().build(); }
-		 */
+		
+		carDBService.save(car);
+	
+		}catch(Exception e){
+			 log.severe("Exception::" + e.getMessage());
+			 Response.serverError().build();
+		}
+		
 
 		log.info("End newApplication");
-		return resp;
+		return Response.ok().build();
 	}
 
 }
