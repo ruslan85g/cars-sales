@@ -62,7 +62,7 @@ public class CarsServlet {
 	@Path("/save")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response newApplication(User user, CarMeta carMeta) {
+	public Response newApplication(CarMeta carMeta) {
 
 		log.info("Start newApplication ");
 	

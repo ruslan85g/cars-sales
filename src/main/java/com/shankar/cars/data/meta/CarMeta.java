@@ -20,7 +20,7 @@ public class CarMeta {
 	
 	@Getter
 	@Setter
-	public Long car_model;
+	public String car_model;
 	
 	@Getter
 	@Setter
