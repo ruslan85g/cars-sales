@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- More info at: http://code.google.com/appengine/docs/java/datastore/queriesandindexes.html#Defining_Indexes_With_Configuration -->
+<datastore-indexes autoGenerate="true">
+<!-- 	<datastore-index kind="installer" ancestor="false" source="manual">
+        <property name="application" direction="asc"/>
+        <property name="uploadTime" direction="desc"/>
+    </datastore-index>
+	<datastore-index kind="installer" ancestor="false" source="manual">
+        <property name="active" direction="asc"/>
+        <property name="application" direction="asc"/>
+        <property name="uploadTime" direction="desc"/>
+    </datastore-index>
+	<datastore-index kind="d_campaign" ancestor="false" source="manual">
+        <property name="active" direction="asc"/>
+        <property name="campaign" direction="asc"/>
+        <property name="createdTime" direction="desc"/>
+    </datastore-index>
+    <datastore-index kind="d_campaign" ancestor="false" source="manual">
+    	<property name="active" direction="asc"/>
+        <property name="application" direction="asc"/>
+    </datastore-index> -->
+</datastore-indexes>
