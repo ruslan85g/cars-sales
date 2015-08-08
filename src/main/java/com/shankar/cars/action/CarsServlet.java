@@ -31,11 +31,12 @@ public class CarsServlet {
 	public CarMeta newApplication(@QueryParam("car_id") Long car_id) {
 		log.info("Start newApplication ");
 
-		CarDBService db = new CarDBService();
+	/*	CarDBService db = new CarDBService();
 		Car car = db.load(Car.class, car_id);
 		CarMeta carMeta = new CarMeta();
-		carMeta.setCar_id(car.getCar_id());
-
+		carMeta.setCar_id(car.getCar_id());*/
+		CarMeta carMeta = new CarMeta();
+		carMeta.setCar_id(1L);
 		/*
 		 * Response resp = null;
 		 * 
