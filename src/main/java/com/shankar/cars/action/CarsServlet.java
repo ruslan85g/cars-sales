@@ -11,10 +11,11 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import lombok.extern.java.Log;
+
 import com.shankar.cars.data.Car;
 import com.shankar.cars.data.meta.CarMeta;
-import com.shankar.cars.data.persist.CarDBService;
 
 @Path("/cars")
 @Log
@@ -61,7 +62,11 @@ public class CarsServlet {
 
 		log.info("Start newApplication ");
 		Response resp = null;
-		
+		Car car = new Car();
+		car.setCar_id(carMeta.getCar_id());
+		car.setCar_model(carMeta.getCar_model());
+		car.setCar_name(carMeta.getCar_name());
+		car.setCar_url(carMeta.getCar_url());
 		/*
 		 * 
 		 * try{ ApplicationLogic al = new ApplicationLogic(); Boolean flag =
