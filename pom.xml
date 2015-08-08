@@ -1,17 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.somoto.pronto</groupId>
-  <artifactId>pronto-api</artifactId>
+  <groupId>com.shankar.cars</groupId>
+  <artifactId>cars-api</artifactId>
   <version>1</version>
   <packaging>war</packaging>
-  <name>Pronto server</name>
+  <name>Cars server</name>
   
    <properties>
-        <appengine.app.version>1</appengine.app.version>
+   		<appengine.app.id>cars-sales</appengine.app.id>
+        <appengine.app.version>2</appengine.app.version>
         <appengine.target.version>1.9.15</appengine.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <appengine.app.id>somoto-pronto</appengine.app.id>
-       <!--  <appengine.app.id>somoto-pronto-dev</appengine.app.id> -->
     </properties>
   <dependencies>
   		<dependency>
