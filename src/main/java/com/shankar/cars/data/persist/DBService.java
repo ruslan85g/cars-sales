@@ -88,8 +88,5 @@ public class DBService {
 	{
 		return ofy().load().type(type).filter(feild+" ==",value).list();
 	}
-	public <E> List<E> load(Class<E> type, String feild0, Boolean value0,String feild1, Boolean value1,String feild, Boolean value,String feild, Boolean value,String feild, Boolean value)
-	{
-		return ofy().load().type(type).filter(feild0+" ==",value0).filter(feild1+" ==",value1).filter(feild+" ==",value).filter(feild+" ==",value).filter(feild+" ==",value).filter(feild+" ==",value).filter(feild+" ==",value).list();
-	}
+	
 }
