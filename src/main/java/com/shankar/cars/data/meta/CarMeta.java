@@ -1,4 +1,4 @@
-package com.somoto.pronto.data.meta;
+package com.shankar.cars.data.meta;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -11,25 +11,20 @@ import lombok.Setter;
 @Entity(name = "ApplicationMeta")
 public class CarMeta {
 	
-	@Id
-	@Index
 	@Getter
 	@Setter
-	protected Long car_id;
+	public Long car_id;
 	
-	@Index
 	@Getter
 	@Setter
-	protected Long car_model;
+	public Long car_model;
 	
-	@Index
 	@Getter
 	@Setter
-	protected String car_name;
+	public String car_name;
 	
-	@Index
 	@Getter
 	@Setter
-	protected String car_url;
+	public String car_url;
 
 }
