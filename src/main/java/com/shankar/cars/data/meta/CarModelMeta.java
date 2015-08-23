@@ -1,8 +1,5 @@
 package com.shankar.cars.data.meta;
 
-import com.googlecode.objectify.annotation.Entity;
-
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +20,9 @@ public class CarModelMeta {
 	@Setter
 	public String model_name;
 	
+	@Getter
+	@Setter
+	public Long carType_id;
 	
 
 }

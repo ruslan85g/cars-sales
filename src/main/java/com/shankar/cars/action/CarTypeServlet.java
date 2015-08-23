@@ -1,5 +1,6 @@
 package com.shankar.cars.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.shankar.cars.data.Car;
 import com.shankar.cars.data.CarModels;
 import com.shankar.cars.data.CarType;
 import com.shankar.cars.data.meta.CarMeta;
+import com.shankar.cars.data.meta.CarModelMeta;
 import com.shankar.cars.data.meta.CarTypeMeta;
 import com.shankar.cars.data.persist.CarDBService;
 import com.shankar.cars.data.persist.CarModelsDBService;
@@ -28,7 +30,7 @@ import com.shankar.cars.data.persist.DBService;
 
 @Path("/cars")
 @Log
-public class CarsServlet {
+public class CarTypeServlet {
 	@Context
 	HttpServletRequest request;
 	@Context
@@ -38,35 +40,32 @@ public class CarsServlet {
 	CarModelsDBService carModelsDBService = new CarModelsDBService();
 	CarTypeDBService carTypeDBService = new CarTypeDBService();
 
-	@Path("/get/{car_id}")
+	@Path("/get/{car_type_id}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public CarMeta newApplication(@QueryParam("car_id") Long car_id) {
+	public List<CarModels> /*carmodelsMeta*/newApplication(@QueryParam("car_type_id") Long car_type_id) {
 		log.info("Start newApplication ");
-
-		CarDBService db = new CarDBService();
-		Car car = db.load(Car.class, car_id);
-		CarMeta carMeta = new CarMeta();
-		carMeta.setCar_id(car.getCar_id());
-
-//		CarMeta carMeta = new CarMeta();
-//		carMeta.setCar_id(car_id);
-		/*
-		 * Response resp = null;
-		 * 
-		 * try{ ApplicationLogic al = new ApplicationLogic(); Boolean flag =
-		 * al.saveApplication( appMeta );
-		 * 
-		 * if(flag){ resp = Response.ok().build(); }else{ resp =
-		 * Response.notModified().build(); }
-		 * 
-		 * }catch(Exception e){ log.info("Exception::" + e.getMessage()); resp =
-		 * Response.serverError().build(); }
-		 */
+		CarTypeDBService dbType = new CarTypeDBService();
+		CarModelsDBService dbModels = new CarModelsDBService();
+//		Long car_type_id = 1L;
+//		List<CarType>  types = dbType.load(CarType.class, "is_active", true);
+//		for (CarType carType : types) {
+//			List<CarModels> models = dbModels.load(CarModels.class,"car_type_id",car_type_id);
+//			carType.setCar_models(models);
+//		}
+		List<CarModelMeta> carModelsMeta = new ArrayList<>();
+		List<CarModels> models = dbModels.load(CarModels.class,"car_type_id",car_type_id);
+		int count=0;
+//		for (CarModels carModels : models) {
+//			
+//			count++;
+//			carModelsMeta.set(count, carModels);
+//		}
+//		carModelMeta = models ;
 
 		log.info("End newApplication");
-		return carMeta;
+		return models;
 	}
 
 	// opa

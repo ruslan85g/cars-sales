@@ -5,8 +5,6 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
-import com.googlecode.objectify.annotation.Entity;
-
 
 
 public class CarTypeMeta {

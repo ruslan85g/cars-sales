@@ -1,8 +1,5 @@
 package com.shankar.cars.data.meta;
 
-import com.googlecode.objectify.annotation.Entity;
-
-
 import lombok.Getter;
 import lombok.Setter;
 

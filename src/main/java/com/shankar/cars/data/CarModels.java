@@ -1,7 +1,5 @@
 package com.shankar.cars.data;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,29 +9,27 @@ import com.googlecode.objectify.annotation.Index;
 
 
 @Entity(name = "CarType")
-public class CarType {
+public class CarModels {
 	
 	@Id
 	@Index
 	@Getter
 	@Setter
+	public Long model_id;
+	
+	@Getter
+	@Setter
+	public Long manufature_id;
+	
 
-	public Long car_firma_id;
 	
-	@Index
 	@Getter
 	@Setter
-	public String car_firma_name;
+	public String model_name;
 	
-	@Index
 	@Getter
 	@Setter
-	public List<CarModels> car_models;
-	
-	@Index
-	@Getter
-	@Setter
-	protected String car_url;
+	public Long car_type_id;
 	
 	@Index
 	@Getter
@@ -44,8 +40,5 @@ public class CarType {
 	@Getter
 	@Setter
 	protected Long update_time;
-	@Index
-	@Getter
-	@Setter
-	protected Boolean is_active;
+	
 }
