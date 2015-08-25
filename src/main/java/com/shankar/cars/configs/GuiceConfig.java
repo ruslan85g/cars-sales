@@ -59,7 +59,6 @@ public class GuiceConfig extends GuiceServletContextListener {
 			bind(ObjectifyFilter.class).in(Singleton.class);
 			
 			bind(CarsServlet.class);
-			bind(CarTypeServlet.class);
 		}
 	}
 	/** Public so it can be used by unit tests */

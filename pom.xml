@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.shankar.cars</groupId>
   <artifactId>cars-api</artifactId>
-  <version>4</version>
+  <version>5</version>
   <packaging>war</packaging>
   <name>Cars server</name>
   
