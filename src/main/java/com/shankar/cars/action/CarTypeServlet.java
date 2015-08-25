@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response;
 import lombok.extern.java.Log;
 
 import com.shankar.cars.data.Car;
-import com.shankar.cars.data.CarModels;
+import com.shankar.cars.data.CarModel;
 import com.shankar.cars.data.CarType;
 import com.shankar.cars.data.meta.CarMeta;
 import com.shankar.cars.data.meta.CarModelMeta;
@@ -44,7 +44,7 @@ public class CarTypeServlet {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public List<CarModels> /*carmodelsMeta*/newApplication(@QueryParam("car_type_id") Long car_type_id) {
+	public List<CarModel> /*carmodelsMeta*/newApplication(@QueryParam("car_type_id") Long car_type_id) {
 		log.info("Start newApplication ");
 		CarTypeDBService dbType = new CarTypeDBService();
 		CarModelsDBService dbModels = new CarModelsDBService();
@@ -55,7 +55,7 @@ public class CarTypeServlet {
 //			carType.setCar_models(models);
 //		}
 		List<CarModelMeta> carModelsMeta = new ArrayList<>();
-		List<CarModels> models = dbModels.load(CarModels.class,"car_type_id",car_type_id);
+		List<CarModel> models = dbModels.load(CarModel.class,"car_type_id",car_type_id);
 		int count=0;
 //		for (CarModels carModels : models) {
 //			

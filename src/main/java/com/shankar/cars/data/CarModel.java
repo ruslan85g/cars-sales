@@ -9,7 +9,7 @@ import com.googlecode.objectify.annotation.Index;
 
 
 @Entity(name = "CarType")
-public class CarModels {
+public class CarModel {
 	
 	@Id
 	@Index
