@@ -110,35 +110,35 @@ public class CarsServlet {
 		return Response.ok().build();
 	}
 
-	@Path("/saveCarTypes/{carType}")
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response newApplication(CarType carType) {
-		log.info("Start newApplication ");
-
-		/*
-		 * CarDBService db = new CarDBService(); Car car = db.load(Car.class,
-		 * car_id); CarMeta carMeta = new CarMeta();
-		 * carMeta.setCar_id(car.getCar_id());
-		 */
-		CarTypeMeta carTypeMeta = new CarTypeMeta();
-		carTypeMeta.setManufature_id(1l);
-		/*
-		 * Response resp = null;
-		 * 
-		 * try{ ApplicationLogic al = new ApplicationLogic(); Boolean flag =
-		 * al.saveApplication( appMeta );
-		 * 
-		 * if(flag){ resp = Response.ok().build(); }else{ resp =
-		 * Response.notModified().build(); }
-		 * 
-		 * }catch(Exception e){ log.info("Exception::" + e.getMessage()); resp =
-		 * Response.serverError().build(); }
-		 */
-
-		log.info("End newApplication");
-		return Response.ok().build();
-	}
+//	@Path("/saveCarTypes/{carType}")
+//	@POST
+//	@Produces(MediaType.APPLICATION_JSON)
+//	@Consumes(MediaType.APPLICATION_JSON)
+//	public Response newApplication(CarType carType) {
+//		log.info("Start newApplication ");
+//
+//		/*
+//		 * CarDBService db = new CarDBService(); Car car = db.load(Car.class,
+//		 * car_id); CarMeta carMeta = new CarMeta();
+//		 * carMeta.setCar_id(car.getCar_id());
+//		 */
+//		CarTypeMeta carTypeMeta = new CarTypeMeta();
+//		carTypeMeta.setManufature_id(1l);
+//		/*
+//		 * Response resp = null;
+//		 * 
+//		 * try{ ApplicationLogic al = new ApplicationLogic(); Boolean flag =
+//		 * al.saveApplication( appMeta );
+//		 * 
+//		 * if(flag){ resp = Response.ok().build(); }else{ resp =
+//		 * Response.notModified().build(); }
+//		 * 
+//		 * }catch(Exception e){ log.info("Exception::" + e.getMessage()); resp =
+//		 * Response.serverError().build(); }
+//		 */
+//
+//		log.info("End newApplication");
+//		return Response.ok().build();
+//	}
 
 }

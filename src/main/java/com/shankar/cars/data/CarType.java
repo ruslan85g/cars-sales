@@ -1,7 +1,5 @@
 package com.shankar.cars.data;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,17 +16,13 @@ public class CarType {
 	@Getter
 	@Setter
 
-	public Long car_firma_id;
+	public Long car_type_id;
 	
 	@Index
 	@Getter
 	@Setter
-	public String car_firma_name;
+	public String car_type_name;
 	
-	@Index
-	@Getter
-	@Setter
-	public List<CarModels> car_models;
 	
 	@Index
 	@Getter
