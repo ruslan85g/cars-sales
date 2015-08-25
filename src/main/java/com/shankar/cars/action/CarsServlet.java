@@ -110,35 +110,41 @@ public class CarsServlet {
 		return Response.ok().build();
 	}
 
-//	@Path("/saveCarTypes/{carType}")
-//	@POST
-//	@Produces(MediaType.APPLICATION_JSON)
-//	@Consumes(MediaType.APPLICATION_JSON)
-//	public Response newApplication(CarType carType) {
-//		log.info("Start newApplication ");
-//
-//		/*
-//		 * CarDBService db = new CarDBService(); Car car = db.load(Car.class,
-//		 * car_id); CarMeta carMeta = new CarMeta();
-//		 * carMeta.setCar_id(car.getCar_id());
-//		 */
-//		CarTypeMeta carTypeMeta = new CarTypeMeta();
-//		carTypeMeta.setManufature_id(1l);
-//		/*
-//		 * Response resp = null;
-//		 * 
-//		 * try{ ApplicationLogic al = new ApplicationLogic(); Boolean flag =
-//		 * al.saveApplication( appMeta );
-//		 * 
-//		 * if(flag){ resp = Response.ok().build(); }else{ resp =
-//		 * Response.notModified().build(); }
-//		 * 
-//		 * }catch(Exception e){ log.info("Exception::" + e.getMessage()); resp =
-//		 * Response.serverError().build(); }
-//		 */
-//
-//		log.info("End newApplication");
-//		return Response.ok().build();
-//	}
+	@Path("/saveCarTypes")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response newApplication(CarTypeMeta carTypeMeta) {
+		
+		log.info("Start newApplication ");
+		CarType carType = null;
+		if (carTypeMeta.getCarType_id() != null) {
+			carType = carTypeDBService.load(CarType.class, carTypeMeta.getCarType_id());
+			carType.setUpdate_time(System.currentTimeMillis());
+		} else {
+			carType = new CarType();
+			carType.setCreated_time(System.currentTimeMillis());
+		}
+
+		carType.setCar_type_id(carTypeMeta.getCarType_id());
+		carType.setCar_type_name(carTypeMeta.getCarType_Name());
+//		carType.setCar_url(carMeta.getCar_url());
+		carType.setIs_active(true);
+		carTypeDBService.save(carType);
+		/*
+		 * Response resp = null;
+		 * 
+		 * try{ ApplicationLogic al = new ApplicationLogic(); Boolean flag =
+		 * al.saveApplication( appMeta );
+		 * 
+		 * if(flag){ resp = Response.ok().build(); }else{ resp =
+		 * Response.notModified().build(); }
+		 * 
+		 * }catch(Exception e){ log.info("Exception::" + e.getMessage()); resp =
+		 * Response.serverError().build(); }
+		 */
+
+		log.info("End newApplication");
+		return Response.ok().build();
+	}
 
 }

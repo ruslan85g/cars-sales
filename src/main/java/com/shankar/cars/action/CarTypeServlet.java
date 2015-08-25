@@ -67,49 +67,50 @@ public class CarTypeServlet {
 		log.info("End newApplication");
 		return models;
 	}
+//
+//	// opa
+//	@Path("/save")
+//	@POST
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response newApplication(CarMeta carMeta) {
+//
+//		log.info("Start newApplication ");
+//
+//		Car car = null;
+//
+//		/*
+//		 * if(user == null ){
+//		 * Response.serverError().status(Response.Status.BAD_REQUEST).entity(
+//		 * "User not found" ).build(); }
+//		 */
+//
+//		try {
+//
+//			if (carMeta.getCar_id() != null) {
+//				car = carDBService.load(Car.class, carMeta.getCar_id());
+//				car.setUpdate_time(System.currentTimeMillis());
+//			} else {
+//				car = new Car();
+//				car.setCreated_time(System.currentTimeMillis());
+//			}
+//
+//			car.setCar_model(carMeta.getCar_model());
+//			car.setCar_name(carMeta.getCar_name());
+//			car.setCar_url(carMeta.getCar_url());
+//
+//			carDBService.save(car);
+//
+//		} catch (Exception e) {
+//			log.severe("Exception::" + e.getMessage());
+//			Response.serverError().build();
+//		}
+//
+//		log.info("End newApplication");
+//		return Response.ok().build();
+//	}
 
-	// opa
-	@Path("/save")
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response newApplication(CarMeta carMeta) {
-
-		log.info("Start newApplication ");
-
-		Car car = null;
-
-		/*
-		 * if(user == null ){
-		 * Response.serverError().status(Response.Status.BAD_REQUEST).entity(
-		 * "User not found" ).build(); }
-		 */
-
-		try {
-
-			if (carMeta.getCar_id() != null) {
-				car = carDBService.load(Car.class, carMeta.getCar_id());
-				car.setUpdate_time(System.currentTimeMillis());
-			} else {
-				car = new Car();
-				car.setCreated_time(System.currentTimeMillis());
-			}
-
-			car.setCar_model(carMeta.getCar_model());
-			car.setCar_name(carMeta.getCar_name());
-			car.setCar_url(carMeta.getCar_url());
-
-			carDBService.save(car);
-
-		} catch (Exception e) {
-			log.severe("Exception::" + e.getMessage());
-			Response.serverError().build();
-		}
-
-		log.info("End newApplication");
-		return Response.ok().build();
-	}
-
-	@Path("/saveCarTypes/{carType}")
+//	@Path("/saveCarTypes/{carType}")
+	@Path("/saveCarTypes")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
