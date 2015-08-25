@@ -117,6 +117,7 @@ public class CarsServlet {
 		
 		log.info("Start newApplication ");
 		CarType carType = null;
+		try {
 		if (carTypeMeta.getCarType_id() != null) {
 			carType = carTypeDBService.load(CarType.class, carTypeMeta.getCarType_id());
 			carType.setUpdate_time(System.currentTimeMillis());
@@ -130,6 +131,12 @@ public class CarsServlet {
 //		carType.setCar_url(carMeta.getCar_url());
 		carType.setIs_active(true);
 		carTypeDBService.save(carType);
+		}
+		 catch (Exception e) {
+				log.severe("Exception::" + e.getMessage());
+				Response.serverError().build();
+			}
+
 		/*
 		 * Response resp = null;
 		 * 
