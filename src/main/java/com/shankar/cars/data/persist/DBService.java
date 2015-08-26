@@ -64,6 +64,7 @@ public class DBService {
 	public <E> E load(Class<E> type, long id) {
 		return ofy().load().type(type).id(id).now();
 	}
+
 	public <E> List<E> loadAll(Class<E> type) {
 		return ofy().load().type(type).list();
 	}

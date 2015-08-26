@@ -23,6 +23,7 @@ import com.shankar.cars.data.meta.CarTypeMeta;
 import com.shankar.cars.data.persist.CarDBService;
 import com.shankar.cars.data.persist.CarModelsDBService;
 import com.shankar.cars.data.persist.CarTypeDBService;
+
 //
 @Path("/cars")
 @Log
@@ -40,7 +41,7 @@ public class CarsServlet {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public CarMeta newApplication(@QueryParam("car_id") Long car_id) {
+	public CarMeta getCarById(@QueryParam("car_id") Long car_id) {
 		log.info("Start newApplication ");
 
 		CarDBService db = new CarDBService();
@@ -67,7 +68,6 @@ public class CarsServlet {
 		return carMeta;
 	}
 
-	// opa
 	@Path("/save")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -150,7 +150,7 @@ public class CarsServlet {
 		log.info("End newApplication");
 		return Response.ok().build();
 	}
-	
+
 	@Path("/saveModelCar")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -167,20 +167,20 @@ public class CarsServlet {
 		 */
 
 		try {
-//
-//			if (carModelMeta.getModel_id() != null) {
-//				car = carDBService.load(Car.class, carMeta.getCar_id());
-//				car.setUpdate_time(System.currentTimeMillis());
-//			} else {
-//				car = new Car();
-//				car.setCreated_time(System.currentTimeMillis());
-//			}
-//
-//			car.setCar_model(carMeta.getCar_model());
-//			car.setCar_name(carMeta.getCar_name());
-//			car.setCar_url(carMeta.getCar_url());
-//
-//			carDBService.save(car);
+
+			if (carModelMeta.getCarType_id() != null) {
+				carModel = carModelsDBService.load(CarModel.class,
+						carModelMeta.getCarType_id());
+				carModel.setUpdate_time(System.currentTimeMillis());
+			} else {
+				carModel = new CarModel();
+				carModel.setCreated_time(System.currentTimeMillis());
+			}
+
+			carModel.setCarType_id(carModelMeta.getCarType_id());
+			carModel.setModelList(carModelMeta.getModelList());
+
+			carModelsDBService.save(carModel);
 
 		} catch (Exception e) {
 			log.severe("Exception::" + e.getMessage());

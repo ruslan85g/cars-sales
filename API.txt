@@ -1,0 +1,208 @@
+/*************view*************/
+1.  home
+2.  search result
+/************end view*********/
+
+/**********user operation******/
+3.  an. login
+4.  registration
+5.  activation
+6.  login
+7.  logout
+8.  forget password
+9.  change password
+10. update user data
+/********end user operation*****/
+
+/******ads functions (user page)***********/
+11. view ads
+12. new ad
+13. update ad
+14. delete ad
+
+/*******************************************/
+15. getListManufacturer
+16. getListModels
+
+/********end!******************/
+
+1.  func - /home
+
+	response : 	//5 последних объявлении (по дате)
+				{	"status" : "success",
+					"list" : [
+						{
+							"id" :  num,
+							"user" : {"name" : "string","phone" : "string","email" : "string" },
+							"manufacturer" : "string",
+							"model" : "string",
+							"year" : num,
+							"type" : "string",  //תיבת הילוכים
+							"volume" : num,     //נפח 
+							"km" : num,         //ק"מ
+							"color" :"string",
+							"price" : num
+						}
+					]
+				}
+				
+2.  func - /searchResult
+	request  :  {
+					"manufacturer" : "string",
+					"model" : "string",
+					"yearF" : num,        //משנה
+					"yearT" : num,        //עד שנה
+					"type" : "string",  //תיבת הילוכים
+					"volume" : num,     //נפח 
+					"km" : num,         //ק"מ
+					"color" :"string",
+					"priceF" : num,     //цена от
+					"priceT" : num,     //цена до
+					"text" : "string"
+				}
+	response : 	{	"status" : "success",
+					"list" : [
+						{
+							"id" :  num,
+							"user" : {"userId" : "string","name" : "string","phone" : "string","email" : "string" },
+							"manufacturer" : "string",
+							"model" : "string",
+							"year" : num,
+							"type" : "string",  //תיבת הילוכים
+							"volume" : num,     //נפח 
+							"km" : num,         //ק"מ
+							"color" :"string",
+							"price" : num
+						}
+					]
+				}
+
+3.  func - /anLogin  //
+	request  : 	{"userId" : "string"}
+	response : 	{"status" : "success"}  ||  {"status" : "fail"}
+
+4.  func - /registration
+	request  : 	{"name" : "string","phone" : "string","email" : "string"}
+	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
+	
+5.  func - /activation
+	request  : 	{"activCode" : "string","email" : "string"}
+	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
+
+6.  func - /login  
+	request  : 	{
+					"email" : "string",
+					"password" : "string"
+				}
+	response : 	{
+					"status" : "success","userId" : "string"}
+7.
+ 
+8. 	func - /forgetPW 
+	request  : 	{"email" : "string"}
+	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
+
+9. 	func - /changePW 
+	request  : 	{"email" : "string","password" : "string"}
+	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
+
+10. func - /updateUD
+	request  : 	{"userId" : "string","name" : "string","phone" : "string","email" : "string" }
+	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
+
+11. func - /viewAds
+	request  : 	{"userId" : "string"}
+	response :  {	
+					"user" : {"name" : "string","phone" : "string","email" : "string" },
+					"list" : [
+						{
+							"id" :  num,
+							"manufacturer" : "string",
+							"model" : "string",
+							"year" : num,
+							"type" : "string",  //תיבת הילוכים
+							"volume" : num,     //נפח 
+							"km" : num,         //ק"מ
+							"color" :"string",
+							"price" : num
+						}
+					]
+				}
+
+12. func - /newAd
+	request  :  {	
+					"userId" : "string",
+					"ad" :  {
+								"id" :  num,
+								"manufacturer" : "string",
+								"model" : "string",
+								"year" : num,
+								"type" : "string",  //תיבת הילוכים
+								"volume" : num,     //נפח 
+								"km" : num,         //ק"מ
+								"color" :"string",
+								"price" : num
+							}
+				}
+	response :  {	"status" : "success"   }
+
+13. func - /updateAd
+	request  : 	{	
+					"userId" : "string",
+					"ad" :  {
+								"id" :  num,
+								"manufacturer" : "string",
+								"model" : "string",
+								"year" : num,
+								"type" : "string",  //תיבת הילוכים
+								"volume" : num,     //נפח 
+								"km" : num,         //ק"מ
+								"color" :"string",
+								"price" : num
+							}
+				}
+	response :  {	"status" : "success"   }
+
+14. func - /deleteAd
+	request  : 	{	
+					"userId" : "string",
+					"id" :  num
+				}
+	response :  {	"status" : "success"   }
+
+15. func - /getListMan
+	
+	response : 	{
+					"status" : "success",
+					"list"   :
+						[
+							"name" :  "string",
+							"id"   :  num
+						]
+				}
+
+16. func - /getListModel
+	request  : 	{ "id"   :  num }
+	response : 	{
+					"status" : "success",
+					"list"   :
+						[
+							"name" :  "string",
+							"id"   :  num
+						]
+				}
+
+	
+				
+
+
+
+
+
+
+
+
+
+
+	
+	

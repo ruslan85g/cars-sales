@@ -1,28 +1,21 @@
 package com.shankar.cars.data.meta;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 
 
 public class CarModelMeta {
 	
-	@Getter
-	@Setter
-	public Long model_id;
-	
-	@Getter
-	@Setter
-	public Long manufature_id;
-	
-
-	
-	@Getter
-	@Setter
-	public String model_name;
+//	"typeId" :5,
+//	"modelList" : 
 	
 	@Getter
 	@Setter
 	public Long carType_id;
 	
-
+	@Getter
+	@Setter
+	public List <ModelList> modelList;
 }
