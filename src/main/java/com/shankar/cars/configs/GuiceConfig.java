@@ -36,10 +36,10 @@ public class GuiceConfig extends GuiceServletContextListener {
 		protected void configureServlets() {
 			log.info("ObjectifyFilter through");
 			filter("/*").through(ObjectifyFilter.class);
-			
-			
+
 			Map<String, String> params = Maps.newHashMap();
-			params.put("com.sun.jersey.config.property.packages", "com.shankar.cars.action");
+			params.put("com.sun.jersey.config.property.packages",
+					"com.shankar.cars.action");
 			serve("/api/*").with(GuiceContainer.class, params);
 		}
 	}
@@ -53,14 +53,17 @@ public class GuiceConfig extends GuiceServletContextListener {
 		 */
 		// @Override
 		protected void configure() {
-			
+
 			requestStaticInjection(OfyService.class);
-			
+
 			bind(ObjectifyFilter.class).in(Singleton.class);
-			
+
 			bind(CarsServlet.class);
+			bind(CarTypeServlet.class);
+			bind(CarModelServlet.class);
 		}
 	}
+
 	/** Public so it can be used by unit tests */
 	public static class CarsTestModule extends AbstractModule {
 		/*
@@ -75,9 +78,9 @@ public class GuiceConfig extends GuiceServletContextListener {
 
 			log.info("ObjectifyFilter");
 			bind(ObjectifyFilter.class).in(Singleton.class);
-			/*
-			bind(DeployServletTest.class);
-			*/
+
+			bind(CarsServletTest.class);
+
 		}
 	}
 
@@ -88,7 +91,7 @@ public class GuiceConfig extends GuiceServletContextListener {
 	 */
 	@Override
 	protected Injector getInjector() {
-		return Guice.createInjector(new CarsServletModule() , new CarsModule());
+		return Guice.createInjector(new CarsServletModule(), new CarsModule());
 	}
 
 }

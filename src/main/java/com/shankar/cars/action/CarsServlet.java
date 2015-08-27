@@ -15,11 +15,7 @@ import javax.ws.rs.core.Response;
 import lombok.extern.java.Log;
 
 import com.shankar.cars.data.Car;
-import com.shankar.cars.data.CarModel;
-import com.shankar.cars.data.CarType;
 import com.shankar.cars.data.meta.CarMeta;
-import com.shankar.cars.data.meta.CarModelMeta;
-import com.shankar.cars.data.meta.CarTypeMeta;
 import com.shankar.cars.data.persist.CarDBService;
 import com.shankar.cars.data.persist.CarModelsDBService;
 import com.shankar.cars.data.persist.CarTypeDBService;
@@ -70,10 +66,11 @@ public class CarsServlet {
 
 	@Path("/save")
 	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response newApplication(CarMeta carMeta) {
+	public Response saveCar(CarMeta carMeta) {
 
-		log.info("Start newApplication ");
+		log.info("Start saveCar ");
 
 		Car car = null;
 
@@ -88,12 +85,14 @@ public class CarsServlet {
 			if (carMeta.getCar_id() != null) {
 				car = carDBService.load(Car.class, carMeta.getCar_id());
 				car.setUpdate_time(System.currentTimeMillis());
-			} else {
+			}
+
+			if (car == null) {
 				car = new Car();
 				car.setCreated_time(System.currentTimeMillis());
 			}
 
-			car.setCar_model(carMeta.getCar_model());
+			car.setCar_model_id(carMeta.getCar_model_id());
 			car.setCar_name(carMeta.getCar_name());
 			car.setCar_url(carMeta.getCar_url());
 
@@ -104,90 +103,7 @@ public class CarsServlet {
 			Response.serverError().build();
 		}
 
-		log.info("End newApplication");
-		return Response.ok().build();
-	}
-
-	@Path("/saveCarTypes")
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response newApplication(CarTypeMeta carTypeMeta) {
-
-		log.info("Start newApplication ");
-		CarType carType = null;
-		try {
-			if (carTypeMeta.getCarType_id() != null) {
-				carType = carTypeDBService.load(CarType.class,
-						carTypeMeta.getCarType_id());
-				carType.setUpdate_time(System.currentTimeMillis());
-			} else {
-				carType = new CarType();
-				carType.setCreated_time(System.currentTimeMillis());
-			}
-
-			carType.setCar_type_id(carTypeMeta.getCarType_id());
-			carType.setCar_type_name(carTypeMeta.getCarType_Name());
-			carType.setIs_active(true);
-			carTypeDBService.save(carType);
-		} catch (Exception e) {
-			log.severe("Exception::" + e.getMessage());
-			Response.serverError().build();
-		}
-
-		/*
-		 * Response resp = null;
-		 * 
-		 * try{ ApplicationLogic al = new ApplicationLogic(); Boolean flag =
-		 * al.saveApplication( appMeta );
-		 * 
-		 * if(flag){ resp = Response.ok().build(); }else{ resp =
-		 * Response.notModified().build(); }
-		 * 
-		 * }catch(Exception e){ log.info("Exception::" + e.getMessage()); resp =
-		 * Response.serverError().build(); }
-		 */
-
-		log.info("End newApplication");
-		return Response.ok().build();
-	}
-
-	@Path("/saveModelCar")
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response newApplication(CarModelMeta carModelMeta) {
-
-		log.info("Start newApplication ");
-
-		CarModel carModel = null;
-
-		/*
-		 * if(user == null ){
-		 * Response.serverError().status(Response.Status.BAD_REQUEST).entity(
-		 * "User not found" ).build(); }
-		 */
-
-		try {
-
-			if (carModelMeta.getCarType_id() != null) {
-				carModel = carModelsDBService.load(CarModel.class,
-						carModelMeta.getCarType_id());
-				carModel.setUpdate_time(System.currentTimeMillis());
-			} else {
-				carModel = new CarModel();
-				carModel.setCreated_time(System.currentTimeMillis());
-			}
-
-			carModel.setCarType_id(carModelMeta.getCarType_id());
-			carModel.setModelList(carModelMeta.getModelList());
-
-			carModelsDBService.save(carModel);
-
-		} catch (Exception e) {
-			log.severe("Exception::" + e.getMessage());
-			Response.serverError().build();
-		}
-
-		log.info("End newApplication");
+		log.info("End saveCar");
 		return Response.ok().build();
 	}
 

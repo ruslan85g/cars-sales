@@ -1,27 +1,25 @@
 package com.shankar.cars.data;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
-import com.shankar.cars.data.meta.ModelList;
 
-@Entity(name = "CarType")
+@Entity(name = "CarModel")
 public class CarModel {
 
 	@Id
 	@Index
 	@Getter
 	@Setter
-	public Long carType_id;
+	public Long car_model_id;
 
+	@Index
 	@Getter
 	@Setter
-	public List<ModelList> modelList;
+	public Long car_type_id;
 
 	@Getter
 	@Setter

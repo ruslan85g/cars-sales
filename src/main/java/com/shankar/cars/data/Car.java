@@ -25,7 +25,7 @@ public class Car {
 	@Index
 	@Getter
 	@Setter
-	protected String car_model;
+	protected Long car_model_id;
 	
 	@Index
 	@Getter

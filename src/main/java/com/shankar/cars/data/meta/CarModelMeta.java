@@ -1,21 +1,29 @@
 package com.shankar.cars.data.meta;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 
 public class CarModelMeta {
 	
-//	"typeId" :5,
-//	"modelList" : 
+
 	
+	@Id
+	@Index
 	@Getter
 	@Setter
-	public Long carType_id;
+	public Long car_model_id;
 	
+	@Index
 	@Getter
 	@Setter
-	public List <ModelList> modelList;
+	public Long car_type_id;
+
+	@Getter
+	@Setter
+	public String model_name;
+	
 }
