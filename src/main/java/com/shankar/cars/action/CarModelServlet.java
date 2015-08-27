@@ -61,7 +61,7 @@ public class CarModelServlet {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response saveCar(CarModelMeta carModelMeta) {
+	public Response saveCarModel(CarModelMeta carModelMeta) {
 
 		log.info("Start saveCar ");
 
@@ -85,7 +85,6 @@ public class CarModelServlet {
 				carModel.setCreated_time(System.currentTimeMillis());
 			}
 
-			carModel.setCar_model_id(carModelMeta.getCar_model_id());
 			carModel.setModel_name(carModelMeta.getModel_name());
 			carModel.setCar_type_id(carModelMeta.getCar_type_id());
 			carModelsDBService.save(carModel);

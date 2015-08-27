@@ -11,7 +11,6 @@ import com.googlecode.objectify.annotation.Index;
 public class CarModel {
 
 	@Id
-	@Index
 	@Getter
 	@Setter
 	public Long car_model_id;
