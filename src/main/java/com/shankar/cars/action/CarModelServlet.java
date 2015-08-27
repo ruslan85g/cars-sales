@@ -48,6 +48,7 @@ public class CarModelServlet {
 				car_type_id);
 		for (CarModel carModels : models) {
 			CarModelMeta carModelMeta = new CarModelMeta();
+			carModelMeta.setCar_model_id(carModels.getCar_model_id());
 			carModelMeta.setCar_type_id(carModels.getCar_type_id());
 			carModelMeta.setModel_name(carModels.getModel_name());
 			carModelsMeta.add(carModelMeta);
