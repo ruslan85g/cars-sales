@@ -21,7 +21,7 @@
 14. delete ad
 
 /*******************************************/
-15. getListManufacturer
+15. getListcar_type
 16. getListModels
 
 /********end!******************/
@@ -34,7 +34,7 @@
 						{
 							"id" :  num,
 							"user" : {"name" : "string","phone" : "string","email" : "string" },
-							"manufacturer" : "string",
+							"car_type" : "string",
 							"model" : "string",
 							"year" : num,
 							"type" : "string",  //תיבת הילוכים
@@ -46,26 +46,26 @@
 					]
 				}
 				
-2.  func - /searchResult
+2.  func - /search
 	request  :  {
-					"manufacturer" : "string",
-					"model" : "string",
-					"yearF" : num,        //משנה
-					"yearT" : num,        //עד שנה
-					"type" : "string",  //תיבת הילוכים
-					"volume" : num,     //נפח 
-					"km" : num,         //ק"מ
-					"color" :"string",
-					"priceF" : num,     //цена от
-					"priceT" : num,     //цена до
-					"text" : "string"
-				}
+						"car_type_id" : "Long",
+						 "car_model_id"  :"Long",
+						"yearF" : num,        //משנה
+						"yearT" : num,        //עד שנה
+						"type_geare" : "string",  //תיבת הילוכים
+						"volume" : num,     //נפח 
+						"km" : num,         //ק"מ
+						"color" :"string",
+						"priceF" : num,     //цена от
+						"priceT" : num,     //цена до
+						"text" : "string
+									}
 	response : 	{	"status" : "success",
 					"list" : [
 						{
 							"id" :  num,
 							"user" : {"userId" : "string","name" : "string","phone" : "string","email" : "string" },
-							"manufacturer" : "string",
+							"car_type" : "string",
 							"model" : "string",
 							"year" : num,
 							"type" : "string",  //תיבת הילוכים
@@ -117,7 +117,7 @@
 					"list" : [
 						{
 							"id" :  num,
-							"manufacturer" : "string",
+							"car_type" : "string",
 							"model" : "string",
 							"year" : num,
 							"type" : "string",  //תיבת הילוכים
@@ -134,7 +134,7 @@
 					"userId" : "string",
 					"ad" :  {
 								"id" :  num,
-								"manufacturer" : "string",
+								"car_type" : "string",
 								"model" : "string",
 								"year" : num,
 								"type" : "string",  //תיבת הילוכים
@@ -151,7 +151,7 @@
 					"userId" : "string",
 					"ad" :  {
 								"id" :  num,
-								"manufacturer" : "string",
+								"car_type" : "string",
 								"model" : "string",
 								"year" : num,
 								"type" : "string",  //תיבת הילוכים
