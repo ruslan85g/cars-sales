@@ -9,7 +9,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -17,11 +16,16 @@ import javax.ws.rs.core.Response;
 
 import lombok.extern.java.Log;
 
+import com.shankar.cars.data.Car;
 import com.shankar.cars.data.CarModel;
+import com.shankar.cars.data.CarType;
 import com.shankar.cars.data.meta.CarModelMeta;
+import com.shankar.cars.data.meta.SearchMeta;
+import com.shankar.cars.data.meta.SearchResponseMeta;
 import com.shankar.cars.data.persist.CarDBService;
 import com.shankar.cars.data.persist.CarModelsDBService;
 import com.shankar.cars.data.persist.CarTypeDBService;
+import com.shankar.cars.data.persist.SearchDBService;
 
 @Path("/search")
 @Log
@@ -34,28 +38,35 @@ public class SearchServlet {
 	CarDBService carDBService = new CarDBService();
 	CarModelsDBService carModelsDBService = new CarModelsDBService();
 	CarTypeDBService carTypeDBService = new CarTypeDBService();
+	SearchDBService searchDBService = new SearchDBService();
 
 	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<CarModelMeta> search(@PathParam("car_type_id") Long car_type_id) {
+	public List<SearchResponseMeta> search(SearchMeta searchMeta) {
 		log.info("Start getCarModelsByCarTypeId ");
-		CarModelsDBService dbModels = new CarModelsDBService();
 
-		List<CarModelMeta> carModelsMeta = new ArrayList<>();
-		List<CarModel> models = dbModels.load(CarModel.class, "car_type_id",
-				car_type_id);
-		for (CarModel carModels : models) {
-			CarModelMeta carModelMeta = new CarModelMeta();
-			carModelMeta.setCar_model_id(carModels.getCar_model_id());
-			carModelMeta.setCar_type_id(carModels.getCar_type_id());
-			carModelMeta.setModel_name(carModels.getModel_name());
-			carModelsMeta.add(carModelMeta);
+		List<SearchResponseMeta> searchResponseMetaList = new ArrayList<>();
+		List<Car> cars = searchDBService.load(Car.class, searchMeta);
+		for (Car car : cars) {
+			CarModel carModel = carModelsDBService.load(CarModel.class, car.getCar_model_id());
+			CarType carType = carTypeDBService.load(CarType.class, carModel.getCar_type_id());
+			SearchResponseMeta searchResponseMeta = new SearchResponseMeta();
+			searchResponseMeta.setCar_id(car.getCar_id());
+			searchResponseMeta.setCar_model_name(carModel.getModel_name());
+			searchResponseMeta.setCar_type_name(carType.getCar_type_name());
+//			searchResponseMeta.setColor(car.get);.....
+//			searchResponseMeta.set
+			//TODO
+			
+			searchResponseMetaList.add(searchResponseMeta);
+
 		}
 
 		log.info("End getCarModelsByCarTypeId");
-		return carModelsMeta;
+		return searchResponseMetaList;
 	}
-	
+
 	@Path("/save")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -75,7 +86,8 @@ public class SearchServlet {
 		try {
 
 			if (carModelMeta.getCar_model_id() != null) {
-				carModel = carModelsDBService.load(CarModel.class, carModelMeta.getCar_model_id());
+				carModel = carModelsDBService.load(CarModel.class,
+						carModelMeta.getCar_model_id());
 				carModel.setUpdate_time(System.currentTimeMillis());
 			}
 
