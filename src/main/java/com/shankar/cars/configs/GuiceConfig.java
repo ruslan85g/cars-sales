@@ -61,6 +61,7 @@ public class GuiceConfig extends GuiceServletContextListener {
 			bind(CarsServlet.class);
 			bind(CarTypeServlet.class);
 			bind(CarModelServlet.class);
+			bind(SearchServlet.class);
 		}
 	}
 
