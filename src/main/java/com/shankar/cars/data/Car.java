@@ -51,5 +51,30 @@ public class Car {
 	@Getter
 	@Setter
 	protected Long update_time;
+	
+	@Getter
+	@Setter
+	public Long year;
+
+	@Getter
+	@Setter
+	public String type_geare;
+
+	@Getter
+	@Setter
+	public String volume;
+	
+	@Getter
+	@Setter
+	public Long km;
+	
+	@Getter
+	@Setter
+	public String color;
+	
+	@Getter
+	@Setter
+	public Long price;
+
 
 }
