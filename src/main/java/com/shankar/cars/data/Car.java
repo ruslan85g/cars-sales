@@ -76,5 +76,4 @@ public class Car {
 	@Setter
 	public Long price;
 
-
 }

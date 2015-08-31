@@ -28,21 +28,25 @@ public class SearchDBService extends DBService {
 		if (searchMeta.getYearF() != null) {
 			((Query<Car>) cars).filter("yearF", searchMeta.getYearF());
 		}
-		if (searchMeta.getType_geare() != null) {
+		if (searchMeta.getType_geare() != null
+				&& !searchMeta.getType_geare().isEmpty()) {
 			((Query<Car>) cars)
 					.filter("type_geare", searchMeta.getType_geare());
 		}
-		if (searchMeta.getVolume() != null) {
+		if (searchMeta.getVolume() != null && !searchMeta.getVolume().isEmpty()) {
 			((Query<Car>) cars).filter("volume", searchMeta.getVolume());
 		}
 		if (searchMeta.getKm() != null) {
 			((Query<Car>) cars).filter("km", searchMeta.getKm());
 		}
-		if (searchMeta.getColor() != null) {
+		if (searchMeta.getColor() != null && !searchMeta.getColor().isEmpty()) {
 			((Query<Car>) cars).filter("color", searchMeta.getColor());
 		}
 		if (searchMeta.getPriceF() != null) {
 			((Query<Car>) cars).filter("priceF", searchMeta.getPriceF());
+		}
+		if (searchMeta.getText() != null && !searchMeta.getText().isEmpty()) {
+			((Query<Car>) cars).filter("text", searchMeta.getText());
 		}
 		((Query<Car>) cars).list();
 		return cars;

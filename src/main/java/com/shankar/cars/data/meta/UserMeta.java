@@ -1,4 +1,4 @@
-package com.shankar.cars.data;
+package com.shankar.cars.data.meta;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
-public class User {
+public class UserMeta {
 
 	@Id
 	@Index
@@ -44,14 +44,4 @@ public class User {
 	@Getter
 	@Setter
 	protected Boolean isActive;
-	
-	@Index
-	@Getter
-	@Setter
-	protected Long created_time;
-
-	@Index
-	@Getter
-	@Setter
-	protected Long update_time;
 }
