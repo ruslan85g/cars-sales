@@ -42,15 +42,7 @@ public class Car {
 	@Setter
 	protected String car_url;
 	
-	@Index
-	@Getter
-	@Setter
-	protected Long created_time;
-	
-	@Index
-	@Getter
-	@Setter
-	protected Long update_time;
+
 	
 	@Getter
 	@Setter
@@ -75,5 +67,15 @@ public class Car {
 	@Getter
 	@Setter
 	public Long price;
+	
+	@Index
+	@Getter
+	@Setter
+	protected Long created_time;
+	
+	@Index
+	@Getter
+	@Setter
+	protected Long update_time;
 
 }
