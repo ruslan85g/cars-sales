@@ -17,19 +17,12 @@ public class User {
 	@Index
 	@Getter
 	@Setter
-	protected String loginName;
+	protected String user_name;
 	@Index
 	@Getter
 	@Setter
 	protected String password;
-	@Index
-	@Getter
-	@Setter
-	protected String firstName;
-	@Index
-	@Getter
-	@Setter
-	protected String lastName;
+
 	@Index
 	@Getter
 	@Setter

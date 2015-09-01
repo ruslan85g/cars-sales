@@ -13,35 +13,21 @@ public class UserMeta {
 	@Getter
 	@Setter
 	protected Long user_id;
-
+	
 	@Index
 	@Getter
 	@Setter
-	protected String loginName;
+	protected String user_name;
+	
 	@Index
 	@Getter
 	@Setter
-	protected String password;
-	@Index
-	@Getter
-	@Setter
-	protected String firstName;
-	@Index
-	@Getter
-	@Setter
-	protected String lastName;
+	protected String mobilePhone;
+	
 	@Index
 	@Getter
 	@Setter
 	protected String email;
 
-	@Index
-	@Getter
-	@Setter
-	protected String mobilePhone;
-
-	@Index
-	@Getter
-	@Setter
-	protected Boolean isActive;
+//	request  : 	{"name" : "string","phone" : "string","email" : "string"}
 }

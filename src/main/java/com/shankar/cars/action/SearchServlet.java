@@ -37,8 +37,7 @@ public class SearchServlet {
 	CarTypeDBService carTypeDBService = new CarTypeDBService();
 	SearchDBService searchDBService = new SearchDBService();
 
-	@Path("/get")
-//	@GET
+	@Path("/searchResult")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
