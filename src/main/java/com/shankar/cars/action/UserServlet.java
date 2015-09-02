@@ -66,6 +66,7 @@ public class UserServlet {
 		return userMeta;
 	}
 
+	@SuppressWarnings("null")
 	@Path("/registration")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -75,8 +76,14 @@ public class UserServlet {
 		log.info("Start registrationUser ");
 
 		User user = null;
+
 		try {
 
+			if (emailExist(userMeta)) {
+				Throwable e = null;
+				log.severe("EmailExistsException::" + e.getMessage());
+
+			}
 			if (userMeta.getUser_id() != null) {
 				user = userDBService.load(User.class, userMeta.getUser_id());
 				user.setUpdate_time(System.currentTimeMillis());
@@ -90,7 +97,7 @@ public class UserServlet {
 			user.setEmail(userMeta.getEmail());
 			user.setMobilePhone(userMeta.getMobilePhone());
 			user.setUser_name(userMeta.getUser_name());
-//			user.setIsActive(true);
+			// user.setIsActive(true);
 
 			userDBService.save(user);
 
@@ -101,6 +108,19 @@ public class UserServlet {
 
 		log.info("End registrationUser");
 		return Response.ok().build();
+	}
+
+	private boolean emailExist(UserMeta userMeta) {
+
+		User user = null;
+		if (userMeta.getEmail() != null) {
+			user = userDBService.load(User.class, userMeta.getEmail());
+		}
+		if (user != null) {
+			return true;
+		}
+		return false;
+
 	}
 
 }
