@@ -7,8 +7,6 @@ import java.util.Map;
 
 import lombok.extern.java.Log;
 
-import com.shankar.cars.action.*;
-import com.shankar.cars.data.persist.OfyService;
 import com.google.common.collect.Maps;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
@@ -17,6 +15,12 @@ import com.google.inject.Singleton;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
 import com.googlecode.objectify.ObjectifyFilter;
+import com.shankar.cars.action.CarModelServlet;
+import com.shankar.cars.action.CarTypeServlet;
+import com.shankar.cars.action.CarsServlet;
+import com.shankar.cars.action.SearchServlet;
+import com.shankar.cars.action.UserServlet;
+import com.shankar.cars.data.persist.OfyService;
 import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 
 /**
@@ -81,7 +85,7 @@ public class GuiceConfig extends GuiceServletContextListener {
 			log.info("ObjectifyFilter");
 			bind(ObjectifyFilter.class).in(Singleton.class);
 
-			bind(CarsServletTest.class);
+//			bind(CarsServletTest.class);
 
 		}
 	}
