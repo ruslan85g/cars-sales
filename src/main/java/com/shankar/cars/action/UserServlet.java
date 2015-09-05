@@ -1,5 +1,7 @@
 package com.shankar.cars.action;
 
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -14,12 +16,17 @@ import javax.ws.rs.core.Response;
 
 import lombok.extern.java.Log;
 
+import com.shankar.ActivationCodeAlredyExist;
+import com.shankar.cars.EmailService;
 import com.shankar.cars.data.User;
+import com.shankar.cars.data.UserActivationCode;
 import com.shankar.cars.data.meta.UserMeta;
 import com.shankar.cars.data.persist.CarDBService;
 import com.shankar.cars.data.persist.CarModelsDBService;
 import com.shankar.cars.data.persist.CarTypeDBService;
+import com.shankar.cars.data.persist.UserActivationCodeDBService;
 import com.shankar.cars.data.persist.UserDBService;
+//import com.shankar.cars.EmailService ;
 
 //
 @Path("/users")
@@ -29,11 +36,14 @@ public class UserServlet {
 	HttpServletRequest request;
 	@Context
 	HttpServletResponse response;
-
+	//
+	// EmailService EmailService
+	// EmailService emailService = new EmailService;
 	CarDBService carDBService = new CarDBService();
 	CarModelsDBService carModelsDBService = new CarModelsDBService();
 	CarTypeDBService carTypeDBService = new CarTypeDBService();
 	UserDBService userDBService = new UserDBService();
+	UserActivationCodeDBService userActivationCodeDBService = new UserActivationCodeDBService();
 
 	@Path("/get/{user_id}")
 	@GET
@@ -99,7 +109,16 @@ public class UserServlet {
 			user.setUser_name(userMeta.getUser_name());
 			// user.setIsActive(true);
 
-			userDBService.save(user);
+			// activation
+			boolean valid = this.sendActivationCode(user.getUser_id(),
+					user.getEmail());
+			if (valid) {
+				userDBService.save(user);
+			} else {
+				Throwable e = null;
+				log.severe("ActivationCodeException::" + e.getMessage());
+				// new Exception();
+			}
 
 		} catch (Exception e) {
 			log.severe("Exception::" + e.getMessage());
@@ -108,6 +127,43 @@ public class UserServlet {
 
 		log.info("End registrationUser");
 		return Response.ok().build();
+	}
+
+	@SuppressWarnings("null")
+	private boolean sendActivationCode(Long userId, String email)
+			throws Exception {
+
+		UserActivationCode userActivationCode = userActivationCodeDBService
+				.load(UserActivationCode.class, userId, email);// (userId,email);
+
+		int number = 0;
+		if (userActivationCode != null) {
+			number++;
+			throw new ActivationCodeAlredyExist();
+
+		}
+
+		if (number > 1) {
+			return false;
+		}
+		UserActivationCode newUserActivationCode = new UserActivationCode();
+		newUserActivationCode.setUser_email(email);
+		newUserActivationCode.setUser_id(userId);
+		UUID user_activation_code = UUID.randomUUID();
+		newUserActivationCode.setUser_activation_code(user_activation_code
+				.toString());
+		userActivationCodeDBService.save(newUserActivationCode);
+
+		try {
+			EmailService.sendEmail(email, newUserActivationCode.toString(),
+					userId);
+		} catch (Exception e) {
+			Throwable e1 = null;
+			log.severe("SendEmailException::" + e1.getMessage());
+		}
+
+		return true;
+
 	}
 
 	private boolean emailExist(UserMeta userMeta) {
