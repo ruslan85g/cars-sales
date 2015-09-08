@@ -193,7 +193,17 @@
 				}
 
 	
-				
+ Registraciya i activaciya uzera
+ 
+ 1. registraciya :
+ 	 
+ 	 claint otpravlyaet 3 parametra (mail,tel,name)
+ 	 server sohranyaet usera v DB i otpravlyaet meil useru c activacion kod
+ 	 
+ 2. activaciya/pervyi login :
+ 	claint otpravlyaet 2 parametra (mail,actCod/password)
+ 	
+ 	Activation cod eto password usera do momenta poka on ne pomenyal password		
 
 
 

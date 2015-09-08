@@ -20,6 +20,7 @@ import com.shankar.ActivationCodeAlredyExist;
 import com.shankar.cars.EmailService;
 import com.shankar.cars.data.User;
 import com.shankar.cars.data.UserActivationCode;
+import com.shankar.cars.data.meta.UserAuthentication;
 import com.shankar.cars.data.meta.UserMeta;
 import com.shankar.cars.data.persist.CarDBService;
 import com.shankar.cars.data.persist.CarModelsDBService;
@@ -111,7 +112,7 @@ public class UserServlet {
 
 			// activation
 			boolean valid = this.sendActivationCode(user.getUser_id(),
-					user.getEmail());
+					user.getEmail(), user.getUser_name());
 			if (valid) {
 				userDBService.save(user);
 			} else {
@@ -119,6 +120,8 @@ public class UserServlet {
 				log.severe("ActivationCodeException::" + e.getMessage());
 				// new Exception();
 			}
+
+			// validateActivationCode(user);
 
 		} catch (Exception e) {
 			log.severe("Exception::" + e.getMessage());
@@ -129,9 +132,43 @@ public class UserServlet {
 		return Response.ok().build();
 	}
 
+	@Path("/authentication ")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response authenticationUser(UserAuthentication userAuthentication) {
+
+		log.info("Start authenticationUser ");
+
+		User user = null;
+
+		try {
+
+			if (userAuthentication.getEmail() != null
+					|| userAuthentication.getActivationCode() != null) {
+				UserActivationCode userActivationCode = userActivationCodeDBService
+						.loadWithActivationCode(UserActivationCode.class,
+								userAuthentication.getActivationCode(),
+								userAuthentication.getEmail());
+				user = userDBService.load(User.class,
+						userActivationCode.getUser_id());
+				user.setUpdate_time(System.currentTimeMillis());
+				user.setIsActive(true);
+				userDBService.save(user);
+			}
+
+		} catch (Exception e) {
+			log.severe("AuthenticationException::" + e.getMessage());
+			Response.serverError().build();
+		}
+
+		log.info("End authenticationUser");
+		return Response.ok().build();
+	}
+
 	@SuppressWarnings("null")
-	private boolean sendActivationCode(Long userId, String email)
-			throws Exception {
+	private boolean sendActivationCode(Long userId, String email,
+			String userName) throws Exception {
 
 		UserActivationCode userActivationCode = userActivationCodeDBService
 				.load(UserActivationCode.class, userId, email);// (userId,email);
@@ -156,7 +193,7 @@ public class UserServlet {
 
 		try {
 			EmailService.sendEmail(email, newUserActivationCode.toString(),
-					userId);
+					userId, userName);
 		} catch (Exception e) {
 			Throwable e1 = null;
 			log.severe("SendEmailException::" + e1.getMessage());
