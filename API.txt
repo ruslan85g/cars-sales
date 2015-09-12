@@ -14,11 +14,11 @@
 10. update user data
 /********end user operation*****/
 
-/******ads functions (user page)***********/
-11. view ads
-12. new ad
-13. update ad
-14. delete ad
+/******cars functions (user page)***********/
+11. view cars(via user id)
+12. new car
+13. update car
+14. delete car
 
 /*******************************************/
 15. getListcar_type
