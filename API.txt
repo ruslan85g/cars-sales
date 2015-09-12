@@ -4,7 +4,7 @@
 /************end view*********/
 
 /**********user operation******/
-3.  an. login
+3.  an. login/authentication
 4.  registration
 5.  activation
 6.  login
@@ -103,12 +103,21 @@
 	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
 
 9. 	func - /changePW 
-	request  : 	{"email" : "string","password" : "string"}
+	request  : 	{"email" : "string","OldPassword" : "string","NewPassword" : "string"}
 	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
 
-10. func - /updateUD
-	request  : 	{"userId" : "string","name" : "string","phone" : "string","email" : "string" }
+10. func - /updateUname
+	request  : 	{"userId" : "string","name" : "string" }
 	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
+
+10.1 func - /updateUphone
+	request  : 	{"userId" : "string","phone" : "string" }
+	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
+
+10.2 func - /updateUmail
+	request  : 	{"userId" : "string","email" : "string" }
+	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
+
 
 11. func - /viewAds
 	request  : 	{"userId" : "string"}

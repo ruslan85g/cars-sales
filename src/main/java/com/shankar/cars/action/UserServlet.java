@@ -18,6 +18,7 @@ import lombok.extern.java.Log;
 
 import com.shankar.ActivationCodeAlredyExist;
 import com.shankar.cars.EmailService;
+import com.shankar.cars.PasswordService;
 import com.shankar.cars.data.User;
 import com.shankar.cars.data.UserActivationCode;
 import com.shankar.cars.data.meta.UserAuthentication;
@@ -75,6 +76,65 @@ public class UserServlet {
 
 		log.info("End newApplication");
 		return userMeta;
+	}
+
+	@Path("/updateUname")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updateUname(Long user_id, String userName) {
+		log.info("Start updateUname ");
+
+		UserDBService db = new UserDBService();
+		User user = db.load(User.class, user_id);
+		if (user != null) {
+			user.setUser_name(userName);
+			userDBService.save(user);
+		} else {
+			log.severe("UserNotFoiundException:");
+			Response.serverError().build();
+		}
+		log.info("End updateUname");
+		return Response.ok().build();
+	}
+
+	@Path("/updateUphone")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updateUphone(Long user_id, String userPhone) {
+		log.info("Start updateUphone ");
+
+		UserDBService db = new UserDBService();
+		User user = db.load(User.class, user_id);
+		if (user != null) {
+			user.setMobilePhone(userPhone);
+			userDBService.save(user);
+		} else {
+			log.severe("UserNotFoiundException:");
+			Response.serverError().build();
+		}
+		log.info("End updateUphone");
+		return Response.ok().build();
+	}
+
+	@Path("/updateUmail")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updateUmail(Long user_id, String userEmail) {
+		log.info("Start updateUmail ");
+		UserDBService db = new UserDBService();
+		User user = db.load(User.class, user_id);
+		if (user != null) {
+			user.setEmail(userEmail);
+			userDBService.save(user);
+		} else {
+			log.severe("UserNotFoiundException:");
+			Response.serverError().build();
+		}
+		log.info("End updateUmail");
+		return Response.ok().build();
 	}
 
 	@SuppressWarnings("null")
@@ -136,7 +196,8 @@ public class UserServlet {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response authenticationUser(UserAuthentication userAuthentication) {
+	public Response authenticationUser(UserAuthentication userAuthentication)
+			throws Exception {
 
 		log.info("Start authenticationUser ");
 
@@ -146,15 +207,23 @@ public class UserServlet {
 
 			if (userAuthentication.getEmail() != null
 					|| userAuthentication.getActivationCode() != null) {
+				String user_activation_code = PasswordService
+						.encrypt(userAuthentication.getActivationCode());
 				UserActivationCode userActivationCode = userActivationCodeDBService
 						.loadWithActivationCode(UserActivationCode.class,
-								userAuthentication.getActivationCode(),
+								user_activation_code,
 								userAuthentication.getEmail());
-				user = userDBService.load(User.class,
-						userActivationCode.getUser_id());
-				user.setUpdate_time(System.currentTimeMillis());
-				user.setIsActive(true);
-				userDBService.save(user);
+				if (userActivationCode != null) {
+					user = userDBService.load(User.class,
+							userActivationCode.getUser_id());
+					if (user != null) {
+						if (user.getUpdate_time() < System.currentTimeMillis()) {
+							user.setUpdate_time(System.currentTimeMillis());
+							user.setIsActive(true);
+							userDBService.save(user);
+						}
+					}
+				}
 			}
 
 		} catch (Exception e) {
@@ -177,7 +246,6 @@ public class UserServlet {
 		if (userActivationCode != null) {
 			number++;
 			throw new ActivationCodeAlredyExist();
-
 		}
 
 		if (number > 1) {
@@ -186,14 +254,15 @@ public class UserServlet {
 		UserActivationCode newUserActivationCode = new UserActivationCode();
 		newUserActivationCode.setUser_email(email);
 		newUserActivationCode.setUser_id(userId);
-		UUID user_activation_code = UUID.randomUUID();
-		newUserActivationCode.setUser_activation_code(user_activation_code
+		// PasswordService.encrypt("password");
+		String user_activation_code = PasswordService.encrypt(UUID.randomUUID()
 				.toString());
+		newUserActivationCode.setUser_activation_code(user_activation_code);
 		userActivationCodeDBService.save(newUserActivationCode);
 
 		try {
-			EmailService.sendEmail(email, newUserActivationCode.toString(),
-					userId, userName);
+			EmailService.sendEmail(email, user_activation_code, userId,
+					userName);
 		} catch (Exception e) {
 			Throwable e1 = null;
 			log.severe("SendEmailException::" + e1.getMessage());
@@ -201,6 +270,75 @@ public class UserServlet {
 
 		return true;
 
+	}
+
+	@SuppressWarnings("null")
+	@Path("/forgotPassword")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void forgotPassword(String email) throws Exception {
+		log.info("Start forgotPassword ");
+
+		User user = null;
+		user = userDBService.load(User.class, email);
+		if (user == null) {
+			throw new Exception("UserNotFound");
+		}
+		UserActivationCode newUserActivationCode = new UserActivationCode();
+		newUserActivationCode.setUser_email(email);
+		newUserActivationCode.setUser_id(user.getUser_id());
+		// PasswordService.encrypt("password");
+		String user_activation_code = PasswordService.encrypt(UUID.randomUUID()
+				.toString());
+		newUserActivationCode.setUser_activation_code(user_activation_code);
+		userActivationCodeDBService.save(newUserActivationCode);
+
+		try {
+			EmailService.sendEmail(email, user_activation_code,
+					user.getUser_id(), user.getUser_name());
+		} catch (Exception e) {
+			Throwable e1 = null;
+			log.severe("SendEmailForForgotPasswordException::"
+					+ e1.getMessage());
+		}
+
+		log.info("End forgotPassword");
+	}
+
+	@SuppressWarnings("null")
+	@Path("/changePassword")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public void changePassword(String currentPassword, String newPassword)
+			throws Exception {
+		log.info("Start changePassword ");
+
+		User user = null;
+		user = userDBService.load(User.class, currentPassword);
+		if (user == null) {
+			throw new Exception("UserNotFound");
+		}
+		UserActivationCode newUserActivationCode = new UserActivationCode();
+		newUserActivationCode.setUser_email(user.getEmail());
+		newUserActivationCode.setUser_id(user.getUser_id());
+		// PasswordService.encrypt("password");
+		String user_activation_code = PasswordService.encrypt(newPassword);
+		newUserActivationCode.setUser_activation_code(user_activation_code);
+		userActivationCodeDBService.save(newUserActivationCode);
+
+		try {
+			EmailService.sendChangePasswordEmail(user.getEmail(),
+					user_activation_code, user.getUser_id(),
+					user.getUser_name());
+		} catch (Exception e) {
+			Throwable e1 = null;
+			log.severe("SendEmailForForgotPasswordException::"
+					+ e1.getMessage());
+		}
+
+		log.info("End changePassword");
 	}
 
 	private boolean emailExist(UserMeta userMeta) {
