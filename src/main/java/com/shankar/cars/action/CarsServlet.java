@@ -1,5 +1,8 @@
 package com.shankar.cars.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
@@ -107,4 +110,24 @@ public class CarsServlet {
 		return Response.ok().build();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Path("/getCarsByUserId")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Car> getCarsByUserId(Long user_id) throws Exception {
+		log.info("Start newApplication ");
+
+		List<Car> carMetas = new ArrayList<>();
+		CarDBService db = new CarDBService();
+		carMetas = (List<Car>) db.loadCarsByUserId(Car.class, user_id);
+		if (carMetas == null) {
+			throw new Exception("CarsNotFouds");
+		}
+		// Car carMeta = new Car();
+		// carMeta.setCar_id(car.getCar_id());
+
+		log.info("End newApplication");
+		return carMetas;
+	}
 }

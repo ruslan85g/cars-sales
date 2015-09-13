@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 
 import lombok.extern.java.Log;
 
-import com.shankar.ActivationCodeAlredyExist;
+//import com.shankar.ActivationCodeAlredyExist;
 import com.shankar.cars.EmailService;
 import com.shankar.cars.PasswordService;
 import com.shankar.cars.data.User;
@@ -245,7 +245,8 @@ public class UserServlet {
 		int number = 0;
 		if (userActivationCode != null) {
 			number++;
-			throw new ActivationCodeAlredyExist();
+			// throw new ActivationCodeAlredyExist();
+			throw new Exception("ActivationCodeAlredyExist");
 		}
 
 		if (number > 1) {
