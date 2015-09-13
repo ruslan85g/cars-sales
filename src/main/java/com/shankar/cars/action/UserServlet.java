@@ -260,7 +260,6 @@ public class UserServlet {
 				.toString());
 		newUserActivationCode.setUser_activation_code(user_activation_code);
 		userActivationCodeDBService.save(newUserActivationCode);
-
 		try {
 			EmailService.sendEmail(email, user_activation_code, userId,
 					userName);
