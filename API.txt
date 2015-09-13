@@ -174,7 +174,7 @@
 
 14. func - /deleteAd
 	request  : 	{	
-					"userId" : "string",
+					"userId" : "Long",
 					"id" :  num
 				}
 	response :  {	"status" : "success"   }

@@ -18,11 +18,13 @@ import javax.ws.rs.core.Response;
 import lombok.extern.java.Log;
 
 import com.shankar.cars.data.Car;
+import com.shankar.cars.data.User;
 import com.shankar.cars.data.meta.CarMeta;
 import com.shankar.cars.data.persist.CarDBService;
 import com.shankar.cars.data.persist.CarMetaDBService;
 import com.shankar.cars.data.persist.CarModelsDBService;
 import com.shankar.cars.data.persist.CarTypeDBService;
+import com.shankar.cars.data.persist.UserDBService;
 
 //
 @Path("/cars")
@@ -36,6 +38,7 @@ public class CarsServlet {
 	CarDBService carDBService = new CarDBService();
 	CarModelsDBService carModelsDBService = new CarModelsDBService();
 	CarTypeDBService carTypeDBService = new CarTypeDBService();
+	UserDBService userDBService = new UserDBService();
 
 	@Path("/get/{car_id}")
 	@GET
@@ -160,4 +163,68 @@ public class CarsServlet {
 		return carMeta;
 	}
 
+	@Path("/deleteCarPerUserId")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public CarMeta deleteCarPerUserId(@QueryParam("user_id") Long user_id) {
+		log.info("Start deleteCarPerUserId ");
+
+		CarDBService db = new CarDBService();
+		CarMetaDBService carmetaDB = new CarMetaDBService();
+		Car car = db.load(Car.class, user_id);
+		if (car != null) {
+			db.deleteCarPerId(Car.class, user_id);
+		} else {
+			log.severe("CarNotFoundException:");
+			Response.serverError().build();
+		}
+		CarMeta carMeta = new CarMeta();
+		carMeta = carmetaDB.load(CarMeta.class, user_id);
+		if (carMeta != null) {
+			carmetaDB.deleteCarPerId(CarMeta.class, user_id);
+		} else {
+			log.severe("CarMetaNotFoundException:");
+			Response.serverError().build();
+		}
+		log.info("End deleteCarPerUserId");
+		return carMeta;
+	}
+
+	@Path("/updateCar")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateCar(CarMeta carMeta) {
+
+		log.info("Start updateCar ");
+
+		Car car = null;
+		User user = userDBService.load(User.class, carMeta.getUser_id());
+		if (user == null) {
+			Response.serverError().status(Response.Status.BAD_REQUEST)
+					.entity("User not found").build();
+		}
+
+		try {
+			car = carDBService.load(Car.class, carMeta.getCar_id());
+			if (car != null) {
+				car.setUpdate_time(System.currentTimeMillis());
+				car.setCar_model_id(carMeta.getCar_model_id());
+				car.setCar_name(carMeta.getCar_name());
+				car.setCar_url(carMeta.getCar_url());
+			} else {
+				Response.serverError().status(Response.Status.BAD_REQUEST)
+						.entity("Car not found").build();
+			}
+
+			carDBService.save(car);
+
+		} catch (Exception e) {
+			log.severe("UpdateCarException::" + e.getMessage());
+			Response.serverError().build();
+		}
+		log.info("End updateCar");
+		return Response.ok().build();
+	}
 }
