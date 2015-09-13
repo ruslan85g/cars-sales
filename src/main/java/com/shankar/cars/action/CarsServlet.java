@@ -20,6 +20,7 @@ import lombok.extern.java.Log;
 import com.shankar.cars.data.Car;
 import com.shankar.cars.data.meta.CarMeta;
 import com.shankar.cars.data.persist.CarDBService;
+import com.shankar.cars.data.persist.CarMetaDBService;
 import com.shankar.cars.data.persist.CarModelsDBService;
 import com.shankar.cars.data.persist.CarTypeDBService;
 
@@ -130,4 +131,33 @@ public class CarsServlet {
 		log.info("End newApplication");
 		return carMetas;
 	}
+
+	@Path("/deleteCar")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public CarMeta deleteCar(@QueryParam("car_id") Long car_id) {
+		log.info("Start deleteCar ");
+
+		CarDBService db = new CarDBService();
+		CarMetaDBService carmetaDB = new CarMetaDBService();
+		Car car = db.load(Car.class, car_id);
+		if (car != null) {
+			db.deleteCarPerId(Car.class, car_id);
+		} else {
+			log.severe("CarNotFoundException:");
+			Response.serverError().build();
+		}
+		CarMeta carMeta = new CarMeta();
+		carMeta = carmetaDB.load(CarMeta.class, car_id);
+		if (carMeta != null) {
+			carmetaDB.deleteCarPerId(CarMeta.class, car_id);
+		} else {
+			log.severe("CarMetaNotFoundException:");
+			Response.serverError().build();
+		}
+		log.info("End deleteCar");
+		return carMeta;
+	}
+
 }

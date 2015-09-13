@@ -10,11 +10,13 @@ public class CarDBService extends DBService {
 		return ofy().load().type(car).id(car_name).now();
 	}
 
+	@SuppressWarnings("hiding")
 	public <Car> Car loadCarsByUserId(Class<Car> car, long id) {
 		return ofy().load().type(car).id(id).now();
 	}
-	// public <E> E load(Class<E> type, long id) {
-	// return ofy().load().type(type).id(id).now();
-	// }
 
+	@SuppressWarnings("hiding")
+	public <Car> void deleteCarPerId(Class<Car> car, long id) {
+		 ofy().delete().type(car).id(id).now();
+	}
 }
