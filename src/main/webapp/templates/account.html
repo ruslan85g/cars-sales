@@ -1,0 +1,183 @@
+<div class="box" style="margin-bottom: 30px;" >
+	<div style="border: 1px solid #1ba4ab;width: 100%; border-radius: 2px;display: inline-block;" >
+		<div class="boxTitle" >פרטים אישיים</div>
+		<div class="userDetails" >
+			<ul class="userDetailsUL" ng-if="userData.dataName.edit == 0" >
+				<li><label class="bold" >שם המשתמש:</label></li>
+				<li><label>{{userData.dataName.name}}</label></li>
+				<li><button ng-click="userData.dataName.edit = 1" class="button" >עידקון</button></li>
+			</ul>
+			<ul class="userDetailsUL" ng-if="userData.dataName.edit == 1">
+				<li><label class="bold" >שם המשתמש:</label></li>
+				<li><input /></li>
+				<li><button ng-click="userData.dataName.edit = 0" class="button" >ביתול</button></li>
+				<li><button class="button" >שמור</button></li>
+			</ul>
+		</div>
+		<div class="userDetails" >
+			<ul class="userDetailsUL" ng-if="userData.dataPhone.edit == 0" >
+				<li><label class="bold" >מ'ס טלפון:</label></li>
+				<li><label>{{userData.dataPhone.phone}}</label></li>
+				<li><button ng-click="userData.dataPhone.edit = 1" class="button" >עידקון</button></li>
+			</ul>
+			<ul class="userDetailsUL" ng-if="userData.dataPhone.edit == 1" >
+				<li><label class="bold" >מ'ס טלפון:</label></li>
+				<li><input /></li>
+				<li><button ng-click="userData.dataPhone.edit = 0" class="button" >ביתול</button></li>
+				<li><button class="button" >שמור</button></li>
+			</ul>
+		</div>
+		<div class="userDetails" style="margin-bottom: 20px;" >
+			<ul class="userDetailsUL" ng-if="userData.dataEmail.edit == 0" >
+				<li><label class="bold" >דואר אלקטרוני:</label></li>
+				<li><label>{{userData.dataEmail.email}}</label></li>
+				<li><button ng-click="userData.dataEmail.edit = 1" class="button" >עידקון</button></li>
+			</ul>
+			<ul class="userDetailsUL" ng-if="userData.dataEmail.edit == 1" >
+				<li><label class="bold" >דואר אלקטרוני:</label></li>
+				<li><input /></li>
+				<li><button ng-click="userData.dataEmail.edit = 0" class="button" >ביתול</button></li>
+				<li><button class="button" >שמור</button></li>
+			</ul>
+		</div>
+	</div>
+	<div style="border: 1px solid #1ba4ab;width: 100%; border-radius: 2px;display: inline-block;margin-top: 30px;" >
+		<div class="boxTitle" >מודעות שלי</div>
+		<button class="button" style="float:left;margin:20px 0 0 20px" ng-show="addView == 0" ng-click="addView = 1" >להוסיף מודעה</button>
+		<div ng-show="addView == 1" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;">
+			<ul class="searchBar" >
+				<li>
+					<label>יצרן</label>
+					<select>
+						<option>בחר יצרן</option>
+						<option   ></option>							
+					</select>
+				</li>
+				<li>
+					<label>דגם</label>
+					<select>
+						<option>בחר דגם</option>
+						<option   ></option>							
+					</select>
+				</li>
+				<li>
+					<label>שנה</label>
+					<select>
+						<option>שנה</option>
+						<option ng-repeat="year in years" >{{year}}</option>							
+					</select>
+				</li>
+				<li>
+					<label>תיבת הילוכים</label>
+					<select>
+						<option value="">בחר</option>
+						<option value="-1">ידנית</option>
+						<option value="1">אוטומט</option>
+						<option value="6">טיפטרוניק</option>
+						<option value="9">רובוטית</option>
+					</select>
+				</li>
+				<li>
+					<label>נפח:</label>
+					<input type="number" />
+				</li>
+				<li>
+					<label>ק"מ:</label>
+					<input type="number" />
+				</li>
+				<li style="    margin-top: 10px;" >
+					<label>מחיר</label>
+					<input type="number" />
+				</li>
+				<li style="    margin-top: 10px;width: 220px;margin-left: 18px;" >
+					<label>טקסט חופשי:</label>
+					<input type="text" style="width: 215px;" />
+				</li>
+				<li style="    margin-top: 10px;" >
+					<label>תמונה</label>
+					<input type="file" />
+				</li>
+			</ul>
+			<ul class="adBut" style="width: 100%" >
+				<li><button ng-click="addView = 0" class="button" >ביתול</button></li>
+				<li><button class="button" >להוסיף מודעה</button><li>
+			</ul>	
+		</div>
+		<div ng-show="editView == 0" ng-click="editView = 1" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;" >
+			<ul class="adUP bold" >
+				<li style="width: 45px;margin-right: 25px;" ><label>1.</label></li>
+				<li><label>דייהו</label></li>
+				<li><label>דייהו לאנוס</label></li>
+				<li><label>2001</label></li>
+				<li><label>אוטומט</label></li>
+				<li><label>6,000</label></li>
+				<li style="width: 75px;" ><label>תמונה </label>
+				<span class="symbolV_s icon-tick"></span>
+				<!-- span class="symbolX_s icon-error"></span --></li>
+			</ul>
+			<ul class="adBut" >
+				<li><button class="button" >עידקון</button></li>
+				<li><button class="button" >למחוק</button></li>
+			</ul>
+		</div>
+		<div ng-show="editView == 1" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;">
+			<ul class="searchBar" >
+				<li>
+					<label>יצרן</label>
+					<select>
+						<option>בחר יצרן</option>
+						<option   ></option>							
+					</select>
+				</li>
+				<li>
+					<label>דגם</label>
+					<select>
+						<option>בחר דגם</option>
+						<option   ></option>							
+					</select>
+				</li>
+				<li>
+					<label>שנה</label>
+					<select>
+						<option>שנה</option>
+						<option ng-repeat="year in years" >{{year}}</option>							
+					</select>
+				</li>
+				<li>
+					<label>תיבת הילוכים</label>
+					<select>
+						<option value="">בחר</option>
+						<option value="-1">ידנית</option>
+						<option value="1">אוטומט</option>
+						<option value="6">טיפטרוניק</option>
+						<option value="9">רובוטית</option>
+					</select>
+				</li>
+				<li>
+					<label>נפח:</label>
+					<input type="number" />
+				</li>
+				<li>
+					<label>ק"מ:</label>
+					<input type="number" />
+				</li>
+				<li style="    margin-top: 10px;" >
+					<label>מחיר</label>
+					<input type="number" />
+				</li>
+				<li style="    margin-top: 10px;width: 220px;margin-left: 18px;" >
+					<label>טקסט חופשי:</label>
+					<input type="text" style="width: 215px;" />
+				</li>
+				<li style="    margin-top: 10px;" >
+					<label>תמונה</label>
+					<input type="file" />
+				</li>
+			</ul>
+			<ul class="adBut" style="width: 100%" >
+				<li><button ng-click="editView = 0" class="button" >ביתול</button></li>
+				<li><button class="button" >שמור</button><li>
+			</ul>	
+		</div>
+	</div>
+</div>

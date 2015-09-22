@@ -1,0 +1,55 @@
+<div class="box" >
+	<ul class="searchBar" >
+		<li>
+			<label>יצרן</label>
+			<select>
+				<option>בחר יצרן</option>
+				<option ng-repeat="" ></option>							
+			</select>
+		</li>
+		<li>
+			<label>דגם</label>
+			<select ng-change="getListModel('id')" >
+				<option>בחר דגם</option>
+				<option ng-repeat="" ></option>							
+			</select>
+		</li>
+		<li>
+			<label>משנה</label>
+			<select>
+				<option>משנה</option>
+				<option ng-repeat="year in years" >{{year}}</option>							
+			</select>
+		</li>
+		<li>
+			<label>עד שנה</label>
+			<select>
+				<option>עד שנה</option>
+				<option ng-repeat="year in years" >{{year}}</option>							
+			</select>
+		</li>
+		<li>
+			<label>תיבת הילוכים</label>
+			<select>
+				<option value="">בחר</option>
+				<option value="-1">ידנית</option>
+				<option value="1">אוטומט</option>
+				<option value="6">טיפטרוניק</option>
+				<option value="9">רובוטית</option>
+			</select>
+		</li>
+		<li>
+			<label>ממחיר</label>
+			<input type="number" />
+		</li>
+		<li>
+			<label>עד מחיר</label>
+			<input type="number" />
+		</li>
+		<li style="    margin-top: 10px;" >
+			<label>טקסט חופשי:</label>
+			<input type="text" />
+		</li>
+	</ul>
+	<button ng-click="search()" class="button search" >חפש</button>
+</div>

@@ -1,0 +1,154 @@
+<div class="box" >
+	<div style="border: 1px solid #1ba4ab;width: 100%; border-radius: 2px;display: inline-block;" >
+	<div class="boxTitle" >חיפוש במודעות</div>
+	<ul class="searchBar" >
+		<li>
+			<label>יצרן</label>
+			<select>
+				<option>בחר יצרן</option>
+				<option   ></option>							
+			</select>
+		</li>
+		<li>
+			<label>דגם</label>
+			<select>
+				<option>בחר דגם</option>
+				<option   ></option>							
+			</select>
+		</li>
+		<li>
+			<label>משנה</label>
+			<select>
+				<option>משנה</option>
+				<option ng-repeat="year in years" >{{year}}</option>							
+			</select>
+		</li>
+		<li>
+			<label>עד שנה</label>
+			<select>
+				<option>עד שנה</option>
+				<option ng-repeat="year in years" >{{year}}</option>							
+			</select>
+		</li>
+		<li>
+			<label>תיבת הילוכים</label>
+			<select>
+				<option value="">בחר</option>
+				<option value="-1">ידנית</option>
+				<option value="1">אוטומט</option>
+				<option value="6">טיפטרוניק</option>
+				<option value="9">רובוטית</option>
+			</select>
+		</li>
+		<li>
+			<label>ממחיר</label>
+			<input type="number" />
+		</li>
+		<li>
+			<label>עד מחיר</label>
+			<input type="number" />
+		</li>
+		<li style="    margin-top: 10px;width: 217px;" >
+			<label>טקסט חופשי:</label>
+			<input type="text" style="width: 214px;" />
+		</li>
+	</ul>
+	<button ng-click="search()" class="button search" >חפש</button>
+</div></div>
+
+<div class="box" style="margin-bottom: 30px;" >
+	<div style="border: 1px solid #1ba4ab;width: 100%;    display: inline-block;" >
+		
+		<ul class="resultTitle" >
+			<li><label>יצרן</label></li>
+			<li><span style="color:#FFFFFF" >|</span></li>
+			<li><label>דגם</label></li>
+			<li><span style="color:#FFFFFF" >|</span></li>
+			<li><label>שנה</label></li>
+			<li><span style="color:#FFFFFF" >|</span></li>
+			<li><label>תיבת הילוכים</label></li>
+			<li><span style="color:#FFFFFF" >|</span></li>
+			<li><label>מחיר</label></li>
+			<li><span style="color:#FFFFFF" >|</span></li>
+			<li><label>תמונה</label></li>
+		</ul>
+		<div>
+			<ul class="ad" >
+				<li><label>דייהו</label></li>
+				<li><label>דייהו לאנוס</label></li>
+				<li><label>2001</label></li>
+				<li><label>אוטומט</label></li>
+				<li><label>6,000</label></li>
+				<li style="width: 146px;" ><span class="symbolV_l icon-tick"></span>
+				<!-- span class="symbolX_l icon-error"></span --></li>
+			</ul>
+			<hr />
+			<div class="adDetails" style="display:block" >
+				<div class="adDetailsR" >
+					<div class="adTitle" >פרטים</div>
+					<ul class="adDetailList" >
+						<li><label class="labelKey" >יצרן:</label><label>דייהו</label></li>
+						<li><label class="labelKey" >דגם:</label><label>דייהו לאנוס</label></li>
+						<li><label class="labelKey" >שנה:</label><label>2001</label></li>
+						<li><label class="labelKey" >תיבת הילוכים:</label><label>אוטומט</label></li>
+						<li><label class="labelKey" >נפח:</label><label>1,498</label></li>
+						<li><label class="labelKey" >ק"מ:</label><label>175,000</label></li>
+						<li><label class="labelKey" >מחיר:</label><label style="font-weight: bold;" >6,000</label><span>₪</span></li>
+					</ul>
+				</div>
+				<div class="adDetailsL" >
+					<div class="adTitle" >צור קשר</div>
+					<ul class="adDetailList" >
+						<li><label class="labelKey" >איש קשר:</label><label>משה</label></li>
+						<li><label class="labelKey" >טלפון:</label><label>054-803-42-73</label></li>
+						<li><label class="labelKey" >דוא"ל:</label><label>moshe@gmail.com</label></li>
+					</ul>
+					<p style="margin: 0 5% 5%;" ><label style="font-weight: bold;    margin-left: 5px;" >תאור:</label>מטופל בזמן, במצב מצוין, שמור מאוד! מוכר עקב קבלת רכב חדש. כולל דיבורית בלוטוס' קבועה, רדיו דיסק פיוניר USB.</p>
+				</div>
+				<div class="adDetailsPic" >
+					<img src="images/car.jpg" style="width:100%" />
+				</div>
+			</div>
+			<hr />
+			<ul class="ad" >
+				<li><label>דייהו</label></li>
+				<li><label>אספרו</label></li>
+				<li><label>2010</label></li>
+				<li><label>אוטומט</label></li>
+				<li><label>25,000</label></li>
+				<li style="width: 146px;" ><span class="symbolV_l icon-tick"></span>
+				<!-- span class="symbolX_l icon-error"></span --></li>
+			</ul>
+			<hr />
+			<ul class="ad" >
+				<li><label>הונדה</label></li>
+				<li><label>אודסיי</label></li>
+				<li><label>2012</label></li>
+				<li><label>אוטומט</label></li>
+				<li><label>50,000</label></li>
+				<li style="width: 146px;" ><span class="symbolV_l icon-tick"></span>
+				<!-- span class="symbolX_l icon-error"></span --></li>
+			</ul>
+			<hr />
+			<ul class="ad" >
+				<li><label>וולוו</label></li>
+				<li><label>760</label></li>
+				<li><label>2005</label></li>
+				<li><label>אוטומט</label></li>
+				<li><label>30,000</label></li>
+				<li style="width: 146px;" ><span class="symbolV_l icon-tick"></span>
+				<!-- span class="symbolX_l icon-error"></span --></li>
+			</ul>
+			<hr />
+			<ul class="ad" >
+				<li><label>טויוטה</label></li>
+				<li><label>אוולון</label></li>
+				<li><label>2013</label></li>
+				<li><label>אוטומט</label></li>
+				<li><label>78,000</label></li>
+				<li style="width: 146px;" ><span class="symbolV_l icon-tick"></span>
+				<!-- span class="symbolX_l icon-error"></span --></li>
+			</ul>
+		</div>
+	</div>
+</div>
