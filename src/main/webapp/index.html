@@ -37,15 +37,15 @@
 			<div class="adTitle" ><span class="close" ng-click="hidePopup()" ></span>הרשמה</div>
 			<div ng-if="pPreloader == true" ><img src="images/preloader.gif" /></div>
 			<span ng-if="pRegView == 0" >
-				<input type="text" placeholder="שם" />
-				<input type="mail" placeholder='דוא"ל' />
-				<input type="text" placeholder="טלפון" />
+				<input type="text" placeholder="שם" ng-model="userReg.name" />
+				<input type="mail" placeholder='דוא"ל' ng-model="userReg.email" />
+				<input type="text" placeholder="טלפון" ng-model="userReg.phone"/>
 				<button ng-click="reg();" class="button reg" >שלך</button>
 			</span>
 			<span ng-if="pRegView == 1" >
 				<p>תודה, קוד הפעלה נשלח למייל שלך</p>
-				<input type="mail" placeholder='דוא"ל' />
-				<input type="text" placeholder="קוד הפעלה" />
+				<input type="mail" placeholder='דוא"ל' ng-model="userAct.email" />
+				<input type="text" placeholder="קוד הפעלה" ng-model="userAct.activCode" />
 				<button ng-click="hidePopup()" class="button" >סגור</button>
 				<button ng-click="activ()" class="button login" >כניסה</button>
 			</span>
@@ -54,13 +54,14 @@
 				<p ng-if="pActivStatus == false" ></p>
 				<button ng-click="hidePopup()" class="button" >סגור</button>
 			</span>
+			<p ng-if="errorMes == true" style="color:red" >מייל שדה חובה</p>
 		</div>
 		<div id="popupLogin" ng-if="pLogin == true" >
 			<div class="adTitle" ><span class="close" ng-click="hidePopup()" ></span>כניסה</div>
 			<div ng-if="pPreloader == true" ><img src="images/preloader.gif" /></div>
-			<input type="mail" placeholder='דוא"ל' />
+			<input type="mail" placeholder='דוא"ל' ng-model="loginJson.email" />
 			<span ng-if="pLoginView == 0" >
-				<input type="text" placeholder="סיסמא" />
+				<input type="text" placeholder="סיסמא" ng-model="loginJson.password" />
 				<div style="text-align: right;margin-top: 5px;" ><span ng-click="pLoginView = 1" class="forget" >שכחתי סיסמה</span></div>
 				<button ng-click="login()" class="button login" >כניסה</button>
 			</span>
@@ -74,14 +75,15 @@
 				<p ng-if="pLoginStatus == false" ></p>
 				<button ng-click="hidePopup()" class="button" >סגור</button>
 			</span>
+			<p ng-if="errorMes == true" style="color:red" >תמלה שדות</p>
 		</div>
 		<div id="popupChengeP" ng-if="pChengeP == true" >
 			<div class="adTitle" ><span class="close" ng-click="hidePopup()" ></span>שינוי סיסמא</div>
 			<div ng-if="pPreloader == true" ><img src="images/preloader.gif" /></div>
 			<span ng-if="pChengePView == 0" >
-				<input type="mail" placeholder='דוא"ל' />
-				<input type="text" placeholder="סיסמא נוכחות" />
-				<input type="text" placeholder="סיסמא חדשה" />
+				<input type="mail" placeholder='דוא"ל' ng-model="chengePJson.email" />
+				<input type="text" placeholder="סיסמא נוכחות" ng-model="chengePJson.OldPassword" />
+				<input type="text" placeholder="סיסמא חדשה" ng-model="chengePJson.NewPassword" />
 				<button ng-click="chengeP()" class="button login" >שלך</button>
 			</span>
 			<span ng-if="pChengePView == 1" >
@@ -89,6 +91,7 @@
 				<p ng-if="pChengePStatus == false" ></p>
 				<button ng-click="hidePopup()" class="button" >סגור</button>
 			</span>
+			<p ng-if="errorMes == true" style="color:red" >תמלה שדות</p>
 		</div>
 		
 	</body>
