@@ -46,7 +46,7 @@
 					]
 				}
 				
-2.  func - /search
+2.  func - /search//searchResult
 	request  :  {
 						"car_type_id" : "Long",
 						 "car_model_id"  :"Long",
@@ -81,15 +81,15 @@
 	request  : 	{"userId" : "string"}
 	response : 	{"status" : "success"}  ||  {"status" : "fail"}
 
-4.  func - /registration
+4.  func - /users/registration
 	request  : 	{"name" : "string","phone" : "string","email" : "string"}
 	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
 	
-5.  func - /activation
+5.  func - /users/authentication
 	request  : 	{"activCode" : "string","email" : "string"}
 	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
 
-6.  func - /login  
+6.  func - /users/logIn  
 	request  : 	{
 					"email" : "string",
 					"password" : "string"
@@ -98,23 +98,23 @@
 					"status" : "success","userId" : "string"}
 7.
  
-8. 	func - /forgetPW 
+8. 	func - /users/forgotPassword 
 	request  : 	{"email" : "string"}
 	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
 
-9. 	func - /changePW 
+9. 	func - /users/changePassword 
 	request  : 	{"email" : "string","OldPassword" : "string","NewPassword" : "string"}
 	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
 
-10. func - /updateUname
+10. func - /users/updateName
 	request  : 	{"userId" : "string","name" : "string" }
 	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
 
-10.1 func - /updateUphone
+10.1 func - /users/updatePhone
 	request  : 	{"userId" : "string","phone" : "string" }
 	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
 
-10.2 func - /updateUmail
+10.2 func - /users/updateEmail
 	request  : 	{"userId" : "string","email" : "string" }
 	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
 

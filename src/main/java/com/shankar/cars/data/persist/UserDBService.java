@@ -9,8 +9,8 @@ public class UserDBService extends DBService {
 	public User loadByCarName(Class<User> user, String user_name) {
 		return ofy().load().type(user).id(user_name).now();
 	}	
-//	public <E> E loadByCarName(Class<E> type, String car_name) {
-//		return ofy().load().type(type).id(car_name).now();
-//	}
+	public User loadByCarEmail(Class<User> user, String email) {
+		return ofy().load().type(user).id(email).now();
+	}	
 	
 }
