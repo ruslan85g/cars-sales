@@ -19,4 +19,8 @@
     	<property name="active" direction="asc"/>
         <property name="application" direction="asc"/>
     </datastore-index> -->
+    <datastore-index kind="Car" ancestor="false" source="manual">
+        <property name="car_model_id" direction="asc"/>
+        <property name="car_name" direction="asc"/>
+    </datastore-index>
 </datastore-indexes>
