@@ -10,6 +10,8 @@ public class OfyService {
 		factory().register(Car.class);
 		factory().register(CarModel.class);
 		factory().register(CarType.class);
+		factory().register(UserActivationCode.class);
+		factory().register(User.class);
 	}
 
 	public static Objectify ofy() {
