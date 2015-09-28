@@ -1,6 +1,7 @@
 function userOperations($scope,$http, $rootScope, $location, $route) {
 	$scope.pBack = false;
 	$scope.pPreloader = false;
+	$scope.errorMes = false;
 	$scope.pReg = false;
 	$scope.pLogin = false;
 	$scope.pChengeP = false;
@@ -25,6 +26,7 @@ function userOperations($scope,$http, $rootScope, $location, $route) {
 	$scope.hidePopup = function(){
 		$scope.pBack = false;
 		$scope.pPreloader = false;
+		$scope.errorMes = false;
 		$scope.pReg = false;
 		$scope.pLogin = false;
 		$scope.pChengeP = false;
