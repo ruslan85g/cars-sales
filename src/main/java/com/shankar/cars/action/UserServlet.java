@@ -1,5 +1,7 @@
 package com.shankar.cars.action;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -109,7 +111,6 @@ public class UserServlet {
 		User user = db.load(User.class, user_id);
 		if (user != null) {
 			user.setMobilePhone(userPhone);
-			userDBService.save(user);
 		} else {
 			log.severe("UserNotFoiundException:");
 			Response.serverError().build();
@@ -137,59 +138,55 @@ public class UserServlet {
 		return Response.ok().build();
 	}
 
-	@SuppressWarnings("null")
 	@Path("/registration")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response registrationUser(UserMeta userMeta) {
+	public Map<String, String> registrationUser(UserMeta userMeta) {
 
 		log.info("Start registrationUser ");
 
-		User user = null;
-
+		Map<String, String> resp = new HashMap<String, String>();
 		try {
 
 			if (emailExist(userMeta)) {
-				Throwable e = null;
-				log.severe("EmailExistsException::" + e.getMessage());
-
-			}
-			if (userMeta.getUser_id() != null) {
-				user = userDBService.load(User.class, userMeta.getUser_id());
-				user.setUpdate_time(System.currentTimeMillis());
+				log.severe("EmailExistsException email exist::");
+				resp.put("status", "fail");
+				resp.put("error_text", "email exists");
+				return resp;
 			}
 
-			if (user == null) {
-				user = new User();
-				user.setCreated_time(System.currentTimeMillis());
-			}
-
+			User user = new User();
+			user.setCreated_time(System.currentTimeMillis());
 			user.setEmail(userMeta.getEmail());
 			user.setMobilePhone(userMeta.getMobilePhone());
 			user.setUser_name(userMeta.getUser_name());
 			// user.setIsActive(true);
 
 			// activation
+			userDBService.save(user);
+
 			boolean valid = this.sendActivationCode(user.getUser_id(),
 					user.getEmail(), user.getUser_name());
+
 			if (valid) {
-				userDBService.save(user);
+				resp.put("status", "success");
 			} else {
-				Throwable e = null;
-				log.severe("ActivationCodeException::" + e.getMessage());
-				// new Exception();
+				userDBService.deleteUserPerId(User.class,user.getUser_id());
+				resp.put("status", "fail");
+				resp.put("error_text", "Email not sends with activation code , Try again with another email ");
 			}
 
 			// validateActivationCode(user);
 
 		} catch (Exception e) {
 			log.severe("Exception::" + e.getMessage());
-			Response.serverError().build();
-		}
+			resp.put("status", "fail");
+			resp.put("error_text", "Regestration Failed");
 
+		}
 		log.info("End registrationUser");
-		return Response.ok().build();
+		return resp;
 	}
 
 	@Path("/authentication ")
@@ -235,7 +232,6 @@ public class UserServlet {
 		return Response.ok().build();
 	}
 
-	@SuppressWarnings("null")
 	private boolean sendActivationCode(Long userId, String email,
 			String userName) throws Exception {
 
@@ -354,7 +350,7 @@ public class UserServlet {
 		try {
 
 			if (email != null) {
-				user = userDBService.loadByCarEmail(User.class, email);
+				user = userDBService.loadOne(User.class, "email", email);
 				String user_password = PasswordService.encrypt(password);
 				// UserActivationCode userActivationCode =
 				// userActivationCodeDBService
@@ -387,7 +383,8 @@ public class UserServlet {
 
 		User user = null;
 		if (userMeta.getEmail() != null) {
-			user = userDBService.load(User.class, userMeta.getEmail());
+			user = userDBService.loadOne(User.class, "email",
+					userMeta.getEmail());
 		}
 		if (user != null) {
 			return true;
