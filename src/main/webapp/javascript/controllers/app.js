@@ -1,6 +1,6 @@
-function MainCntl($scope,$http, $rootScope, $location, $route,$cookies) {
-	userOperations($scope,$http, $rootScope, $location, $route,$cookies);
-	popupFunctions($scope,$http, $rootScope, $location, $route,$cookies);
+function MainCntl($scope,$http, $rootScope, $location, $route) {
+	userOperations($scope,$http, $rootScope, $location, $route);
+	popupFunctions($scope,$http, $rootScope, $location, $route);
 
 	$scope.years = [];
 	

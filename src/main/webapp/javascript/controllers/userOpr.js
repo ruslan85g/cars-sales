@@ -1,4 +1,4 @@
-function userOperations($scope,$http, $rootScope, $location, $route,$cookies) {
+function userOperations($scope,$http, $rootScope, $location, $route) {
 	// Retrieving a cookie
   /*if($cookies.get('p')){
 	$rootScope.userStatus = 1;
