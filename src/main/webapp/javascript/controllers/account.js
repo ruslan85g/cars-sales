@@ -17,6 +17,17 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 			});
 	}
 	
+	$scope.newCar = {	
+						"car_type" : "",
+						"model" : "",
+						"year" : 0,
+						"type" : "",  
+						"volume" : 0,  
+						"km" : 0,    
+						"color" :"",
+						"price" : 0,
+						"text" : ""
+					}
 	$scope.newAd = function(){
 		
 		$scope.newAdJson = {	
