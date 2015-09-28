@@ -36,7 +36,7 @@ function MainCntl($scope,$http, $rootScope, $location, $route) {
 							"priceT" : num,     //цена до
 							"text" : "string
 										};
-		$http.post(''+$rootScope.mainurl+'/search', {}).
+		$http.post(''+$rootScope.mainurl+'/search/searchResult', $scope.searchJson).
 			success(function(data, status) {
 				console.log(data);
 			}).error(function(data, status) {console.log(data);});

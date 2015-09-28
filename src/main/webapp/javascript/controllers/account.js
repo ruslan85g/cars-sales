@@ -115,7 +115,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		
 		$scope.updateUnameJson = {"userId" : "string","name" : "string" };
 
-		$http.post(''+$rootScope.mainurl+'/updateUname', $scope.updateUnameJson).
+		$http.post(''+$rootScope.mainurl+'/users/updateName', $scope.updateUnameJson).
 			success(function(data, status) {
 				console.log(data);
 				
@@ -129,7 +129,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		
 		$scope.updateUphoneJson = {"userId" : "string","phone" : "string" };
 
-		$http.post(''+$rootScope.mainurl+'/updateUphone', $scope.updateUphoneJson).
+		$http.post(''+$rootScope.mainurl+'/users/updatePhone', $scope.updateUphoneJson).
 			success(function(data, status) {
 				console.log(data);
 				
@@ -143,7 +143,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		
 		$scope.updateUmailJson = {"userId" : "string","email" : "string" };
 
-		$http.post(''+$rootScope.mainurl+'/updateUmail', $scope.updateUmailJson).
+		$http.post(''+$rootScope.mainurl+'/users/updateEmail', $scope.updateUmailJson).
 			success(function(data, status) {
 				console.log(data);
 				
