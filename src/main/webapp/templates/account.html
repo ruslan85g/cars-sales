@@ -48,28 +48,28 @@
 			<ul class="searchBar" >
 				<li>
 					<label>יצרן</label>
-					<select>
+					<select ng-model="newCar.car_type" >
 						<option>בחר יצרן</option>
 						<option   ></option>							
 					</select>
 				</li>
 				<li>
 					<label>דגם</label>
-					<select>
+					<select ng-model="newCar.model" >
 						<option>בחר דגם</option>
 						<option   ></option>							
 					</select>
 				</li>
 				<li>
 					<label>שנה</label>
-					<select>
+					<select ng-model="newCar.year" >
 						<option>שנה</option>
 						<option ng-repeat="year in years" >{{year}}</option>							
 					</select>
 				</li>
 				<li>
 					<label>תיבת הילוכים</label>
-					<select>
+					<select ng-model="newCar.type" >
 						<option value="">בחר</option>
 						<option value="-1">ידנית</option>
 						<option value="1">אוטומט</option>
@@ -79,19 +79,19 @@
 				</li>
 				<li>
 					<label>נפח:</label>
-					<input type="number" />
+					<input type="number" ng-model="newCar.volume" />
 				</li>
 				<li>
 					<label>ק"מ:</label>
-					<input type="number" />
+					<input type="number" ng-model="newCar.km" />
 				</li>
 				<li style="    margin-top: 10px;" >
 					<label>מחיר</label>
-					<input type="number" />
+					<input type="number" ng-model="newCar.price" />
 				</li>
 				<li style="    margin-top: 10px;width: 220px;margin-left: 18px;" >
 					<label>טקסט חופשי:</label>
-					<input type="text" style="width: 215px;" />
+					<input type="text" style="width: 215px;" ng-model="newCar.text" />
 				</li>
 				<li style="    margin-top: 10px;" >
 					<label>תמונה</label>

@@ -1,4 +1,4 @@
-var app = angular.module("Main", ['ngRoute','ngCookies']);
+var app = angular.module("Main", ['ngRoute']);
 
 app.run(function ($rootScope, $location) {
 
