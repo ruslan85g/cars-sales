@@ -21,7 +21,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		
 		$scope.newAdJson = {	
 					"userId" : "string",
-					"ad" :  {
+					"ad" :  {/*
 								"id" :  num,
 								"car_type" : "string",
 								"model" : "string",
@@ -30,7 +30,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 								"volume" : num,     //נפח 
 								"km" : num,         //ק"מ
 								"color" :"string",
-								"price" : num
+								"price" : num"*/
 							}
 				};
 
@@ -48,7 +48,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		
 		$scope.updateAdJson = {	
 					"userId" : "string",
-					"ad" :  {
+					"ad" :  {/*
 								"id" :  num,
 								"car_type" : "string",
 								"model" : "string",
@@ -57,7 +57,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 								"volume" : num,     //נפח 
 								"km" : num,         //ק"מ
 								"color" :"string",
-								"price" : num
+								"price" : num"*/
 							}
 				};
 
