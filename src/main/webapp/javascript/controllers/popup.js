@@ -1,4 +1,4 @@
-function userOperations($scope,$http, $rootScope, $location, $route) {
+function userOperations($scope,$http, $rootScope, $location, $route,$cookies) {
 	$scope.pBack = false;
 	$scope.pPreloader = false;
 	$scope.errorMes = false;
