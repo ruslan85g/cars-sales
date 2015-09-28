@@ -17,6 +17,76 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 			});
 	}
 	
+	$scope.newAd = function(){
+		
+		$scope.newAdJson = {	
+					"userId" : "string",
+					"ad" :  {
+								"id" :  num,
+								"car_type" : "string",
+								"model" : "string",
+								"year" : num,
+								"type" : "string",  //תיבת הילוכים
+								"volume" : num,     //נפח 
+								"km" : num,         //ק"מ
+								"color" :"string",
+								"price" : num
+							}
+				};
+
+		$http.post(''+$rootScope.mainurl+'/newAd', $scope.newAdJson).
+			success(function(data, status) {
+				console.log(data);
+				
+			}).error(function(data, status) {
+				console.log(data);
+				
+			});
+	}
+	
+	$scope.updateAd = function(){
+		
+		$scope.updateAdJson = {	
+					"userId" : "string",
+					"ad" :  {
+								"id" :  num,
+								"car_type" : "string",
+								"model" : "string",
+								"year" : num,
+								"type" : "string",  //תיבת הילוכים
+								"volume" : num,     //נפח 
+								"km" : num,         //ק"מ
+								"color" :"string",
+								"price" : num
+							}
+				};
+
+		$http.post(''+$rootScope.mainurl+'/updateAd', $scope.updateAdJson).
+			success(function(data, status) {
+				console.log(data);
+				
+			}).error(function(data, status) {
+				console.log(data);
+				
+			});
+	}
+	
+	$scope.deleteAd = function(){
+		
+		$scope.deleteAdJson = {	
+					"userId" : "Long",
+					"id" :  num
+				};
+
+		$http.post(''+$rootScope.mainurl+'/deleteAd', $scope.deleteAdJson).
+			success(function(data, status) {
+				console.log(data);
+				
+			}).error(function(data, status) {
+				console.log(data);
+				
+			});
+	}
 	
 	$scope.file = function() {
 		var fileInput = document.getElementById('file');
@@ -45,7 +115,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		
 		$scope.updateUnameJson = {"userId" : "string","name" : "string" };
 
-		$http.post(''+$rootScope.mainurl+'/updateUname', $scope.updateUnameJson).
+		$http.post(''+$rootScope.mainurl+'/users/updateName', $scope.updateUnameJson).
 			success(function(data, status) {
 				console.log(data);
 				
@@ -59,7 +129,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		
 		$scope.updateUphoneJson = {"userId" : "string","phone" : "string" };
 
-		$http.post(''+$rootScope.mainurl+'/updateUphone', $scope.updateUphoneJson).
+		$http.post(''+$rootScope.mainurl+'/users/updatePhone', $scope.updateUphoneJson).
 			success(function(data, status) {
 				console.log(data);
 				
@@ -73,7 +143,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		
 		$scope.updateUmailJson = {"userId" : "string","email" : "string" };
 
-		$http.post(''+$rootScope.mainurl+'/updateUmail', $scope.updateUmailJson).
+		$http.post(''+$rootScope.mainurl+'/users/updateEmail', $scope.updateUmailJson).
 			success(function(data, status) {
 				console.log(data);
 				
