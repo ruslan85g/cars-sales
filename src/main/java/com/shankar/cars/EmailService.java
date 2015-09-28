@@ -20,7 +20,7 @@ public class EmailService {
 
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
-		String user_activation_code = PasswordService.decrypt(newUserActivationCode);
+		String user_activation_code = String.valueOf(userId);
 		String msgBody = "This is your new  password : " + user_activation_code;
 
 		try {

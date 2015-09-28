@@ -18,6 +18,8 @@ import javax.ws.rs.core.Response;
 
 import lombok.extern.java.Log;
 
+
+import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
 //import com.shankar.ActivationCodeAlredyExist;
 import com.shankar.cars.EmailService;
 import com.shankar.cars.PasswordService;
@@ -172,9 +174,10 @@ public class UserServlet {
 			if (valid) {
 				resp.put("status", "success");
 			} else {
-				userDBService.deleteUserPerId(User.class,user.getUser_id());
+				userDBService.deleteUserPerId(User.class, user.getUser_id());
 				resp.put("status", "fail");
-				resp.put("error_text", "Email not sends with activation code , Try again with another email ");
+				resp.put("error_text",
+						"Email not sends with activation code , Try again with another email ");
 			}
 
 			// validateActivationCode(user);
@@ -236,26 +239,28 @@ public class UserServlet {
 			String userName) throws Exception {
 
 		UserActivationCode userActivationCode = userActivationCodeDBService
-				.load(UserActivationCode.class, userId, email);// (userId,email);
-
+				.loadOne(UserActivationCode.class, "user_email", email);// (userId,email);
+		log.info("find userActivationCode");
 		if (userActivationCode != null) {
 			return false;
 		}
 		try {
-		UserActivationCode newUserActivationCode = new UserActivationCode();
-		newUserActivationCode.setUser_email(email);
-		newUserActivationCode.setUser_id(userId);
-		// PasswordService.encrypt("password");
-		String user_activation_code = PasswordService.encrypt(UUID.randomUUID()
-				.toString());
-		newUserActivationCode.setUser_activation_code(user_activation_code);
-		userActivationCodeDBService.save(newUserActivationCode);
-		
-	
+			log.info("start try");
+			UserActivationCode newUserActivationCode = new UserActivationCode();
+			newUserActivationCode.setUser_email(email);
+			newUserActivationCode.setUser_id(userId);
+			// PasswordService.encrypt("password");
+			String user_activation_code =Base64.encodeBase64String(String.valueOf(userId).getBytes());
+			log.info("hashing");
+			newUserActivationCode.setUser_activation_code(user_activation_code);
+			userActivationCodeDBService.save(newUserActivationCode);
+			log.info("save userActivationCode");
+
 			EmailService.sendEmail(email, user_activation_code, userId,
 					userName);
+			log.info("sendEmail");
 		} catch (Exception e) {
-			
+
 			log.severe("SendEmailException::" + e.getMessage());
 		}
 
