@@ -3,8 +3,8 @@ var app = angular.module("Main", ['ngRoute']);
 app.run(function ($rootScope, $location) {
 
 /************************************************ 1.1.1 Global Variables ************************************************/
-	//$rootScope.mainurl ='https://'+ location.host;
-	/*routeChangeStart*/
+	$rootScope.mainurl ='https://cars-sales.appspot.com';
+	$rootScope.userStatus = 0;
 	//$rootScope.locPath;
 });
 	

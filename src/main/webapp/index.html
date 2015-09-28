@@ -8,7 +8,8 @@
 		<script type="text/javascript" src="javascript/lib/angular-resource.min.js"></script>
 		<script type="text/javascript" src="javascript/controllers/router.js"></script>
 		<script type="text/javascript" src="javascript/controllers/app.js"></script>
-		<script type="text/javascript" src="javascript/controllers/home.js"></script>
+		<script type="text/javascript" src="javascript/controllers/userOpr.js"></script>
+		<script type="text/javascript" src="javascript/controllers/popup.js"></script>
 		<script type="text/javascript" src="javascript/controllers/account.js"></script>
 	</head>
 	<body ng-controller="MainCntl" >
@@ -21,7 +22,7 @@
 				</div>
 				<div ng-if="userStatus == 1" style="float: right;    margin-top: 15px;" >
 					<span class="buttonFFF" >לאזור האישי</span>
-					<span class="buttonFFF" >שינוי סיסמא</span>
+					<span class="buttonFFF" ng-click="showPopup('pChengeP')" >שינוי סיסמא</span>
 				</div>
 			</div>
 		</div>
@@ -34,36 +35,60 @@
 		<div id="popupBack" ng-if="pBack == true" ></div>
 		<div id="popupReg" ng-if="pReg == true" >
 			<div class="adTitle" ><span class="close" ng-click="hidePopup()" ></span>הרשמה</div>
-			<img src="images/preloader.gif" />
-			<div></div>
-				<span>
-					<input type="text" placeholder="שם" />
-					<input type="mail" placeholder='דוא"ל' />
-					<input type="text" placeholder="טלפון" />
-					<button ng-click="reg()" class="button reg" >שלך</button>
-				</span>
-				<span>
-					<p>תודה, קוד הפעלה נשלח למייל שלך</p>
-					<input type="mail" placeholder='דוא"ל' />
-					<input type="text" placeholder="קוד הפעלה" />
-					<button ng-click="activ()" class="button login" >כניסה</button>
-				</span>
+			<div ng-if="pPreloader == true" ><img src="images/preloader.gif" /></div>
+			<span ng-if="pRegView == 0" >
+				<input type="text" placeholder="שם" />
+				<input type="mail" placeholder='דוא"ל' />
+				<input type="text" placeholder="טלפון" />
+				<button ng-click="reg();" class="button reg" >שלך</button>
+			</span>
+			<span ng-if="pRegView == 1" >
+				<p>תודה, קוד הפעלה נשלח למייל שלך</p>
+				<input type="mail" placeholder='דוא"ל' />
+				<input type="text" placeholder="קוד הפעלה" />
+				<button ng-click="hidePopup()" class="button" >סגור</button>
+				<button ng-click="activ()" class="button login" >כניסה</button>
+			</span>
+			<span ng-if="pRegView == 2" >
+				<p ng-if="pRegStatus == false" ></p>
+				<p ng-if="pActivStatus == false" ></p>
+				<button ng-click="hidePopup()" class="button" >סגור</button>
+			</span>
 		</div>
-		<!--div id="popupLogin" ng-if="pLogin == true" >
-			<div class="adTitle" ><span class="close" ng-click="hidePopup()" ></span>כניסה</div>
-			<input type="mail" placeholder='דוא"ל' />
-			<input type="text" placeholder="סיסמא" />
-			<div style="text-align: right;margin-top: 5px;" ><span ng-click="forget()" class="forget" >שכחתי סיסמה</span></div>
-			<button ng-click="login()" class="button login" >כניסה</button>
-			
-		</div-->
 		<div id="popupLogin" ng-if="pLogin == true" >
-			<div class="adTitle" ><span class="close" ng-click="hidePopup()" ></span>שינוי סיסמא</div>
+			<div class="adTitle" ><span class="close" ng-click="hidePopup()" ></span>כניסה</div>
+			<div ng-if="pPreloader == true" ><img src="images/preloader.gif" /></div>
 			<input type="mail" placeholder='דוא"ל' />
-			<input type="text" placeholder="סיסמא נוכחות" />
-			<input type="text" placeholder="סיסמא חדשה" />
-			<button ng-click="chengeP()" class="button login" >שלך</button>
-			
+			<span ng-if="pLoginView == 0" >
+				<input type="text" placeholder="סיסמא" />
+				<div style="text-align: right;margin-top: 5px;" ><span ng-click="pLoginView = 1" class="forget" >שכחתי סיסמה</span></div>
+				<button ng-click="login()" class="button login" >כניסה</button>
+			</span>
+			<span ng-if="pLoginView == 1">
+				<button ng-click="pLoginView = 0" class="button" >ביתול</button>
+				<button ng-click="forget()" class="button login" >שלך</button>
+			</span>
+			<span ng-if="pLoginView == 2">
+				<p ng-if="pForgetStatus == true" > סיסמה חדשה נשלחה  למייל שלך </p>
+				<p ng-if="pForgetStatus == false" ></p>
+				<p ng-if="pLoginStatus == false" ></p>
+				<button ng-click="hidePopup()" class="button" >סגור</button>
+			</span>
+		</div>
+		<div id="popupChengeP" ng-if="pChengeP == true" >
+			<div class="adTitle" ><span class="close" ng-click="hidePopup()" ></span>שינוי סיסמא</div>
+			<div ng-if="pPreloader == true" ><img src="images/preloader.gif" /></div>
+			<span ng-if="pChengePView == 0" >
+				<input type="mail" placeholder='דוא"ל' />
+				<input type="text" placeholder="סיסמא נוכחות" />
+				<input type="text" placeholder="סיסמא חדשה" />
+				<button ng-click="chengeP()" class="button login" >שלך</button>
+			</span>
+			<span ng-if="pChengePView == 1" >
+				<p ng-if="pChengePStatus == true" ></p>
+				<p ng-if="pChengePStatus == false" ></p>
+				<button ng-click="hidePopup()" class="button" >סגור</button>
+			</span>
 		</div>
 		
 	</body>

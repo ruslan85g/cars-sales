@@ -1,28 +1,50 @@
 function MainCntl($scope,$http, $rootScope, $location, $route) {
-	$scope.userStatus = 0;
+	userOperations($scope,$http, $rootScope, $location, $route);
+	popupFunctions($scope,$http, $rootScope, $location, $route);
+
 	$scope.years = [];
-	$scope.pBack = false;
-	$scope.pLogin = false;
-	$scope.pReg = false;
-	$scope.showPopup = function(p){
-	console.log(p)
-		$scope.hidePopup();
-		$scope.pBack = true;
-		if(p == 'pLogin'){
-			$scope.pLogin = true;
-			console.log($scope.pLogin)
-		}
-		if(p == 'pReg'){
-			$scope.pReg = true;
-		}
-	}
-	$scope.hidePopup = function(){
-		$scope.pLogin = false;
-		$scope.pReg = false;
-		$scope.pBack = false;
-	}
+	
 	$scope.getListModel = function(id){
-		console.log('555')
+		$http.get(''+$rootScope.mainurl+'/getListModel',{ "id"   :  id }).
+		success(function(data, status) {
+			console.log(data);
+		}).error(function(data, status) {console.log(data);});
+	
 	}
+	
+	$http.get(''+$rootScope.mainurl+'/getListMan').
+		success(function(data, status) {
+			console.log(data);
+		}).error(function(data, status) {console.log(data);});
+	
+	$http.get(''+$rootScope.mainurl+'/home', {}).
+		success(function(data, status) {
+			console.log(data);
+		}).error(function(data, status) {console.log(data);});
+	
+	$scope.search = function(){
+		$scope.searchJson = {
+							"car_type_id" : "Long",
+							 "car_model_id"  :"Long",
+							"yearF" : num,        //משנה
+							"yearT" : num,        //עד שנה
+							"type_geare" : "string",  //תיבת הילוכים
+							"volume" : num,     //נפח 
+							"km" : num,         //ק"מ
+							"color" :"string",
+							"priceF" : num,     //цена от
+							"priceT" : num,     //цена до
+							"text" : "string
+										};
+		$http.post(''+$rootScope.mainurl+'/search', {}).
+			success(function(data, status) {
+				console.log(data);
+			}).error(function(data, status) {console.log(data);});
+	}
+	
+	$scope.showMessage = function(){
+	
+	}
+		
 }
 
