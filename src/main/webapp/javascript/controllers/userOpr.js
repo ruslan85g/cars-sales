@@ -1,10 +1,10 @@
 function userOperations($scope,$http, $rootScope, $location, $route) {
 	// Retrieving a cookie
-  if($cookies.get('p')){
+  /*if($cookies.get('p')){
 	$rootScope.userStatus = 1;
   }else{
 	$rootScope.userStatus = 0;
-  }
+  }*/
   /* Setting a cookie
   $cookies.put('myFavorite', 'oatmeal');*/
 	
