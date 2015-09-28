@@ -34,7 +34,7 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookies) {
 							"color" :"string",
 							"priceF" : num,     //цена от
 							"priceT" : num,     //цена до
-							"text" : "string
+							"text" : "string"
 										};
 		$http.post(''+$rootScope.mainurl+'/search/searchResult', $scope.searchJson).
 			success(function(data, status) {
