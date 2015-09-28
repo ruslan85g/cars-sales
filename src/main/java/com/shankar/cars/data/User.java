@@ -3,9 +3,11 @@ package com.shankar.cars.data;
 import lombok.Getter;
 import lombok.Setter;
 
+import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
+@Entity(name = "User")
 public class User {
 
 	@Id
