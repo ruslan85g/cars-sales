@@ -1,4 +1,4 @@
-function userOperations($scope,$http, $rootScope, $location, $route) {
+function popupFunctions($scope,$http, $rootScope, $location, $route) {
 	$scope.pBack = false;
 	$scope.pPreloader = false;
 	$scope.errorMes = false;
