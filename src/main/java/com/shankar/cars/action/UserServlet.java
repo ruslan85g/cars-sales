@@ -238,16 +238,10 @@ public class UserServlet {
 		UserActivationCode userActivationCode = userActivationCodeDBService
 				.load(UserActivationCode.class, userId, email);// (userId,email);
 
-		int number = 0;
 		if (userActivationCode != null) {
-			number++;
-			// throw new ActivationCodeAlredyExist();
-			throw new Exception("ActivationCodeAlredyExist");
-		}
-
-		if (number > 1) {
 			return false;
 		}
+		try {
 		UserActivationCode newUserActivationCode = new UserActivationCode();
 		newUserActivationCode.setUser_email(email);
 		newUserActivationCode.setUser_id(userId);
@@ -256,12 +250,13 @@ public class UserServlet {
 				.toString());
 		newUserActivationCode.setUser_activation_code(user_activation_code);
 		userActivationCodeDBService.save(newUserActivationCode);
-		try {
+		
+	
 			EmailService.sendEmail(email, user_activation_code, userId,
 					userName);
 		} catch (Exception e) {
-			Throwable e1 = null;
-			log.severe("SendEmailException::" + e1.getMessage());
+			
+			log.severe("SendEmailException::" + e.getMessage());
 		}
 
 		return true;
