@@ -5,14 +5,14 @@ function MainCntl($scope,$http, $rootScope, $location, $route) {
 	$scope.years = [];
 	
 	$scope.getListModel = function(id){
-		$http.get(''+$rootScope.mainurl+'/getListModel',{ "id"   :  id }).
+		$http.get(''+$rootScope.mainurl+'/carmodels/get',{ "id"   :  id }).
 		success(function(data, status) {
 			console.log(data);
 		}).error(function(data, status) {console.log(data);});
 	
 	}
 	
-	$http.get(''+$rootScope.mainurl+'/getListMan').
+	$http.get(''+$rootScope.mainurl+'/cartypes/getalltypes').
 		success(function(data, status) {
 			console.log(data);
 		}).error(function(data, status) {console.log(data);});
