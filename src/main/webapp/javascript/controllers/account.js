@@ -32,16 +32,16 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		
 		$scope.newAdJson = {	
 					"userId" : "string",
-					"ad" :  {/*
-								"id" :  num,
-								"car_type" : "string",
-								"model" : "string",
-								"year" : num,
-								"type" : "string",  //תיבת הילוכים
-								"volume" : num,     //נפח 
-								"km" : num,         //ק"מ
-								"color" :"string",
-								"price" : num"*/
+					"ad" :  {
+								"car_type" : ""+$scope.newCar.car_type+"",
+								"model" : ""+$scope.newCar.model+"",
+								"year" : $scope.newCar.year,
+								"type" : ""+$scope.newCar.type+"",  //תיבת הילוכים
+								"volume" : $scope.newCar.volume,     //נפח 
+								"km" : $scope.newCar.km,         //ק"מ
+								"color" : ""+$scope.newCar.color+"",
+								"price" : $scope.newCar.price,
+								"text" : ""+$scope.newCar.text+""
 							}
 				};
 
