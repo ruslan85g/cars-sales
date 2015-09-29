@@ -21,7 +21,7 @@ import com.shankar.cars.data.persist.CarDBService;
 import com.shankar.cars.data.persist.CarModelsDBService;
 import com.shankar.cars.data.persist.CarTypeDBService;
 
-@Path("/car_types")
+@Path("/cartypes")
 @Log
 public class CarTypeServlet {
 	@Context
@@ -33,7 +33,7 @@ public class CarTypeServlet {
 	CarModelsDBService carModelsDBService = new CarModelsDBService();
 	CarTypeDBService carTypeDBService = new CarTypeDBService();
 
-	@Path("/get")
+	@Path("/getalltypes")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<CarType> get_types() {

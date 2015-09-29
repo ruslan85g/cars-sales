@@ -23,7 +23,7 @@ import com.shankar.cars.data.persist.CarDBService;
 import com.shankar.cars.data.persist.CarModelsDBService;
 import com.shankar.cars.data.persist.CarTypeDBService;
 
-@Path("/car_models")
+@Path("/carmodels")
 @Log
 public class CarModelServlet {
 	@Context

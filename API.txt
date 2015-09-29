@@ -119,7 +119,7 @@
 	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
 
 
-11. func - /viewAds
+11. func - /cars/getCarsByUserId
 	request  : 	{"userId" : "string"}
 	response :  {	
 					"user" : {"name" : "string","phone" : "string","email" : "string" },
@@ -138,11 +138,11 @@
 					]
 				}
 
-12. func - /newAd
+12. func - /cars/save
 	request  :  {	
 					"userId" : "string",
 					"ad" :  {
-								"id" :  num,
+
 								"car_type" : "string",
 								"model" : "string",
 								"year" : num,
@@ -155,7 +155,7 @@
 				}
 	response :  {	"status" : "success"   }
 
-13. func - /updateAd
+13. func - /cars/updateCar
 	request  : 	{	
 					"userId" : "string",
 					"ad" :  {
@@ -172,14 +172,14 @@
 				}
 	response :  {	"status" : "success"   }
 
-14. func - /deleteAd
+14. func - /cars/deleteCarPerUserId
 	request  : 	{	
 					"userId" : "Long",
 					"id" :  num
 				}
 	response :  {	"status" : "success"   }
 
-15. func - /getListMan
+15. func - /cartypes/getalltypes
 	
 	response : 	{
 					"status" : "success",
@@ -190,7 +190,7 @@
 						]
 				}
 
-16. func - /getListModel
+16. func - /carmodels/get?car_type_id
 	request  : 	{ "id"   :  num }
 	response : 	{
 					"status" : "success",
