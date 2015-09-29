@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response;
 
 import lombok.extern.java.Log;
 
-import com.google.appengine.api.search.DateUtil;
 import com.shankar.cars.data.Car;
 import com.shankar.cars.data.User;
 import com.shankar.cars.data.meta.CarMeta;

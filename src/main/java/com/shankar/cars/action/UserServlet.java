@@ -18,7 +18,6 @@ import javax.ws.rs.core.Response;
 
 import lombok.extern.java.Log;
 
-
 import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
 //import com.shankar.ActivationCodeAlredyExist;
 import com.shankar.cars.EmailService;
