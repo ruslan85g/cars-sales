@@ -17,6 +17,7 @@ import javax.ws.rs.core.Response;
 
 import lombok.extern.java.Log;
 
+import com.google.appengine.api.search.DateUtil;
 import com.shankar.cars.data.Car;
 import com.shankar.cars.data.User;
 import com.shankar.cars.data.meta.CarMeta;
@@ -81,33 +82,42 @@ public class CarsServlet {
 
 		Car car = null;
 
-		/*
-		 * if(user == null ){
-		 * Response.serverError().status(Response.Status.BAD_REQUEST).entity(
-		 * "User not found" ).build(); }
-		 */
+		User user = userDBService.load(User.class, carMeta.getUser_id());
+		if (user == null) {
+			Response.serverError().status(Response.Status.BAD_REQUEST)
+					.entity("User not found").build();
 
-		try {
+			try {
 
-			if (carMeta.getCar_id() != null) {
-				car = carDBService.load(Car.class, carMeta.getCar_id());
-				car.setUpdate_time(System.currentTimeMillis());
-			}
+				if (carMeta.getCar_id() != null) {
+					car = carDBService.load(Car.class, carMeta.getCar_id());
+					car.setUpdate_time(System.currentTimeMillis());
+				}
 
-			if (car == null) {
-				car = new Car();
+				if (car == null) {
+					car = new Car();
+					car.setCreated_time(System.currentTimeMillis());
+				}
+
+				car.setCar_model_id(carMeta.getCar_model_id());
+				car.setCar_name(carMeta.getCar_name());
+				car.setCar_url(carMeta.getCar_url());
+				car.setCar_type_id(carMeta.getCar_type_id());
+				car.setColor(carMeta.getColor());
 				car.setCreated_time(System.currentTimeMillis());
+				car.setKm(carMeta.getKm());
+				car.setPrice(carMeta.getPrice());
+				car.setType_geare(carMeta.getType_geare());
+				car.setUpdate_time(System.currentTimeMillis());
+				car.setUser_id(carMeta.getUser_id());
+				car.setYear(carMeta.getYear());
+				car.setVolume(carMeta.getVolume());
+				carDBService.save(car);
+
+			} catch (Exception e) {
+				log.severe("Exception::" + e.getMessage());
+				Response.serverError().build();
 			}
-
-			car.setCar_model_id(carMeta.getCar_model_id());
-			car.setCar_name(carMeta.getCar_name());
-			car.setCar_url(carMeta.getCar_url());
-
-			carDBService.save(car);
-
-		} catch (Exception e) {
-			log.severe("Exception::" + e.getMessage());
-			Response.serverError().build();
 		}
 
 		log.info("End saveCar");

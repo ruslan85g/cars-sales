@@ -41,9 +41,7 @@ public class Car {
 	@Getter
 	@Setter
 	protected String car_url;
-	
 
-	
 	@Getter
 	@Setter
 	public Long year;
