@@ -39,7 +39,7 @@ public class CarTypeServlet {
 	public List<CarType> get_types() {
 		log.info("Start get_types ");
 		CarTypeDBService dbType = new CarTypeDBService();
-		List<CarType>  types = dbType.load(CarType.class, "is_active", true);
+		List<CarType>  types = dbType.loadAll(CarType.class);
 		log.info("End get_types ");
 		return types;
 	}
