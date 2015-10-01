@@ -86,6 +86,7 @@ public class CarsServlet {
 			Response.serverError().status(Response.Status.BAD_REQUEST)
 					.entity("User not found").build();
 			log.info("userNotFind");
+		}
 
 			try {
 				log.info("start try");
@@ -101,6 +102,7 @@ public class CarsServlet {
 				}
 				log.info("start sets");
 				car.setCar_model_id(carMeta.getCar_model_id());
+				log.info("setCar_model_id save car in db");
 				car.setCar_name(carMeta.getCar_name());
 				car.setCar_url(carMeta.getCar_url());
 				car.setCar_type_id(carMeta.getCar_type_id());
@@ -113,14 +115,13 @@ public class CarsServlet {
 				car.setUser_id(carMeta.getUser_id());
 				car.setYear(carMeta.getYear());
 				car.setVolume(carMeta.getVolume());
+				log.info("pre save car in db");
 				carDBService.save(car);
 				log.info("save car in db");
 			} catch (Exception e) {
 				log.severe("Exception::" + e.getMessage());
 				Response.serverError().build();
 			}
-		}
-
 		log.info("End saveCar");
 		return Response.ok().build();
 	}
