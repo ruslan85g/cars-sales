@@ -246,8 +246,8 @@ public class UserServlet {
 
 		UserActivationCode userActivationCode = userActivationCodeDBService
 				.loadOne(UserActivationCode.class, "user_email", email);// (userId,email);
-		log.info("find userActivationCode");
 		if (userActivationCode != null) {
+			log.info(" userActivationCode Exists");
 			return false;
 		}
 		try {
