@@ -16,7 +16,7 @@ function userOperations($scope,$http, $rootScope, $location, $route) {
 			$scope.errorMes = false;
 			$scope.pPreloader = true;
 			$scope.regJson = {"name" : $scope.userReg.name,"phone" : $scope.userReg.phone,"email" : $scope.userReg.email};
-			$http.post(''+$rootScope.mainurl+'/users/registration', $scope.regJson).
+			$http.post(''+$rootScope.mainurl+'/api/users/registration', $scope.regJson).
 				success(function(data, status) {
 					console.log(data);
 					$scope.pRegView = 1;
@@ -39,7 +39,7 @@ function userOperations($scope,$http, $rootScope, $location, $route) {
 			$scope.pPreloader = true;
 			$scope.activJson = {"activCode" : $scope.userAct.activCode,"email" : $scope.userAct.email};
 
-			$http.post(''+$rootScope.mainurl+'/users/authentication', $scope.activJson).
+			$http.post(''+$rootScope.mainurl+'/api/users/authentication', $scope.activJson).
 				success(function(data, status) {
 					console.log(data);
 					$scope.hidePopup();
@@ -61,7 +61,7 @@ function userOperations($scope,$http, $rootScope, $location, $route) {
 			$scope.errorMes = false;
 			$scope.pPreloader = true;
 			
-			$http.post(''+$rootScope.mainurl+'/users/logIn', $scope.loginJson).
+			$http.post(''+$rootScope.mainurl+'/api/users/logIn', $scope.loginJson).
 				success(function(data, status) {
 					console.log(data);
 					$scope.hidePopup();
@@ -82,7 +82,7 @@ function userOperations($scope,$http, $rootScope, $location, $route) {
 		if($scope.loginJson.email != ""){
 		$scope.forgetJson = {"email" : $scope.loginJson.email};
 		$scope.pPreloader = true;
-		$http.post(''+$rootScope.mainurl+'/users/forgotPassword', $scope.forgetJson).
+		$http.post(''+$rootScope.mainurl+'/api/users/forgotPassword', $scope.forgetJson).
 			success(function(data, status) {
 				console.log(data);
 				$scope.pLoginView = 2;
@@ -102,7 +102,7 @@ function userOperations($scope,$http, $rootScope, $location, $route) {
 	$scope.chengeP = function(){
 		if($scope.chengePJson.email != "" && $scope.chengePJson.OldPassword != "" && $scope.chengePJson.NewPassword != ""){
 			$scope.pPreloader = true;
-			$http.post(''+$rootScope.mainurl+'/users/changePassword', $scope.chengePJson).
+			$http.post(''+$rootScope.mainurl+'/api/users/changePassword', $scope.chengePJson).
 				success(function(data, status) {
 					console.log(data);
 					$scope.pChengePView = 1;
