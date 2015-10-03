@@ -53,6 +53,7 @@ public class SearchServlet {
 		for (Car car : cars) {
 			SearchResponseMeta searchResponseMeta = new SearchResponseMeta();
 			searchResponseMeta.setCar_id(car.getCar_id());
+			log.info("Start setCar_id ");
 			CarModel carModel = carModelsDBService.load(CarModel.class,
 					car.getCar_model_id());
 			if (carModel != null) {
