@@ -52,8 +52,10 @@ public class SearchServlet {
 		UserDBService db = new UserDBService();
 		for (Car car : cars) {
 			SearchResponseMeta searchResponseMeta = new SearchResponseMeta();
-			searchResponseMeta.setCar_id(car.getCar_id());
-			log.info("Start setCar_id ");
+			if (car.getCar_id() != null) {
+				searchResponseMeta.setCar_id(car.getCar_id());
+				log.info("Start setCar_id ");
+			}
 			CarModel carModel = carModelsDBService.load(CarModel.class,
 					car.getCar_model_id());
 			if (carModel != null) {
