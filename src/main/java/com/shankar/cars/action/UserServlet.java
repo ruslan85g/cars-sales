@@ -242,11 +242,13 @@ public class UserServlet {
 					resp.put("error_text", "userActivationCode not Valid");
 					return resp;
 				}
+				log.info(" same user_activation_code ");
 				if (userAuthentication.getEmail().equals(
 						userActivationCode.getUser_email())) {
 					log.info(" same Emails ");
 					user = userDBService.load(User.class,
 							userActivationCode.getUser_id());
+					log.info(" load user ");
 					if (user == null) {
 						log.info(" user == null ");
 						resp.put("status", "fail");
@@ -254,16 +256,12 @@ public class UserServlet {
 						return resp;
 					}
 
-					if (user.getUpdate_time() < System.currentTimeMillis()) {
-						user.setUpdate_time(System.currentTimeMillis());
-						user.setIsActive(true);
-						userDBService.save(user);
-						// TDO cookies
-					}
+					user.setUpdate_time(System.currentTimeMillis());
+					log.info(" update user ");
+					user.setIsActive(true);
+					userDBService.save(user);
 				}
 			}
-			resp.put("status", "success");
-
 		} catch (Exception e) {
 			log.severe("AuthenticationException::" + e.getMessage());
 			Response.serverError().build();
