@@ -61,7 +61,7 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 			$scope.errorMes = false;
 			$scope.pPreloader = true;
 			
-			$http.post(''+$rootScope.mainurl+'/api/users/logIn', $scope.loginJson).
+			$http.post(''+$rootScope.mainurl+'/api/users/authentication', $scope.loginJson).
 				success(function(data, status) {
 					console.log(data);
 					$scope.hidePopup();

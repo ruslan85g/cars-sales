@@ -1,21 +1,91 @@
 function AccountCtrl($scope,$http, $rootScope, $location, $route) {
-	$scope.userData = {"id" : 123,"dataName" : {"name" : "מריה","edit" : 0},"dataPhone" : {"phone" : "054-803-24-24","edit" : 0},"dataEmail" : {"email" : "ksksk@gmail.com","edit" : 0}};
 	$scope.addView = 0;
 	$scope.editView =0;
 	
-	$scope.viewAds = function(){
-		
-		$scope.viewAdsJson = {"userId" : "string"};
+	$http.post(''+$rootScope.mainurl+'/api/users/get', $scope.userID).
+		success(function(data, status) {
+			console.log(data);
+			$scope.userData = {"id" : $scope.userID,"dataName" : {"name" : data.user.user_name,"edit" : 0},"dataPhone" : {"phone" : data.user.mobilePhone,"edit" : 0},"dataEmail" : {"email" : data.user.email,"edit" : 0}};
+			$scope.newUname = $scope.userData.dataName.name;
+			$scope.newUphone = $scope.userData.dataPhone.phone;
+			$scope.newUemail = $scope.userData.dataEmail.email;
+		}).error(function(data, status) {
+			console.log(data);
+		});
+	
+	$scope.updateUname = function(){
+		if($scope.newUname != "" && $scope.newUname != $scope.userData.dataName.name){
+			$scope.updateUnameJson = {"userId" : "string","name" : $scope.newUname };
 
-		$http.post(''+$rootScope.mainurl+'/api/cars/getCarsByUserId', $scope.viewAdsJson).
-			success(function(data, status) {
-				console.log(data);
-				
-			}).error(function(data, status) {
-				console.log(data);
-				
-			});
+			$http.post(''+$rootScope.mainurl+'/api/users/updateName', $scope.updateUnameJson).
+				success(function(data, status) {
+					console.log(data);
+					$scope.userData.dataName.name = $scope.newUname;
+					$scope.userData.dataName.edit = 0;
+				}).error(function(data, status) {
+					console.log(data);
+					$scope.userData.dataName.edit = 0;
+					$scope.newUname = $scope.userData.dataName.name;
+				});
+		}else{
+			$scope.userData.dataName.edit = 0;
+			$scope.newUname = $scope.userData.dataName.name;
+		}
 	}
+	
+	$scope.updateUphone = function(){
+		if($scope.newUphone != "" && $scope.newUphone != $scope.userData.dataPhone.phone){
+			$scope.updateUphoneJson = {"userId" : "string","phone" : "string" };
+
+			$http.post(''+$rootScope.mainurl+'/api/users/updatePhone', $scope.updateUphoneJson).
+				success(function(data, status) {
+					console.log(data);
+					$scope.userData.dataPhone.phone = $scope.newUphone;
+					$scope.userData.dataPhone.edit = 0;
+				}).error(function(data, status) {
+					console.log(data);
+					$scope.userData.dataPhone.edit = 0;
+					$scope.newUphone = $scope.userData.dataPhone.phone;
+				});
+		}else{
+			$scope.userData.dataPhone.edit = 0;
+			$scope.newUphone = $scope.userData.dataPhone.phone;
+		}
+	}
+	
+	$scope.updateUmail = function(){
+		if($scope.newUemail != "" && $scope.newUemail != $scope.userData.dataEmail.email){
+			$scope.updateUmailJson = {"userId" : "string","email" : "string" };
+
+			$http.post(''+$rootScope.mainurl+'/api/users/updateEmail', $scope.updateUmailJson).
+				success(function(data, status) {
+					console.log(data);
+					$scope.userData.dataEmail.email = $scope.newUemail;
+					$scope.userData.dataEmail.edit = 0;
+				}).error(function(data, status) {
+					console.log(data);
+					$scope.userData.dataEmail.edit = 0;
+					$scope.newUemail = $scope.userData.dataEmail.email;
+				});
+		}else{
+			$scope.userData.dataEmail.edit = 0;
+			$scope.newUemail = $scope.userData.dataEmail.email;
+		}
+	}
+	
+	$http.post(''+$rootScope.mainurl+'/api/cars/getCarsByUserId', $scope.viewAdsJson).
+		success(function(data, status) {
+			console.log(data);
+			
+		}).error(function(data, status) {
+			console.log(data);
+			
+		});
+
+	/users/get
+	request  : 	{"userId" : "long" }
+	response : 	"user" : {"user_name" : "string","mobilePhone" : "string","email" : "string" }
+	
 	
 	$scope.newCar = {	
 						"car_type" : "",
@@ -138,45 +208,5 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	}
 	
 	
-	$scope.updateUname = function(){
-		
-		$scope.updateUnameJson = {"userId" : "string","name" : "string" };
 
-		$http.post(''+$rootScope.mainurl+'/api/users/updateName', $scope.updateUnameJson).
-			success(function(data, status) {
-				console.log(data);
-				
-			}).error(function(data, status) {
-				console.log(data);
-				
-			});
-	}
-	
-	$scope.updateUphone = function(){
-		
-		$scope.updateUphoneJson = {"userId" : "string","phone" : "string" };
-
-		$http.post(''+$rootScope.mainurl+'/api/users/updatePhone', $scope.updateUphoneJson).
-			success(function(data, status) {
-				console.log(data);
-				
-			}).error(function(data, status) {
-				console.log(data);
-				
-			});
-	}
-	
-	$scope.updateUmail = function(){
-		
-		$scope.updateUmailJson = {"userId" : "string","email" : "string" };
-
-		$http.post(''+$rootScope.mainurl+'/api/users/updateEmail', $scope.updateUmailJson).
-			success(function(data, status) {
-				console.log(data);
-				
-			}).error(function(data, status) {
-				console.log(data);
-				
-			});
-	}
 }

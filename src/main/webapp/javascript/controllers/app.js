@@ -3,6 +3,7 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 	popupFunctions($scope,$http, $rootScope, $location, $route,$cookieStore);
 	//if($cookieStore.get('tab')){console.log('0000000000000')}else{console.log('11111111111111')}
 	// $scope.lastVal = $cookieStore.get('tab');
+	$scope.userID = "string";
 	console.log($cookieStore)
 	$scope.years = [1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015];
 	$scope.man_opts = [{"id":1,"name":"aaa"},{"id":2,"name":"bbb"},{"id":3,"name":"ccc"}];
@@ -47,19 +48,25 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 		if($scope.SJyearT != "משנה" && $scope.SJyearT != ""){
 			$scope.SJyearTo = $scope.SJyearT;
 		}
+		if($scope.SJtypeGear != "בחר" && $scope.SJtypeGear != ""){
+			$scope.SJsontypeGear = $scope.SJtypeGear;
+		}
+		if($scope.SJpriceF != "ממחיר" && $scope.SJpriceF != ""){
+			$scope.SJpriceFrom = $scope.SJpriceF;
+		}
+		if($scope.SJpriceT != "עד מחיר" && $scope.SJpriceT != ""){
+			$scope.SJpriceTo = $scope.SJpriceT;
+		}
+
 		$scope.searchJson = {
 							"car_type_id" : $scope.SJtypeId,
-							 "car_model_id"  :"Long",
-							"yearF" : num,        //משנה
-							"yearT" : num,        //עד שנה
-							"type_geare" : "string",  //תיבת הילוכים
-							"volume" : num,     //נפח 
-							"km" : num,         //ק"מ
-							"color" :"string",
-							"priceF" : num,     //цена от
-							"priceT" : num,     //цена до
-							"text" : "string"
-										};
+							 "car_model_id"  : $scope.SJmodelId,
+							"yearF" : $scope.SJyearFrom, 
+							"yearT" : $scope.SJyearTo, 
+							"type_geare" : $scope.SJsontypeGear,
+							"priceF" : $scope.SJpriceFrom,
+							"priceT" : $scope.SJpriceTo
+						};
 		$http.post(''+$rootScope.mainurl+'/search/searchResult', $scope.searchJson).
 			success(function(data, status) {
 				console.log(data);
