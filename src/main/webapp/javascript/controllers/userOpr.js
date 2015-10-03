@@ -15,7 +15,7 @@ function userOperations($scope,$http, $rootScope, $location, $route) {
 		if($scope.userReg.email != ""){
 			$scope.errorMes = false;
 			$scope.pPreloader = true;
-			$scope.regJson = {"name" : $scope.userReg.name,"phone" : $scope.userReg.phone,"email" : $scope.userReg.email};
+			$scope.regJson = {"user_name" : $scope.userReg.name,"mobilePhone" : $scope.userReg.phone,"email" : $scope.userReg.email,"user_id":""};
 			$http.post(''+$rootScope.mainurl+'/api/users/registration', $scope.regJson).
 				success(function(data, status) {
 					console.log(data);
