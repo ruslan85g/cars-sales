@@ -162,7 +162,7 @@ public class UserServlet {
 			user.setEmail(userMeta.getEmail());
 			user.setMobilePhone(userMeta.getMobilePhone());
 			user.setUser_name(userMeta.getUser_name());
-			// user.setIsActive(true);
+			user.setIsActive(false);
 
 			// activation
 			userDBService.save(user);
@@ -229,10 +229,10 @@ public class UserServlet {
 				String user_activation_code = userAuthentication
 						.getActivationCode();
 
-
 				// Decode data on other side, by processing encoded data
-				byte[] valueDecoded = Base64.decodeBase64(codeFromTable.getBytes());
-				String  pass = new String(valueDecoded);
+				byte[] valueDecoded = Base64.decodeBase64(codeFromTable
+						.getBytes());
+				String pass = new String(valueDecoded);
 
 				if (!pass.equals(user_activation_code)) {
 					log.info(" codeFromTableAfterDecode" + valueDecoded);
@@ -291,7 +291,8 @@ public class UserServlet {
 			newUserActivationCode.setUser_id(userId);
 			// PasswordService.encrypt("password");
 
-			byte[] bytesEncoded = Base64.encodeBase64(String.valueOf(userId).getBytes());
+			byte[] bytesEncoded = Base64.encodeBase64(String.valueOf(userId)
+					.getBytes());
 			String user_activation_code = new String(bytesEncoded);
 
 			log.info("hashing");
