@@ -1,11 +1,11 @@
 function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	$scope.addView = 0;
 	$scope.editView =0;
-	
+	$scope.userID = {"userId" : $rootScope.cookieUserID};
 	$http.post(''+$rootScope.mainurl+'/api/users/get', $scope.userID).
 		success(function(data, status) {
 			console.log(data);
-			$scope.userData = {"id" : $scope.userID,"dataName" : {"name" : data.user.user_name,"edit" : 0},"dataPhone" : {"phone" : data.user.mobilePhone,"edit" : 0},"dataEmail" : {"email" : data.user.email,"edit" : 0}};
+			$scope.userData = {"id" : $rootScope.cookieUserID,"dataName" : {"name" : data.user.user_name,"edit" : 0},"dataPhone" : {"phone" : data.user.mobilePhone,"edit" : 0},"dataEmail" : {"email" : data.user.email,"edit" : 0}};
 			$scope.newUname = $scope.userData.dataName.name;
 			$scope.newUphone = $scope.userData.dataPhone.phone;
 			$scope.newUemail = $scope.userData.dataEmail.email;
@@ -15,7 +15,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	
 	$scope.updateUname = function(){
 		if($scope.newUname != "" && $scope.newUname != $scope.userData.dataName.name){
-			$scope.updateUnameJson = {"userId" : "string","name" : $scope.newUname };
+			$scope.updateUnameJson = {"userId" : $rootScope.cookieUserID,"name" : $scope.newUname };
 
 			$http.post(''+$rootScope.mainurl+'/api/users/updateName', $scope.updateUnameJson).
 				success(function(data, status) {
@@ -35,7 +35,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	
 	$scope.updateUphone = function(){
 		if($scope.newUphone != "" && $scope.newUphone != $scope.userData.dataPhone.phone){
-			$scope.updateUphoneJson = {"userId" : "string","phone" : "string" };
+			$scope.updateUphoneJson = {"userId" : $rootScope.cookieUserID,"phone" : "string" };
 
 			$http.post(''+$rootScope.mainurl+'/api/users/updatePhone', $scope.updateUphoneJson).
 				success(function(data, status) {
@@ -55,7 +55,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	
 	$scope.updateUmail = function(){
 		if($scope.newUemail != "" && $scope.newUemail != $scope.userData.dataEmail.email){
-			$scope.updateUmailJson = {"userId" : "string","email" : "string" };
+			$scope.updateUmailJson = {"userId" : $rootScope.cookieUserID,"email" : "string" };
 
 			$http.post(''+$rootScope.mainurl+'/api/users/updateEmail', $scope.updateUmailJson).
 				success(function(data, status) {
@@ -97,7 +97,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	$scope.newAd = function(){
 		
 		$scope.newAdJson = {	
-					"userId" : "string",
+					"userId" : $rootScope.cookieUserID,
 					"ad" :  {
 								"car_type" : ""+$scope.newCar.car_type+"",
 								"model" : ""+$scope.newCar.model+"",
@@ -140,7 +140,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	$scope.updateAd = function(){
 		
 		$scope.updateAdJson = {	
-					"userId" : "string",
+					"userId" : $rootScope.cookieUserID,
 					"ad" :  {/*
 								"id" :  num,
 								"car_type" : "string",
@@ -167,7 +167,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	$scope.deleteAd = function(){
 		
 		$scope.deleteAdJson = {	
-					"userId" : "Long",
+					"userId" : $rootScope.cookieUserID,
 					"id" :  num
 				};
 

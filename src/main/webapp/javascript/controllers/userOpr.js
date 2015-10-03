@@ -1,13 +1,12 @@
 function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore) {
-	// Retrieving a cookie
-  /*if($cookies.get('p')){
-	$rootScope.userStatus = 1;
-  }else{
-	$rootScope.userStatus = 0;
-  }*/
-  /* Setting a cookie
-  $cookies.put('myFavorite', 'oatmeal');*/
-	
+	// an login
+	if($cookieStore.get("uID") && $cookieStore.get("uID") != ""){
+		$rootScope.cookieUserID = $cookieStore.get("uID");
+		$rootScope.userStatus = 1;
+	}else{
+		$rootScope.userStatus = 0;
+	}
+ 
 	$scope.pRegView = 0;
 	$scope.pLoginView = 0;
 	$scope.userReg = {"name" : "","phone" :"","email" : ""};
@@ -43,6 +42,8 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 				success(function(data, status) {
 					console.log(data);
 					$scope.hidePopup();
+					$rootScope.cookieUserID = data.userId;
+					$cookieStore.put("uID", $rootScope.cookieUserID);
 					$rootScope.userStatus = 1;
 				}).error(function(data, status) {
 					console.log(data);
@@ -65,6 +66,8 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 				success(function(data, status) {
 					console.log(data);
 					$scope.hidePopup();
+					$rootScope.cookieUserID = data.userId;
+					$cookieStore.put("uID", $rootScope.cookieUserID);
 					$rootScope.userStatus = 1;
 				}).error(function(data, status) {
 					console.log(data);
