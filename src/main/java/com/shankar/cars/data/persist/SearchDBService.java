@@ -42,7 +42,6 @@ public class SearchDBService extends DBService {
 					        ));
 		}
 		if (searchMeta.getCar_model_id() != null) {
-			log.info("car_model_id: "+searchMeta.getCar_model_id());
 			subFilters.add( new FilterPredicate("car_model_id",
 					        FilterOperator.EQUAL, 
 					        searchMeta.getCar_model_id()
@@ -110,7 +109,7 @@ public class SearchDBService extends DBService {
 			
 
 			Car car = new Car();
-			car.setCar_id((Long) result.getProperty("car_id"));
+//			car.setCar_id((Long) result.getProperty("car_id"));
 			car.setCar_model_id((Long) result.getProperty("car_model_id"));
 			car.setCar_type_id((Long) result.getProperty("car_type_id"));
 			car.setColor((String) result.getProperty("color"));
@@ -131,9 +130,5 @@ public class SearchDBService extends DBService {
 
 		return carsList;
 	}
-	// public <E> List<E> load(Class<E> type, String feild, String value)
-	// {
-	// return ofy().load().type(type).filter(feild+" ==",value).list();
-	// }
 
 }
