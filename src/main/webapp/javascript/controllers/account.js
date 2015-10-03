@@ -7,7 +7,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		
 		$scope.viewAdsJson = {"userId" : "string"};
 
-		$http.post(''+$rootScope.mainurl+'/cars/getCarsByUserId', $scope.viewAdsJson).
+		$http.post(''+$rootScope.mainurl+'/api/cars/getCarsByUserId', $scope.viewAdsJson).
 			success(function(data, status) {
 				console.log(data);
 				
@@ -45,7 +45,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 							}
 				};
 
-		$http.post(''+$rootScope.mainurl+'/cars/save', $scope.newAdJson).
+		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.newAdJson).
 			success(function(data, status) {
 				console.log(data);
 				
@@ -54,6 +54,22 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 				
 			});
 	}
+	
+	$scope.userAds = [
+						{
+							"car_type" : ""+$scope.newCar.car_type+"",
+							"model" : ""+$scope.newCar.model+"",
+							"year" : $scope.newCar.year,
+							"type" : ""+$scope.newCar.type+"",  //תיבת הילוכים
+							"volume" : $scope.newCar.volume,     //נפח 
+							"km" : $scope.newCar.km,         //ק"מ
+							"color" : ""+$scope.newCar.color+"",
+							"price" : $scope.newCar.price,
+							"text" : ""+$scope.newCar.text+""
+						}
+					]
+
+
 	
 	$scope.updateAd = function(){
 		
@@ -72,7 +88,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 							}
 				};
 
-		$http.post(''+$rootScope.mainurl+'/cars/updateCar', $scope.updateAdJson).
+		$http.post(''+$rootScope.mainurl+'/api/cars/updateCar', $scope.updateAdJson).
 			success(function(data, status) {
 				console.log(data);
 				
@@ -89,7 +105,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 					"id" :  num
 				};
 
-		$http.post(''+$rootScope.mainurl+'/cars/deleteCarPerUserId', $scope.deleteAdJson).
+		$http.post(''+$rootScope.mainurl+'/api/cars/deleteCarPerUserId', $scope.deleteAdJson).
 			success(function(data, status) {
 				console.log(data);
 				
@@ -126,7 +142,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		
 		$scope.updateUnameJson = {"userId" : "string","name" : "string" };
 
-		$http.post(''+$rootScope.mainurl+'/users/updateName', $scope.updateUnameJson).
+		$http.post(''+$rootScope.mainurl+'/api/users/updateName', $scope.updateUnameJson).
 			success(function(data, status) {
 				console.log(data);
 				
@@ -140,7 +156,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		
 		$scope.updateUphoneJson = {"userId" : "string","phone" : "string" };
 
-		$http.post(''+$rootScope.mainurl+'/users/updatePhone', $scope.updateUphoneJson).
+		$http.post(''+$rootScope.mainurl+'/api/users/updatePhone', $scope.updateUphoneJson).
 			success(function(data, status) {
 				console.log(data);
 				
@@ -154,7 +170,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		
 		$scope.updateUmailJson = {"userId" : "string","email" : "string" };
 
-		$http.post(''+$rootScope.mainurl+'/users/updateEmail', $scope.updateUmailJson).
+		$http.post(''+$rootScope.mainurl+'/api/users/updateEmail', $scope.updateUmailJson).
 			success(function(data, status) {
 				console.log(data);
 				
