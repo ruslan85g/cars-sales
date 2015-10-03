@@ -232,7 +232,10 @@ public class UserServlet {
 						.getActivationCode();
 				// String user_activation_code =
 				// Base64.encodeBase64String(String.valueOf(userId).getBytes());
-				if (codeFromTableAfterDecode.equals(user_activation_code)) {
+				if (!codeFromTableAfterDecode.equals(user_activation_code)) {
+					log.info(" codeFromTableAfterDecode"
+							+ codeFromTableAfterDecode);
+					log.info(" user_activation_code" + user_activation_code);
 					log.info(" userActivationCode not Valid");
 					resp.put("status", "fail");
 					resp.put("error_text", "userActivationCode not Valid");
