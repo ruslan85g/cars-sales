@@ -86,7 +86,7 @@
 	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
 	
 5.  func - /users/authentication
-	request  : 	{"activCode" : "string","email" : "string"}
+	request  : 	{"activationCode" : "string","email" : "string"}
 	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
 
 6.  func - /users/logIn  
