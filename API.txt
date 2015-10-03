@@ -64,11 +64,11 @@
 						{
 							"id" :  num,
 							"user" : {"userId" : "string","name" : "string","phone" : "string","email" : "string" },
-							"car_type" : "string",
-							"model" : "string",
+							"car_type_name" : "string",
+							"car_model_name" : "string",
 							"year" : num,
-							"type" : "string",  //תיבת הילוכים
-							"volume" : num,     //נפח 
+							"type_geare" : "string",  //תיבת הילוכים
+							"volume" : string,     //נפח 
 							"km" : num,         //ק"מ
 							"color" :"string",
 							"price" : num
