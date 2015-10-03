@@ -207,20 +207,26 @@ public class UserServlet {
 
 			if (userAuthentication.getEmail() != null
 					|| userAuthentication.getActivationCode() != null) {
-				String user_activation_code = PasswordService
-						.encrypt(userAuthentication.getActivationCode());
+//				String user_activation_code = PasswordService.encrypt(userAuthentication.getActivationCode());
+//				String user_activation_code = Base64.encodeBase64String(String.valueOf(userId).getBytes());
+				String user_activation_code = userAuthentication.getActivationCode();
+				log.info("Start loadWithActivationCode ");
 				UserActivationCode userActivationCode = userActivationCodeDBService
 						.loadWithActivationCode(UserActivationCode.class,
 								user_activation_code,
 								userAuthentication.getEmail());
+				log.info("End loadWithActivationCode ");
 				if (userActivationCode != null) {
+					log.info(" userActivationCode != null ");
 					user = userDBService.load(User.class,
 							userActivationCode.getUser_id());
 					if (user != null) {
+						log.info(" user != null ");
 						if (user.getUpdate_time() < System.currentTimeMillis()) {
 							user.setUpdate_time(System.currentTimeMillis());
 							user.setIsActive(true);
 							userDBService.save(user);
+							//TDO cookies
 						}
 					}
 				}
@@ -250,7 +256,7 @@ public class UserServlet {
 			newUserActivationCode.setUser_email(email);
 			newUserActivationCode.setUser_id(userId);
 			// PasswordService.encrypt("password");
-			String user_activation_code =Base64.encodeBase64String(String.valueOf(userId).getBytes());
+			String user_activation_code = Base64.encodeBase64String(String.valueOf(userId).getBytes());
 			log.info("hashing");
 			newUserActivationCode.setUser_activation_code(user_activation_code);
 			userActivationCodeDBService.save(newUserActivationCode);
@@ -337,47 +343,47 @@ public class UserServlet {
 		log.info("End changePassword");
 	}
 
-	@Path("/logIn ")
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response logIn(String email, String password) throws Exception {
-
-		log.info("Start logIn ");
-
-		User user = null;
-
-		try {
-
-			if (email != null) {
-				user = userDBService.loadOne(User.class, "email", email);
-				String user_password = PasswordService.encrypt(password);
-				// UserActivationCode userActivationCode =
-				// userActivationCodeDBService
-				// .loadWithActivationCode(UserActivationCode.class,
-				// user_activation_code,
-				// userAuthentication.getEmail());
-				// if (userActivationCode != null) {
-				// user = userDBService.load(User.class,
-				// userActivationCode.getUser_id());
-				// if (user != null) {
-				if (user.getUpdate_time() < System.currentTimeMillis()) {
-					user.setUpdate_time(System.currentTimeMillis());
-					user.setIsActive(true);
-					userDBService.save(user);
-				}
-				// }
-				// }
-			}
-
-		} catch (Exception e) {
-			log.severe("AuthenticationException::" + e.getMessage());
-			Response.serverError().build();
-		}
-
-		log.info("End logIn");
-		return Response.ok().build();
-	}
+	// @Path("/logIn ")
+	// @POST
+	// @Consumes(MediaType.APPLICATION_JSON)
+	// @Produces(MediaType.APPLICATION_JSON)
+	// public Response logIn(String email, String password) throws Exception {
+	//
+	// log.info("Start logIn ");
+	//
+	// User user = null;
+	//
+	// try {
+	//
+	// if (email != null) {
+	// user = userDBService.loadOne(User.class, "email", email);
+	// String user_password = PasswordService.encrypt(password);
+	// // UserActivationCode userActivationCode =
+	// // userActivationCodeDBService
+	// // .loadWithActivationCode(UserActivationCode.class,
+	// // user_activation_code,
+	// // userAuthentication.getEmail());
+	// // if (userActivationCode != null) {
+	// // user = userDBService.load(User.class,
+	// // userActivationCode.getUser_id());
+	// // if (user != null) {
+	// if (user.getUpdate_time() < System.currentTimeMillis()) {
+	// user.setUpdate_time(System.currentTimeMillis());
+	// user.setIsActive(true);
+	// userDBService.save(user);
+	// }
+	// // }
+	// // }
+	// }
+	//
+	// } catch (Exception e) {
+	// log.severe("AuthenticationException::" + e.getMessage());
+	// Response.serverError().build();
+	// }
+	//
+	// log.info("End logIn");
+	// return Response.ok().build();
+	// }
 
 	private boolean emailExist(UserMeta userMeta) {
 

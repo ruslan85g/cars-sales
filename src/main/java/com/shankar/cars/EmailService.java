@@ -26,7 +26,7 @@ public class EmailService {
 		try {
 			Message msg = new MimeMessage(session);
 			msg.setFrom(new InternetAddress("ruslan85g@gmail.com",
-					"Example.com Admin"));
+					"Car-Sales"));
 			log.info("sendEmail");
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
 			/* "user@example.com" */email, "Mr./Ms. " + userName));
