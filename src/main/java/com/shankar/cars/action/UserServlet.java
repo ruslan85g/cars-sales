@@ -226,25 +226,15 @@ public class UserServlet {
 				}
 				String codeFromTable = userActivationCode
 						.getUser_activation_code();
-				// String codeFromTableAfterDecode =
-				// Base64.decodeBase64(codeFromTable).toString();
 				String user_activation_code = userAuthentication
 						.getActivationCode();
-				// String user_activation_code =
-				// Base64.encodeBase64String(String.valueOf(userId).getBytes());
-				// encode data on your side using BASE64
-				byte[] bytesEncoded = Base64.encodeBase64(codeFromTable
-						.getBytes());
 
-				// System.out.println("ecncoded value is " + new
-				// String(bytesEncoded ));
 
 				// Decode data on other side, by processing encoded data
-				byte[] valueDecoded = Base64.decodeBase64(bytesEncoded);
-				// System.out.println("Decoded value is " + new
-				// String(valueDecoded));
+				byte[] valueDecoded = Base64.decodeBase64(codeFromTable.getBytes());
+				String  pass = new String(valueDecoded);
 
-				if (!valueDecoded.equals(user_activation_code)) {
+				if (!pass.equals(user_activation_code)) {
 					log.info(" codeFromTableAfterDecode" + valueDecoded);
 					log.info(" user_activation_code" + user_activation_code);
 					log.info(" userActivationCode not Valid");
@@ -300,8 +290,10 @@ public class UserServlet {
 			newUserActivationCode.setUser_email(email);
 			newUserActivationCode.setUser_id(userId);
 			// PasswordService.encrypt("password");
-			String user_activation_code = Base64.encodeBase64String(String
-					.valueOf(userId).getBytes());
+
+			byte[] bytesEncoded = Base64.encodeBase64(String.valueOf(userId).getBytes());
+			String user_activation_code = new String(bytesEncoded);
+
 			log.info("hashing");
 			newUserActivationCode.setUser_activation_code(user_activation_code);
 			userActivationCodeDBService.save(newUserActivationCode);
