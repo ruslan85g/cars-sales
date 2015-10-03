@@ -103,13 +103,12 @@ public class SearchDBService extends DBService {
 
 		// Use PreparedQuery interface to retrieve results
 		PreparedQuery pq = datastore.prepare(q);
-
+		log.info("startInsertCarsFromSearch: "+ pq.asIterable());
 		
 		for (Entity result : pq.asIterable()) {
 			
-
 			Car car = new Car();
-//			car.setCar_id((Long) result.getProperty("car_id"));
+			car.setCar_id((Long) result.getProperty("car_id"));
 			car.setCar_model_id((Long) result.getProperty("car_model_id"));
 			car.setCar_type_id((Long) result.getProperty("car_type_id"));
 			car.setColor((String) result.getProperty("color"));
@@ -123,7 +122,7 @@ public class SearchDBService extends DBService {
 			car.setVolume((String) result.getProperty("volume"));
 			car.setYear((Long) result.getProperty("year"));
 	
-			log.info("carsList.add(car): "+car.getCar_model_id());
+			log.info("carsList.add(car): "+car.getCar_id());
 		  carsList.add(car);
 		  
 		}
