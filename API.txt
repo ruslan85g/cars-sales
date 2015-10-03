@@ -53,12 +53,11 @@
 						"yearF" : num,        //משנה
 						"yearT" : num,        //עד שנה
 						"type_geare" : "string",  //תיבת הילוכים
-						"volume" : num,     //נפח 
-						"km" : num,         //ק"מ
+						"volume" : "String",     //נפח 
+						"km" : Long,         //ק"מ
 						"color" :"string",
-						"priceF" : num,     //цена от
-						"priceT" : num,     //цена до
-						"text" : "string
+						"priceF" : Long,     //цена от
+						"priceT" : Long,     //цена до
 									}
 	response : 	{	"status" : "success",
 					"list" : [

@@ -3,6 +3,8 @@ package com.shankar.cars.data.meta;
 import lombok.Getter;
 import lombok.Setter;
 
+import com.shankar.cars.data.User;
+
 public class SearchResponseMeta {
 
 	@Getter
@@ -17,9 +19,9 @@ public class SearchResponseMeta {
 	@Setter
 	protected Long car_id;
 	
-//	@Getter
-//	@Setter
-//	protected User user;
+	@Getter
+	@Setter
+	protected User user;
 
 	@Getter
 	@Setter

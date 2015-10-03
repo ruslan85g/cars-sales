@@ -17,12 +17,14 @@ import lombok.extern.java.Log;
 import com.shankar.cars.data.Car;
 import com.shankar.cars.data.CarModel;
 import com.shankar.cars.data.CarType;
+import com.shankar.cars.data.User;
 import com.shankar.cars.data.meta.SearchMeta;
 import com.shankar.cars.data.meta.SearchResponseMeta;
 import com.shankar.cars.data.persist.CarDBService;
 import com.shankar.cars.data.persist.CarModelsDBService;
 import com.shankar.cars.data.persist.CarTypeDBService;
 import com.shankar.cars.data.persist.SearchDBService;
+import com.shankar.cars.data.persist.UserDBService;
 
 @Path("/search")
 @Log
@@ -46,6 +48,7 @@ public class SearchServlet {
 
 		List<SearchResponseMeta> searchResponseMetaList = new ArrayList<>();
 		List<Car> cars = searchDBService.load(Car.class, searchMeta);
+		UserDBService db = new UserDBService();
 		for (Car car : cars) {
 
 			SearchResponseMeta searchResponseMeta = new SearchResponseMeta();
@@ -66,6 +69,8 @@ public class SearchServlet {
 			searchResponseMeta.setPrice(car.getPrice());
 			searchResponseMeta.setType_geare(car.getType_geare());
 			searchResponseMeta.setVolume(car.getVolume());
+			User user = db.load(User.class, car.getUser_id());
+			searchResponseMeta.setUser(user);
 			searchResponseMetaList.add(searchResponseMeta);
 		}
 
