@@ -1,7 +1,6 @@
 package com.shankar.cars.action;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -197,10 +196,12 @@ public class UserServlet {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response authenticationUser(UserAuthentication userAuthentication)
-			throws Exception {
+	public Map<String, String> authenticationUser(
+			UserAuthentication userAuthentication) throws Exception {
 
 		log.info("Start authenticationUser ");
+		Map<String, String> resp = new HashMap<String, String>();
+		// try {
 
 		User user = null;
 
@@ -210,51 +211,64 @@ public class UserServlet {
 					|| userAuthentication.getActivationCode() != null) {
 				// String user_activation_code =
 				// PasswordService.encrypt(userAuthentication.getActivationCode());
+
+				log.info("Start loadWithActivationCode ");
+
+				UserActivationCode userActivationCode = userActivationCodeDBService
+						.loadOne(UserActivationCode.class, "user_email",
+								userAuthentication.getEmail());
+				log.info("End loadWithActivationCode ");
+				if (userActivationCode == null) {
+					log.info(" userActivationCode not Exists");
+					resp.put("status", "fail");
+					resp.put("error_text", "userActivationCode not Exists");
+					return resp;
+				}
+				String codeFromTable = userActivationCode
+						.getUser_activation_code();
+				String codeFromTableAfterDecode = Base64.decodeBase64(
+						codeFromTable).toString();
 				String user_activation_code = userAuthentication
 						.getActivationCode();
-				log.info("Start loadWithActivationCode ");
-				// UserActivationCode userActivationCode =
-				// userActivationCodeDBService
-				// .loadWithActivationCode(UserActivationCode.class,
-				// user_activation_code,
-				// userAuthentication.getEmail());
+				// String user_activation_code =
+				// Base64.encodeBase64String(String.valueOf(userId).getBytes());
+				if (codeFromTableAfterDecode.equals(user_activation_code)) {
+					log.info(" userActivationCode not Valid");
+					resp.put("status", "fail");
+					resp.put("error_text", "userActivationCode not Valid");
+					return resp;
+				}
+				if (userAuthentication.getEmail().equals(
+						userActivationCode.getUser_email())) {
+					log.info(" same Emails ");
+					user = userDBService.load(User.class,
+							userActivationCode.getUser_id());
+					if (user == null) {
+						log.info(" user == null ");
+						resp.put("status", "fail");
+						resp.put("error_text", "user not find");
+						return resp;
+					}
 
-				List<UserActivationCode> userActivationCodes = userActivationCodeDBService
-						.load(UserActivationCode.class, "activation_id",
-								user_activation_code);
-
-				log.info("End loadWithActivationCode ");
-				if (userActivationCodes != null) {
-					log.info(" userActivationCode != null ");
-					for (UserActivationCode userActivationCode : userActivationCodes) {
-						if (userAuthentication.getEmail().equals(
-								userActivationCode.getUser_email())) {
-							log.info(" same Emails ");
-							user = userDBService.load(User.class,
-									userActivationCode.getUser_id());
-							if (user != null) {
-								log.info(" user != null ");
-								if (user.getUpdate_time() < System
-										.currentTimeMillis()) {
-									user.setUpdate_time(System
-											.currentTimeMillis());
-									user.setIsActive(true);
-									userDBService.save(user);
-									// TDO cookies
-								}
-							}
-						}
+					if (user.getUpdate_time() < System.currentTimeMillis()) {
+						user.setUpdate_time(System.currentTimeMillis());
+						user.setIsActive(true);
+						userDBService.save(user);
+						// TDO cookies
 					}
 				}
 			}
+			resp.put("status", "success");
 
 		} catch (Exception e) {
 			log.severe("AuthenticationException::" + e.getMessage());
 			Response.serverError().build();
 		}
-
 		log.info("End authenticationUser");
-		return Response.ok().build();
+		resp.put("status", "success");
+		resp.put("userId", user.getUser_id().toString());
+		return resp;
+
 	}
 
 	private boolean sendActivationCode(Long userId, String email,
