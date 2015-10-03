@@ -1,10 +1,10 @@
-var app = angular.module("Main", ['ngRoute']);
+var app = angular.module("Main", ['ngRoute','ngCookies']);
 
 app.run(function ($rootScope, $location) {
 
 /************************************************ 1.1.1 Global Variables ************************************************/
 	$rootScope.mainurl ='https://cars-sales.appspot.com';
-	$rootScope.userStatus = 0;
+	$rootScope.userStatus = 1;
 	//$rootScope.locPath;
 });
 	

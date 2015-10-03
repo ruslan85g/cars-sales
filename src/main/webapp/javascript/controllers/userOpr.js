@@ -37,7 +37,7 @@ function userOperations($scope,$http, $rootScope, $location, $route) {
 		if($scope.userAct.email != "" && $scope.userAct.activCode != ""){
 			$scope.errorMes = false;
 			$scope.pPreloader = true;
-			$scope.activJson = {"activCode" : $scope.userAct.activCode,"email" : $scope.userAct.email};
+			$scope.activJson = {"activationCode" : $scope.userAct.activCode,"email" : $scope.userAct.email};
 
 			$http.post(''+$rootScope.mainurl+'/api/users/authentication', $scope.activJson).
 				success(function(data, status) {
