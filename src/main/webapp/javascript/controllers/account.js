@@ -82,10 +82,6 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 			
 		});
 
-	/users/get
-	request  : 	{"userId" : "long" }
-	response : 	"user" : {"user_name" : "string","mobilePhone" : "string","email" : "string" }
-	
 	
 	$scope.newCar = {	
 						"car_type" : "",
