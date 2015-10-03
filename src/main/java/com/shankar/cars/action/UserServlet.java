@@ -1,6 +1,7 @@
 package com.shankar.cars.action;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -192,7 +193,7 @@ public class UserServlet {
 		return resp;
 	}
 
-	@Path("/authentication ")
+	@Path("/authentication")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -207,26 +208,41 @@ public class UserServlet {
 
 			if (userAuthentication.getEmail() != null
 					|| userAuthentication.getActivationCode() != null) {
-//				String user_activation_code = PasswordService.encrypt(userAuthentication.getActivationCode());
-//				String user_activation_code = Base64.encodeBase64String(String.valueOf(userId).getBytes());
-				String user_activation_code = userAuthentication.getActivationCode();
+				// String user_activation_code =
+				// PasswordService.encrypt(userAuthentication.getActivationCode());
+				String user_activation_code = userAuthentication
+						.getActivationCode();
 				log.info("Start loadWithActivationCode ");
-				UserActivationCode userActivationCode = userActivationCodeDBService
-						.loadWithActivationCode(UserActivationCode.class,
-								user_activation_code,
-								userAuthentication.getEmail());
+				// UserActivationCode userActivationCode =
+				// userActivationCodeDBService
+				// .loadWithActivationCode(UserActivationCode.class,
+				// user_activation_code,
+				// userAuthentication.getEmail());
+
+				List<UserActivationCode> userActivationCodes = userActivationCodeDBService
+						.load(UserActivationCode.class, "activation_id",
+								user_activation_code);
+
 				log.info("End loadWithActivationCode ");
-				if (userActivationCode != null) {
+				if (userActivationCodes != null) {
 					log.info(" userActivationCode != null ");
-					user = userDBService.load(User.class,
-							userActivationCode.getUser_id());
-					if (user != null) {
-						log.info(" user != null ");
-						if (user.getUpdate_time() < System.currentTimeMillis()) {
-							user.setUpdate_time(System.currentTimeMillis());
-							user.setIsActive(true);
-							userDBService.save(user);
-							//TDO cookies
+					for (UserActivationCode userActivationCode : userActivationCodes) {
+						if (userAuthentication.getEmail().equals(
+								userActivationCode.getUser_email())) {
+							log.info(" same Emails ");
+							user = userDBService.load(User.class,
+									userActivationCode.getUser_id());
+							if (user != null) {
+								log.info(" user != null ");
+								if (user.getUpdate_time() < System
+										.currentTimeMillis()) {
+									user.setUpdate_time(System
+											.currentTimeMillis());
+									user.setIsActive(true);
+									userDBService.save(user);
+									// TDO cookies
+								}
+							}
 						}
 					}
 				}
@@ -256,7 +272,8 @@ public class UserServlet {
 			newUserActivationCode.setUser_email(email);
 			newUserActivationCode.setUser_id(userId);
 			// PasswordService.encrypt("password");
-			String user_activation_code = Base64.encodeBase64String(String.valueOf(userId).getBytes());
+			String user_activation_code = Base64.encodeBase64String(String
+					.valueOf(userId).getBytes());
 			log.info("hashing");
 			newUserActivationCode.setUser_activation_code(user_activation_code);
 			userActivationCodeDBService.save(newUserActivationCode);

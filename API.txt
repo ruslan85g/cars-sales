@@ -53,12 +53,11 @@
 						"yearF" : num,        //משנה
 						"yearT" : num,        //עד שנה
 						"type_geare" : "string",  //תיבת הילוכים
-						"volume" : num,     //נפח 
-						"km" : num,         //ק"מ
+						"volume" : "String",     //נפח 
+						"km" : Long,         //ק"מ
 						"color" :"string",
-						"priceF" : num,     //цена от
-						"priceT" : num,     //цена до
-						"text" : "string
+						"priceF" : Long,     //цена от
+						"priceT" : Long,     //цена до
 									}
 	response : 	{	"status" : "success",
 					"list" : [
@@ -118,22 +117,31 @@
 	request  : 	{"userId" : "string","email" : "string" }
 	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
 
+10.2 func - /users/updateEmail
+	request  : 	{"userId" : "string","email" : "string" }
+	response : 	{"status" : "success"}  ||  {"status" : "fail" ,"error_text" : "string"}
+	
+10.3 func - /users/get
+	request  : 	{"userId" : "long" }
+	response : 	"user" : {"user_name" : "string","mobilePhone" : "string","email" : "string" },
 
 11. func - /cars/getCarsByUserId
 	request  : 	{"userId" : "string"}
 	response :  {	
-					"user" : {"name" : "string","phone" : "string","email" : "string" },
 					"list" : [
 						{
-							"id" :  num,
-							"car_type" : "string",
-							"model" : "string",
-							"year" : num,
-							"type" : "string",  //תיבת הילוכים
-							"volume" : num,     //נפח 
-							"km" : num,         //ק"מ
+						    "car_id" : "Long",
+						    "user_id" : "Long",
+							"car_model_id" : "Long",
+							"car_type_id" : "Long",
+							"year" : Long,
+							"type_geare" : "string",  //תיבת הילוכים
+							"volume" : String,     //נפח 
+							"km" : Long,         //ק"מ
 							"color" :"string",
-							"price" : num
+							"price" : Long,
+							"created_time" :"string",
+							"update_time" :"string"
 						}
 					]
 				}

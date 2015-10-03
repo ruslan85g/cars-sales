@@ -1,26 +1,20 @@
 package com.shankar.cars.data.persist;
 
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.Query.Filter;
-import com.google.appengine.api.datastore.Query.FilterPredicate;
-import com.google.appengine.api.datastore.Query.FilterOperator;
-import com.google.appengine.api.datastore.Query.CompositeFilter;
-import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Entity;
-
-import static com.shankar.cars.data.persist.OfyService.ofy;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import lombok.extern.java.Log;
 
-import com.googlecode.objectify.cmd.LoadType;
-import com.googlecode.objectify.cmd.Loader;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.shankar.cars.data.Car;
 import com.shankar.cars.data.meta.SearchMeta;
 @Log
@@ -60,6 +54,12 @@ public class SearchDBService extends DBService {
 					        searchMeta.getYearF()
 					        ));
 		}
+		if (searchMeta.getYearF() != null) {
+			subFilters.add( new FilterPredicate("yearT",
+					        FilterOperator.LESS_THAN_OR_EQUAL, 
+					        searchMeta.getYearF()
+					        ));
+		}
 		if (searchMeta.getType_geare() != null
 				&& !searchMeta.getType_geare().isEmpty()) {
 			subFilters.add( new FilterPredicate("type_geare",
@@ -75,7 +75,7 @@ public class SearchDBService extends DBService {
 		}
 		if (searchMeta.getKm() != null) {
 			subFilters.add( new FilterPredicate("km",
-			        FilterOperator.GREATER_THAN_OR_EQUAL, 
+			        FilterOperator.LESS_THAN_OR_EQUAL, 
 			        searchMeta.getKm()
 			        ));
 		}
@@ -92,6 +92,12 @@ public class SearchDBService extends DBService {
 			        ));
 		}
 		
+		if (searchMeta.getPriceF() != null) {
+			subFilters.add( new FilterPredicate("priceT",
+			        FilterOperator.LESS_THAN_OR_EQUAL, 
+			        searchMeta.getPriceF()
+			        ));
+		}
 
 		// Use class Query to assemble a query
 		Query q = new Query("Car").setFilter(CompositeFilterOperator.and(subFilters));
@@ -107,9 +113,9 @@ public class SearchDBService extends DBService {
 			car.setCar_id((Long) result.getProperty("car_id"));
 			car.setCar_model_id((Long) result.getProperty("car_model_id"));
 			car.setCar_type_id((Long) result.getProperty("car_type_id"));
-			car.setCar_name((String) result.getProperty("car_name"));
 			car.setColor((String) result.getProperty("color"));
-			car.setCreated_time((Long) result.getProperty("created_time"));
+//			car.setCreated_time((Long) result.getProperty("created_time"));
+//			car.setUpdate_time((Long) result.getProperty("updated_time"));
 			car.setKm((Long) result.getProperty("km"));
 			car.setPrice((Long) result.getProperty("price"));
 			car.setType_geare((String) result.getProperty("type_geare"));
@@ -117,9 +123,7 @@ public class SearchDBService extends DBService {
 			car.setUpdate_time((Long) result.getProperty("update_time"));
 			car.setVolume((String) result.getProperty("volume"));
 			car.setYear((Long) result.getProperty("year"));
-		 /* String firstName = (String) result.getProperty("firstName");
-		  String lastName = (String) result.getProperty("lastName");
-		  Long height = (Long) result.getProperty("height");*/
+	
 			log.info("carsList.add(car): "+car.getCar_model_id());
 		  carsList.add(car);
 		  

@@ -16,10 +16,8 @@ public class UserActivationCodeDBService extends DBService {
 		return (UserActivationCode) ofy().load().type(class1).filter(email, activationCode).list();
 	}
 
-	// public <E> List<E> load(Class<E> class1, String field, String operator,
-	// Long long_value)
-	// {
-	// return ofy().load().type(class1).filter( field+operator, long_value
-	// ).list();
-	// }
+//	public <E> E loadOne(Class<E> type, String feild, String value)
+//	{
+//		return ofy().load().type(type).filter(feild+" ==",value).first().now();
+//	}
 }
