@@ -166,11 +166,12 @@ public class UserServlet {
 
 			// activation
 			userDBService.save(user);
-
+			log.info("Start registrationUser ");
 			boolean valid = this.sendActivationCode(user.getUser_id(),
 					user.getEmail(), user.getUser_name());
 
 			if (valid) {
+				log.info("sendActivationCode + ");
 				resp.put("status", "success");
 			} else {
 				userDBService.deleteUserPerId(User.class, user.getUser_id());

@@ -25,13 +25,15 @@ public class EmailService {
 
 		try {
 			Message msg = new MimeMessage(session);
-			msg.setFrom(new InternetAddress("admin@example.com",
+			msg.setFrom(new InternetAddress("ruslan85g@gmail.com",
 					"Example.com Admin"));
+			log.info("sendEmail");
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
 			/* "user@example.com" */email, "Mr./Ms. " + userName));
 			msg.setSubject("Your Example.com account has been activated");
 			msg.setText(msgBody);
 			Transport.send(msg);
+			log.info("sendEmail secsess");
 
 		} catch (AddressException e) {
 			log.severe("AddressException:" + e.getMessage());
