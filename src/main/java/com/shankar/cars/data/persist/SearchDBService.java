@@ -107,7 +107,6 @@ public class SearchDBService extends DBService {
 			car.setCar_id((Long) result.getProperty("car_id"));
 			car.setCar_model_id((Long) result.getProperty("car_model_id"));
 			car.setCar_type_id((Long) result.getProperty("car_type_id"));
-			car.setCar_name((String) result.getProperty("car_name"));
 			car.setColor((String) result.getProperty("color"));
 			car.setCreated_time((Long) result.getProperty("created_time"));
 			car.setKm((Long) result.getProperty("km"));

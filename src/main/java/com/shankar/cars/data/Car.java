@@ -32,15 +32,7 @@ public class Car {
 	@Setter
 	protected Long car_type_id;
 	
-	@Index
-	@Getter
-	@Setter
-	protected String car_name;
 	
-	@Index
-	@Getter
-	@Setter
-	protected String car_url;
 
 	@Getter
 	@Setter

@@ -103,8 +103,6 @@ public class CarsServlet {
 				log.info("start sets");
 				car.setCar_model_id(carMeta.getCar_model_id());
 				log.info("setCar_model_id save car in db");
-				car.setCar_name(carMeta.getCar_name());
-				car.setCar_url(carMeta.getCar_url());
 				car.setCar_type_id(carMeta.getCar_type_id());
 				car.setColor(carMeta.getColor());
 				car.setCreated_time(System.currentTimeMillis());
@@ -223,8 +221,6 @@ public class CarsServlet {
 			if (car != null) {
 				car.setUpdate_time(System.currentTimeMillis());
 				car.setCar_model_id(carMeta.getCar_model_id());
-				car.setCar_name(carMeta.getCar_name());
-				car.setCar_url(carMeta.getCar_url());
 			} else {
 				Response.serverError().status(Response.Status.BAD_REQUEST)
 						.entity("Car not found").build();
