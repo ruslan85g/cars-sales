@@ -44,7 +44,7 @@ public class SearchServlet {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<SearchResponseMeta> search(SearchMeta searchMeta) {
-		log.info("Start getCarModelsByCarTypeId ");
+		log.info("Start search ");
 
 		List<SearchResponseMeta> searchResponseMetaList = new ArrayList<>();
 		List<Car> cars = searchDBService.load(Car.class, searchMeta);
@@ -78,7 +78,7 @@ public class SearchServlet {
 			searchResponseMetaList.add(searchResponseMeta);
 		}
 
-		log.info("End getCarModelsByCarTypeId");
+		log.info("End search");
 		return searchResponseMetaList;
 	}
 
