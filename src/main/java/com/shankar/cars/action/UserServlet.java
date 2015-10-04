@@ -356,8 +356,10 @@ public class UserServlet {
 			throws Exception {
 		log.info("Start changePassword ");
 		Map<String, String> resp = new HashMap<String, String>();
-		User user = null;
-		user = userDBService.load(User.class, changePassMeta.getUser_id());
+		// User user = null;
+		// user = userDBService.load(User.class, changePassMeta.getUser_id());
+		UserDBService db = new UserDBService();
+		User user = db.load(User.class, changePassMeta.getUser_id());
 		if (user == null) {
 			throw new Exception("UserNotFound");
 		}
