@@ -6,7 +6,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	$http.post(''+$rootScope.mainurl+'/api/users/get', $scope.userID).
 		success(function(data, status) {
 			console.log(data);
-			$scope.userData = {"id" : $rootScope.cookieUserID,"dataName" : {"name" : data.user.user_name,"edit" : 0},"dataPhone" : {"phone" : data.user.mobilePhone,"edit" : 0},"dataEmail" : {"email" : data.user.email,"edit" : 0}};
+			$scope.userData = {"id" : $rootScope.cookieUserID,"dataName" : {"name" : data.user_name,"edit" : 0},"dataPhone" : {"phone" : data.mobilePhone,"edit" : 0},"dataEmail" : {"email" : data.email,"edit" : 0}};
 			$scope.newUname = $scope.userData.dataName.name;
 			$scope.newUphone = $scope.userData.dataPhone.phone;
 			$scope.newUemail = $scope.userData.dataEmail.email;
@@ -108,7 +108,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 								"type_geare" : ""+$scope.newCar.type+"",  //תיבת הילוכים
 								"volume" : $scope.newCar.volume,     //נפח 
 								"km" : $scope.newCar.km,         //ק"מ
-								"color" : "שחור",
+								"color" : $scope.newCar.color,
 								"price" : $scope.newCar.price,
 								"car_url"  :""  
 							};
