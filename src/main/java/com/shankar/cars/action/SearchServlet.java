@@ -49,7 +49,6 @@ public class SearchServlet {
 		List<SearchResponseMeta> searchResponseMetaList = new ArrayList<>();
 		List<Car> cars = searchDBService.load(Car.class, searchMeta);
 		log.info("find : "+ cars.size()+"cars");
-		log.info("Start getCarModelsByCarTypeId ");
 		UserDBService db = new UserDBService();
 		for (Car car : cars) {
 			SearchResponseMeta searchResponseMeta = new SearchResponseMeta();
