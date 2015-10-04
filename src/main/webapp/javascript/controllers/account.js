@@ -103,17 +103,30 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		});
 		$scope.newAdJson = {	
 								"user_id" : $rootScope.cookieUserID,
-								"car_id" : "",
-								"car_type" : ""+$scope.newCar_type+"",
-								"model" : ""+$scope.newCar_mod+"",
+								"car_type_id" : $scope.newCar_type,
+								"car_model_id" : $scope.newCar_mod,
+								"car_model": $scope.newCar.model,
 								"year" : $scope.newCar.year,
-								"type" : ""+$scope.newCar.type+"",  //תיבת הילוכים
+								"type_geare" : ""+$scope.newCar.type+"",  //תיבת הילוכים
 								"volume" : $scope.newCar.volume,     //נפח 
 								"km" : $scope.newCar.km,         //ק"מ
-								"color" : ""+$scope.newCar.color+"",
-								"price" : $scope.newCar.price
+								"color" : "שחור",
+								"price" : $scope.newCar.price,
+								"car_url"  :""  
 							};
-
+/*
+    
+    "car_model_id"  :"5668600916475904"  ,
+    "car_type_id" :"5707702298738688"  ,
+    "user_id"  :"5752754626625536"  ,
+    "car_model":"969"  ,
+    "car_url"  :"tests"  ,
+    "year"     :"2010"  ,
+    "type_geare":"ידני"  ,
+    "volume":"1250"  ,
+     "km":"66890"  ,
+   "color":"שחור"  ,
+   "price":"33000"   }*/
 
 		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.newAdJson).
 			success(function(data, status) {
