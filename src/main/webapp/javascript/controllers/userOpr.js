@@ -56,9 +56,10 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 		}
 	}
 	
-	$scope.loginJson = {"email" : "",	"password" : ""};
+	$scope.loginJson = {"email" : "",	"activationCode" : ""};
+	//$scope.kkk = {"activationCode" : $scope.userAct.activCode,"email" : $scope.userAct.email};
 	$scope.login = function(){
-		if($scope.loginJson.email != "" && $scope.loginJson.password != ""){
+		if($scope.loginJson.email != "" && $scope.loginJson.activationCode != ""){
 			$scope.errorMes = false;
 			$scope.pPreloader = true;
 			

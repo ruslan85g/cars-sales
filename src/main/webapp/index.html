@@ -62,7 +62,7 @@
 			<div ng-if="pPreloader == true" ><img src="images/preloader.gif" /></div>
 			<input type="mail" placeholder='דוא"ל' ng-model="loginJson.email" />
 			<span ng-if="pLoginView == 0" >
-				<input type="text" placeholder="סיסמא" ng-model="loginJson.password" />
+				<input type="text" placeholder="סיסמא" ng-model="loginJson.activationCode" />
 				<div style="text-align: right;margin-top: 5px;" ><span ng-click="pLoginView = 1" class="forget" >שכחתי סיסמה</span></div>
 				<button ng-click="login()" class="button login" >כניסה</button>
 			</span>
