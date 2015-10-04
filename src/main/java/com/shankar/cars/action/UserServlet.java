@@ -2,7 +2,6 @@ package com.shankar.cars.action;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -313,38 +312,48 @@ public class UserServlet {
 
 	}
 
-	@SuppressWarnings("null")
 	@Path("/forgotPassword")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void forgotPassword(String email) throws Exception {
+	@Produces(MediaType.APPLICATION_JSON)
+	public Map<String, String> forgotPassword(UserMeta userMeta)
+			throws Exception {
 		log.info("Start forgotPassword ");
-
+		Map<String, String> resp = new HashMap<String, String>();
 		User user = null;
-		user = userDBService.load(User.class, email);
+		user = userDBService.load(User.class, userMeta.getEmail());
 		if (user == null) {
-			throw new Exception("UserNotFound");
+
+			resp.put("status", "failed");
+			resp.put("error_text", "UserNotFound");
+			return resp;
+			// throw new Exception("UserNotFound");
 		}
 		UserActivationCode newUserActivationCode = new UserActivationCode();
-		newUserActivationCode.setUser_email(email);
+		newUserActivationCode.setUser_email(userMeta.getEmail());
 		newUserActivationCode.setUser_id(user.getUser_id());
 		// PasswordService.encrypt("password");
-		String user_activation_code = PasswordService.encrypt(UUID.randomUUID()
-				.toString());
+		// String user_activation_code =
+		// PasswordService.encrypt(UUID.randomUUID()
+		// .toString());
+		byte[] bytesEncoded = Base64.encodeBase64(String.valueOf(
+				user.getUser_id()).getBytes());
+		String user_activation_code = new String(bytesEncoded);
 		newUserActivationCode.setUser_activation_code(user_activation_code);
 		userActivationCodeDBService.save(newUserActivationCode);
 
 		try {
-			EmailService.sendEmail(email, user_activation_code,
+			EmailService.sendEmail(userMeta.getEmail(), user_activation_code,
 					user.getUser_id(), user.getUser_name());
 		} catch (Exception e) {
-			Throwable e1 = null;
-			log.severe("SendEmailForForgotPasswordException::"
-					+ e1.getMessage());
+			log.severe("SendEmailForForgotPasswordException::" + e.getMessage());
+			resp.put("status", "failed");
+			resp.put("error_text", e.getMessage());
 		}
 
 		log.info("End forgotPassword");
+		resp.put("status", "success");
+		return resp;
 	}
 
 	@SuppressWarnings("null")
