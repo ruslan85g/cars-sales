@@ -85,7 +85,7 @@ public class SearchDBService extends DBService {
 			subFilters.add(new FilterPredicate("priceT",
 					FilterOperator.LESS_THAN_OR_EQUAL, searchMeta.getPriceF()));
 		}
-
+		log.info("Start Query: ");
 		// Use class Query to assemble a query
 		Query q = new Query("Car").setFilter(CompositeFilterOperator
 				.and(subFilters));
