@@ -6,7 +6,13 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 	}else{
 		$rootScope.userStatus = 0;
 	}
- 
+	
+	$scope.logOut = function(){
+		$cookieStore.get("uID") = "";
+		$rootScope.userStatus = 0;
+		$rootScope.cookieUserID = "";
+	}
+	
 	$scope.pRegView = 0;
 	$scope.pLoginView = 0;
 	$scope.userReg = {"name" : "","phone" :"","email" : ""};
