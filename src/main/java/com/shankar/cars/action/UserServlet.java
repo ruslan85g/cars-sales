@@ -39,9 +39,6 @@ public class UserServlet {
 	HttpServletRequest request;
 	@Context
 	HttpServletResponse response;
-	//
-	// EmailService EmailService
-	// EmailService emailService = new EmailService;
 	CarDBService carDBService = new CarDBService();
 	CarModelsDBService carModelsDBService = new CarModelsDBService();
 	CarTypeDBService carTypeDBService = new CarTypeDBService();
@@ -321,7 +318,7 @@ public class UserServlet {
 		log.info("Start forgotPassword ");
 		Map<String, String> resp = new HashMap<String, String>();
 		User user = null;
-		user = userDBService.load(User.class, userMeta.getEmail());
+		user = userDBService.loadByEmail(User.class, userMeta.getEmail());
 		if (user == null) {
 			resp.put("status", "failed");
 			resp.put("error_text", "UserNotFound");
@@ -354,19 +351,12 @@ public class UserServlet {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Map<String, String> changePassword(ChangePassMeta changePassMeta/*
-																			 * String
-																			 * currentPassword
-																			 * ,
-																			 * String
-																			 * newPassword
-																			 */)
+	public Map<String, String> changePassword(ChangePassMeta changePassMeta)
 			throws Exception {
 		log.info("Start changePassword ");
 		Map<String, String> resp = new HashMap<String, String>();
 		User user = null;
-		user = userDBService.load(User.class,
-				changePassMeta.getCurrentPassword());
+		user = userDBService.load(User.class, changePassMeta.getUser_id());
 		if (user == null) {
 			throw new Exception("UserNotFound");
 		}
@@ -378,7 +368,6 @@ public class UserServlet {
 				.getNewPassword());
 		newUserActivationCode.setUser_activation_code(user_activation_code);
 		userActivationCodeDBService.save(newUserActivationCode);
-
 		try {
 			EmailService.sendChangePasswordEmail(user.getEmail(),
 					user_activation_code, user.getUser_id(),
