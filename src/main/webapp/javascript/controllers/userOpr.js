@@ -8,9 +8,10 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 	}
 	
 	$scope.logOut = function(){
-		$cookieStore.get("uID") = "";
+		$cookieStore.put("uID") = "";
 		$rootScope.userStatus = 0;
 		$rootScope.cookieUserID = "";
+		location.replace("/");
 	}
 	
 	$scope.pRegView = 0;
