@@ -17,97 +17,85 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.shankar.cars.data.Car;
 import com.shankar.cars.data.meta.SearchMeta;
+
 @Log
 public class SearchDBService extends DBService {
 
 	public List<Car> load(Class<Car> class1, SearchMeta searchMeta) {
 		// Get the Datastore Service
 		log.info(" Start SearchDBService");
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
 		Collection<Filter> subFilters = new ArrayList<Filter>();
 		List<Car> carsList = new ArrayList<Car>();
 		if (searchMeta == null) {
 			throw new RuntimeException("searchMeta cannot be null");
 		}
-		
-		subFilters.add( new FilterPredicate("car_name",
-		        FilterOperator.NOT_EQUAL, 
-		        ""
-		        ));
-		
-		
+
+		subFilters.add(new FilterPredicate("car_name",
+				FilterOperator.NOT_EQUAL, ""));
+		log.info("Start car_name ");
+
 		if (searchMeta.getCar_type_id() != null) {
-			subFilters.add( new FilterPredicate("car_type_id",
-					        FilterOperator.EQUAL, 
-					        searchMeta.getCar_type_id()
-					        ));
+			subFilters.add(new FilterPredicate("car_type_id",
+					FilterOperator.EQUAL, searchMeta.getCar_type_id()));
+			log.info("find cars per car_type_id " + subFilters.size());
 		}
 		if (searchMeta.getCar_model_id() != null) {
-			subFilters.add( new FilterPredicate("car_model_id",
-					        FilterOperator.EQUAL, 
-					        searchMeta.getCar_model_id()
-					        ));
+			subFilters.add(new FilterPredicate("car_model_id",
+					FilterOperator.EQUAL, searchMeta.getCar_model_id()));
+			log.info("find cars per car_model_id " + subFilters.size());
 		}
 		if (searchMeta.getYearF() != null) {
-			subFilters.add( new FilterPredicate("yearF",
-					        FilterOperator.GREATER_THAN_OR_EQUAL, 
-					        searchMeta.getYearF()
-					        ));
+			subFilters
+					.add(new FilterPredicate("yearF",
+							FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta
+									.getYearF()));
+			log.info("find cars per yearF " + subFilters.size());
 		}
 		if (searchMeta.getYearF() != null) {
-			subFilters.add( new FilterPredicate("yearT",
-					        FilterOperator.LESS_THAN_OR_EQUAL, 
-					        searchMeta.getYearF()
-					        ));
+			subFilters.add(new FilterPredicate("yearT",
+					FilterOperator.LESS_THAN_OR_EQUAL, searchMeta.getYearF()));
+			log.info("find cars per yearT " + subFilters.size());
 		}
 		if (searchMeta.getType_geare() != null
 				&& !searchMeta.getType_geare().isEmpty()) {
-			subFilters.add( new FilterPredicate("type_geare",
-			        FilterOperator.EQUAL, 
-			        searchMeta.getType_geare()
-			        ));
+			subFilters.add(new FilterPredicate("type_geare",
+					FilterOperator.EQUAL, searchMeta.getType_geare()));
 		}
 		if (searchMeta.getVolume() != null && !searchMeta.getVolume().isEmpty()) {
-			subFilters.add( new FilterPredicate("volume",
-			        FilterOperator.EQUAL, 
-			        searchMeta.getVolume()
-			        ));
+			subFilters.add(new FilterPredicate("volume", FilterOperator.EQUAL,
+					searchMeta.getVolume()));
 		}
 		if (searchMeta.getKm() != null) {
-			subFilters.add( new FilterPredicate("km",
-			        FilterOperator.LESS_THAN_OR_EQUAL, 
-			        searchMeta.getKm()
-			        ));
+			subFilters.add(new FilterPredicate("km",
+					FilterOperator.LESS_THAN_OR_EQUAL, searchMeta.getKm()));
 		}
 		if (searchMeta.getColor() != null && !searchMeta.getColor().isEmpty()) {
-			subFilters.add( new FilterPredicate("color",
-			        FilterOperator.EQUAL, 
-			        searchMeta.getColor()
-			        ));
+			subFilters.add(new FilterPredicate("color", FilterOperator.EQUAL,
+					searchMeta.getColor()));
 		}
 		if (searchMeta.getPriceF() != null) {
-			subFilters.add( new FilterPredicate("priceF",
-			        FilterOperator.GREATER_THAN_OR_EQUAL, 
-			        searchMeta.getPriceF()
-			        ));
+			subFilters.add(new FilterPredicate("priceF",
+					FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta
+							.getPriceF()));
 		}
-		
+
 		if (searchMeta.getPriceF() != null) {
-			subFilters.add( new FilterPredicate("priceT",
-			        FilterOperator.LESS_THAN_OR_EQUAL, 
-			        searchMeta.getPriceF()
-			        ));
+			subFilters.add(new FilterPredicate("priceT",
+					FilterOperator.LESS_THAN_OR_EQUAL, searchMeta.getPriceF()));
 		}
 
 		// Use class Query to assemble a query
-		Query q = new Query("Car").setFilter(CompositeFilterOperator.and(subFilters));
+		Query q = new Query("Car").setFilter(CompositeFilterOperator
+				.and(subFilters));
 
 		// Use PreparedQuery interface to retrieve results
 		PreparedQuery pq = datastore.prepare(q);
-		log.info("startInsertCarsFromSearch: "+ pq.asIterable().toString());
-		
+		log.info("startInsertCarsFromSearch: " + pq.asIterable().toString());
+
 		for (Entity result : pq.asIterable()) {
-			
+
 			Car car = new Car();
 			car.setCar_id((Long) result.getProperty("car_id"));
 			car.setCar_model_id((Long) result.getProperty("car_model_id"));
@@ -122,9 +110,9 @@ public class SearchDBService extends DBService {
 			car.setUpdate_time((Long) result.getProperty("update_time"));
 			car.setVolume((String) result.getProperty("volume"));
 			car.setYear((Long) result.getProperty("year"));
-			log.info("carsList.add(car): "+car.getCar_model_id());
-		  carsList.add(car);
-		  
+			log.info("carsList.add(car): " + car.getCar_model_id());
+			carsList.add(car);
+
 		}
 
 		return carsList;
