@@ -147,8 +147,7 @@
 				}
 
 12. func - /cars/save
-	request  :  {	
-					"ad" :  {
+	request  : {
                                 "car_id;" : "Long ",
 								"car_type_id" : "Long ",
 								"car_model_id" : "Long ",
@@ -163,7 +162,7 @@
 								"color" :"string",
 								"price" : Long
 							}
-				}
+
 	response :  {	"status" : "success"   }
 
 13. func - /cars/updateCar

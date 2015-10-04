@@ -49,49 +49,45 @@
 				<li>
 					<label>יצרן</label>
 					<select ng-model="newCar.car_type" ng-change="getListModel(newCar.car_type);" >
-						<option>בחר יצרן</option>
+						<option selected="selected" >בחר יצרן</option>
 						<option ng-repeat="(k,v) in man_opts track by $index"  >{{v.name}}</option>							
 					</select>
 				</li>
 				<li>
 					<label>דגם</label>
 					<select ng-model="newCar.model" >
-						<option>בחר דגם</option>
+						<option selected="selected" >בחר דגם</option>
 						<option ng-repeat="(k,v) in mod_opts track by $index" >{{v.model_name}}</option>							
 					</select>
 				</li>
 				<li>
 					<label>שנה</label>
 					<select ng-model="newCar.year" >
-						<option>שנה</option>
+						<option selected="selected" >שנה</option>
 						<option ng-repeat="year in years" >{{year}}</option>							
 					</select>
 				</li>
 				<li>
 					<label>תיבת הילוכים</label>
 					<select ng-model="newCar.type" >
-						<option value="">בחר</option>
-						<option value="-1">ידנית</option>
-						<option value="1">אוטומט</option>
-						<option value="6">טיפטרוניק</option>
-						<option value="9">רובוטית</option>
+						<option selected="selected" >בחר</option>
+						<option>ידנית</option>
+						<option>אוטומט</option>
+						<option>טיפטרוניק</option>
+						<option>רובוטית</option>
 					</select>
 				</li>
 				<li>
 					<label>נפח:</label>
-					<input type="number" ng-model="newCar.volume" />
+					<input type="number" placeholder="נפח" ng-model="newCar.volume" />
 				</li>
 				<li>
 					<label>ק"מ:</label>
-					<input type="number" ng-model="newCar.km" />
+					<input type="number" placeholder='ק"מ' ng-model="newCar.km" />
 				</li>
-				<li style="    margin-top: 10px;" >
+				<li style=" margin-top: 10px;" >
 					<label>מחיר</label>
-					<input type="number" ng-model="newCar.price" />
-				</li>
-				<li style="    margin-top: 10px;width: 220px;margin-left: 18px;" >
-					<label>טקסט חופשי:</label>
-					<input type="text" style="width: 215px;" ng-model="newCar.text" />
+					<input type="number" placeholder="מחיר" ng-model="newCar.price" />
 				</li>
 				<li style="    margin-top: 10px;" >
 					<label>תמונה</label>
@@ -100,7 +96,7 @@
 			</ul>
 			<ul class="adBut" style="width: 100%" >
 				<li><button ng-click="addView = 0" class="button" >ביתול</button></li>
-				<li><button class="button" >להוסיף מודעה</button><li>
+				<li><button class="button" ng-click="newAd()" >להוסיף מודעה</button><li>
 			</ul>	
 		</div>
 		<div ng-show="editView == 0" ng-click="editView = 1" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;" >
