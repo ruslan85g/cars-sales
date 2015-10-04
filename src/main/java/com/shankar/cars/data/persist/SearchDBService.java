@@ -32,9 +32,9 @@ public class SearchDBService extends DBService {
 			throw new RuntimeException("searchMeta cannot be null");
 		}
 
-		subFilters.add(new FilterPredicate("car_name",
-				FilterOperator.NOT_EQUAL, ""));
-		log.info("Start car_name ");
+		// subFilters.add(new FilterPredicate("car_name",
+		// FilterOperator.NOT_EQUAL, ""));
+		// log.info("Start car_name ");
 
 		if (searchMeta.getCar_type_id() != null) {
 			subFilters.add(new FilterPredicate("car_type_id",
@@ -89,7 +89,7 @@ public class SearchDBService extends DBService {
 		// Use class Query to assemble a query
 		Query q = new Query("Car").setFilter(CompositeFilterOperator
 				.and(subFilters));
-
+		log.info("Query: " + q.toString());
 		// Use PreparedQuery interface to retrieve results
 		PreparedQuery pq = datastore.prepare(q);
 		log.info("startInsertCarsFromSearch: " + pq.asIterable().toString());
