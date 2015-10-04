@@ -148,7 +148,6 @@
 
 12. func - /cars/save
 	request  :  {	
-					"userId" : "string",
 					"ad" :  {
                                 "car_id;" : "Long ",
 								"car_type_id" : "Long ",
