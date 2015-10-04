@@ -18,7 +18,6 @@ import lombok.extern.java.Log;
 import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
 //import com.shankar.ActivationCodeAlredyExist;
 import com.shankar.cars.EmailService;
-import com.shankar.cars.PasswordService;
 import com.shankar.cars.data.User;
 import com.shankar.cars.data.UserActivationCode;
 import com.shankar.cars.data.meta.ChangePassMeta;
@@ -366,9 +365,9 @@ public class UserServlet {
 		UserActivationCode newUserActivationCode = new UserActivationCode();
 		newUserActivationCode.setUser_email(user.getEmail());
 		newUserActivationCode.setUser_id(user.getUser_id());
-		// PasswordService.encrypt("password");
-		String user_activation_code = PasswordService.encrypt(changePassMeta
-				.getNewPassword());
+		byte[] bytesEncoded = Base64.encodeBase64(String.valueOf(
+				changePassMeta.getNewPassword()).getBytes());
+		String user_activation_code = new String(bytesEncoded);
 		newUserActivationCode.setUser_activation_code(user_activation_code);
 		userActivationCodeDBService.save(newUserActivationCode);
 		try {

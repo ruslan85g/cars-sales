@@ -10,6 +10,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
+
 import lombok.extern.java.Log;
 
 @Log
@@ -25,8 +27,7 @@ public class EmailService {
 
 		try {
 			Message msg = new MimeMessage(session);
-			msg.setFrom(new InternetAddress("ruslan85g@gmail.com",
-					"Car-Sales"));
+			msg.setFrom(new InternetAddress("ruslan85g@gmail.com", "Car-Sales"));
 			log.info("sendEmail");
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
 			/* "user@example.com" */email, "Mr./Ms. " + userName));
@@ -54,7 +55,11 @@ public class EmailService {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
-		String user_activation_code = PasswordService.decrypt(newUserActivationCode);
+		// String user_activation_code =
+		// PasswordService.decrypt(newUserActivationCode);
+		byte[] valueDecoded = Base64.decodeBase64(newUserActivationCode
+				.getBytes());
+		String user_activation_code = new String(valueDecoded);
 		String msgBody = "This is your new  password : " + user_activation_code;
 
 		try {
@@ -78,7 +83,7 @@ public class EmailService {
 		return true;
 
 	}
-	
+
 }
 
 // ...
