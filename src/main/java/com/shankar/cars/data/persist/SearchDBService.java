@@ -22,6 +22,7 @@ public class SearchDBService extends DBService {
 
 	public List<Car> load(Class<Car> class1, SearchMeta searchMeta) {
 		// Get the Datastore Service
+		log.info(" Start SearchDBService");
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Collection<Filter> subFilters = new ArrayList<Filter>();
 		List<Car> carsList = new ArrayList<Car>();
