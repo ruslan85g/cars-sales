@@ -48,16 +48,16 @@
 			<ul class="searchBar" >
 				<li>
 					<label>יצרן</label>
-					<select ng-model="newCar.car_type" >
+					<select ng-model="newCar.car_type" ng-change="getListModel(newCar.car_type);" >
 						<option>בחר יצרן</option>
-						<option   ></option>							
+						<option ng-repeat="(k,v) in man_opts track by $index"  >{{v.name}}</option>							
 					</select>
 				</li>
 				<li>
 					<label>דגם</label>
 					<select ng-model="newCar.model" >
 						<option>בחר דגם</option>
-						<option   ></option>							
+						<option ng-repeat="(k,v) in mod_opts track by $index" >{{v.name}}</option>							
 					</select>
 				</li>
 				<li>

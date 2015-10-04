@@ -25,7 +25,25 @@ ul{    list-style-type: none;    -webkit-margin-before: 0;
 .close-thik:after {
   content: '✖'; /* UTF-8 symbol */
 }
-	
+/* unvisited link */
+a.buttonFFF:link {
+    color: #FFFFFF;
+}
+
+/* visited link */
+a.buttonFFF:visited {
+    color: #FFFFFF;
+}
+
+/* mouse over link */
+a.buttonFFF:hover {
+    color: #FFFFFF;
+}
+
+/* selected link */
+a.buttonFFF:active {
+    color: #FFFFFF;
+}	
 #popupBack{position:fixed;top:0;left:0;background-color: #000000;opacity:0.8;width:100%;height:100% }
 #popupReg{padding-bottom: 20px;text-align: center;position: absolute;    top: 15%;    left: 31%;    background-color: #FFFFFF;    width: 470px;
     height: auto;    border-radius: 2px;    border: 1px solid #1ba4ab;}
