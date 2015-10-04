@@ -1,9 +1,9 @@
 function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 	userOperations($scope,$http, $rootScope, $location, $route,$cookieStore);
 	popupFunctions($scope,$http, $rootScope, $location, $route,$cookieStore);
-	$scope.routAcount = function(){
+	/*$scope.routAcount = function(){
 		$location.url = '/account';
-	}
+	}*/
 	//if($cookieStore.get('tab')){console.log('0000000000000')}else{console.log('11111111111111')}
 	// $scope.lastVal = $cookieStore.get('tab');
 	$scope.userID = "string";
