@@ -201,8 +201,11 @@
 						]
 				}
 
-16. func - /carmodels/get?car_type_id
-	request  : 	{ "id"   :  num }
+16. func - /carmodels/get
+	request  : 	: 	{	
+					"carType_id" : "Long",
+					"carType_Name" :  "string" //always empty
+				}
 	response : 	{
 					"status" : "success",
 					"list"   :
