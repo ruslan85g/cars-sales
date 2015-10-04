@@ -95,21 +95,25 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 						"text" : ""
 					}
 	$scope.newAd = function(){
-		
+		$.each($scope.mod_opts, function (key,val){
+			if(val.model_name == $scope.newCar.model){
+				$scope.newCar_type = val.car_type_id;
+				$scope.newCar_mod = val.car_model_id;
+			}
+		});
 		$scope.newAdJson = {	
-					"userId" : $rootScope.cookieUserID,
-					"ad" :  {
-								"car_type" : ""+$scope.newCar.car_type+"",
-								"model" : ""+$scope.newCar.model+"",
+								"user_id" : $rootScope.cookieUserID,
+								"car_id" : "",
+								"car_type" : ""+$scope.newCar_type+"",
+								"model" : ""+$scope.newCar_mod+"",
 								"year" : $scope.newCar.year,
 								"type" : ""+$scope.newCar.type+"",  //תיבת הילוכים
 								"volume" : $scope.newCar.volume,     //נפח 
 								"km" : $scope.newCar.km,         //ק"מ
 								"color" : ""+$scope.newCar.color+"",
-								"price" : $scope.newCar.price,
-								"text" : ""+$scope.newCar.text+""
-							}
-				};
+								"price" : $scope.newCar.price
+							};
+
 
 		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.newAdJson).
 			success(function(data, status) {
