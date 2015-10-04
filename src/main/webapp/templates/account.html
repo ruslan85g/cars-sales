@@ -24,7 +24,7 @@
 				<li><label class="bold" >מ'ס טלפון:</label></li>
 				<li><input type="text" ng-model="newUphone" /></li>
 				<li><button ng-click="userData.dataPhone.edit = 0" class="button" >ביתול</button></li>
-				<li><button class="button" >שמור</button></li>
+				<li><button class="button" ng-click="updateUphone()" >שמור</button></li>
 			</ul>
 		</div>
 		<div class="userDetails" style="margin-bottom: 20px;" >
@@ -37,7 +37,7 @@
 				<li><label class="bold" >דואר אלקטרוני:</label></li>
 				<li><input type="text" ng-model="newUemail" /></li>
 				<li><button ng-click="userData.dataEmail.edit = 0" class="button" >ביתול</button></li>
-				<li><button class="button" >שמור</button></li>
+				<li><button class="button" ng-click="updateUmail()" >שמור</button></li>
 			</ul>
 		</div>
 	</div>
