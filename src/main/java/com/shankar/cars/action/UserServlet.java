@@ -318,7 +318,8 @@ public class UserServlet {
 		log.info("Start forgotPassword ");
 		Map<String, String> resp = new HashMap<String, String>();
 		User user = null;
-		user = userDBService.loadByEmail(User.class, userMeta.getEmail());
+		user = userDBService.loadOne(User.class, "email", userMeta.getEmail());
+		// user = userDBService.loadOne(User.class, userMeta.getEmail());
 		if (user == null) {
 			resp.put("status", "failed");
 			resp.put("error_text", "UserNotFound");
