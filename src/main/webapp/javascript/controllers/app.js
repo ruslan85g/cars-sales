@@ -19,7 +19,7 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 			success(function(data, status) {
 				console.log(data);
 				
-					$scope.mod_opts.push(data)
+					$scope.mod_opts = data;
 console.log($scope.mod_opts);
 			}).error(function(data, status) {console.log(data);});
 		}
