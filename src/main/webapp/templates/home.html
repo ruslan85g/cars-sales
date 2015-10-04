@@ -5,35 +5,35 @@
 		<li>
 			<label>יצרן</label>
 			<select ng-model="SJmanuf" ng-change="getListModel(SJmanuf);" >
-				<option>בחר יצרן</option>
+				<option selected="selected" >בחר יצרן</option>
 				<option ng-repeat="(k,v) in man_opts track by $index"  >{{v.name}}</option>							
 			</select>
 		</li>
 		<li>
 			<label>דגם</label>
 			<select ng-model="SJmodel" >
-				<option>בחר דגם</option>
+				<option selected="selected" >בחר דגם</option>
 				<option ng-repeat="(k,v) in mod_opts track by $index" >{{v.model_name}}</option>							
 			</select>
 		</li>
 		<li>
 			<label>משנה</label>
 			<select ng-model="SJyearF" >
-				<option>משנה</option>
+				<option selected="selected" >משנה</option>
 				<option ng-repeat="year in years" >{{year}}</option>							
 			</select>
 		</li>
 		<li>
 			<label>עד שנה</label>
 			<select ng-model="SJyearT" >
-				<option>עד שנה</option>
+				<option selected="selected" >עד שנה</option>
 				<option ng-repeat="year in years" >{{year}}</option>							
 			</select>
 		</li>
 		<li>
 			<label>תיבת הילוכים</label>
 			<select ng-model="SJtypeGear" >
-				<option>בחר</option>
+				<option selected="selected" >בחר</option>
 				<option>ידנית</option>
 				<option>אוטומט</option>
 				<option>טיפטרוניק</option>
@@ -42,15 +42,11 @@
 		</li>
 		<li>
 			<label>ממחיר</label>
-			<input type="number" ng-model="SJpriceF"  />
+			<input type="number" placeholder="ממחיר" ng-model="SJpriceF"  />
 		</li>
 		<li>
 			<label>עד מחיר</label>
-			<input type="number" ng-model="SJpriceT" />
-		</li>
-		<li style="    margin-top: 10px;width: 217px;" >
-			<label>טקסט חופשי:</label>
-			<input type="text" style="width: 214px;" ng-model="text" />
+			<input type="number" placeholder="עד מחיר" ng-model="SJpriceT" />
 		</li>
 	</ul>
 	<button ng-click="search()" class="button search" >חפש</button>
