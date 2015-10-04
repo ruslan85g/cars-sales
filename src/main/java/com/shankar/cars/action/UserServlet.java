@@ -11,7 +11,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -50,32 +49,19 @@ public class UserServlet {
 	UserDBService userDBService = new UserDBService();
 	UserActivationCodeDBService userActivationCodeDBService = new UserActivationCodeDBService();
 
-	@Path("/get/{user_id}")
-	@GET
+	@Path("/get")
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public UserMeta getUserById(@QueryParam("user_id") Long user_id) {
+	public UserMeta getUserById(UserMeta userInf) {
 		log.info("Start newApplication ");
-
 		UserDBService db = new UserDBService();
-		User user = db.load(User.class, user_id);
+		User user = db.load(User.class, userInf.getUser_id());
 		UserMeta userMeta = new UserMeta();
 		userMeta.setUser_id(user.getUser_id());
 		userMeta.setEmail(user.getEmail());
 		userMeta.setMobilePhone(user.getMobilePhone());
 		userMeta.setUser_name(user.getUser_name());
-		/*
-		 * Response resp = null;
-		 * 
-		 * try{ ApplicationLogic al = new ApplicationLogic(); Boolean flag =
-		 * al.saveApplication( appMeta );
-		 * 
-		 * if(flag){ resp = Response.ok().build(); }else{ resp =
-		 * Response.notModified().build(); }
-		 * 
-		 * }catch(Exception e){ log.info("Exception::" + e.getMessage()); resp =
-		 * Response.serverError().build(); }
-		 */
 
 		log.info("End newApplication");
 		return userMeta;
@@ -85,58 +71,75 @@ public class UserServlet {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateName(UserMeta userMeta/* Long user_id, String userName */) {
+	public Map<String, String> updateName(UserMeta userMeta) {
 		log.info("Start updateUname ");
-
-		UserDBService db = new UserDBService();
-		User user = db.load(User.class, userMeta.getUser_id());
-		if (user != null) {
-			user.setUser_name(userMeta.getUser_name());
-			userDBService.save(user);
-		} else {
-			log.severe("UserNotFoiundException:");
-			Response.serverError().build();
+		Map<String, String> resp = new HashMap<String, String>();
+		try {
+			UserDBService db = new UserDBService();
+			User user = db.load(User.class, userMeta.getUser_id());
+			if (user != null) {
+				user.setUser_name(userMeta.getUser_name());
+				userDBService.save(user);
+			}
+		} catch (Exception e) {
+			resp.put("status", "fail");
+			resp.put("error_text", e.getMessage());
 		}
 		log.info("End updateUname");
-		return Response.ok().build();
+		resp.put("status", "success");
+		return resp;
 	}
 
 	@Path("/updatePhone")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updatePhone(Long user_id, String userPhone) {
+	public Map<String, String> updatePhone(UserMeta userMeta) {
 		log.info("Start updateUphone ");
-
-		UserDBService db = new UserDBService();
-		User user = db.load(User.class, user_id);
-		if (user != null) {
-			user.setMobilePhone(userPhone);
-		} else {
-			log.severe("UserNotFoiundException:");
-			Response.serverError().build();
+		Map<String, String> resp = new HashMap<String, String>();
+		try {
+			UserDBService db = new UserDBService();
+			User user = db.load(User.class, userMeta.getUser_id());
+			if (user != null) {
+				user.setMobilePhone(userMeta.getMobilePhone());
+			}
+		} catch (Exception e) {
+			resp.put("status", "fail");
+			resp.put("error_text", e.getMessage());
 		}
+
 		log.info("End updateUphone");
-		return Response.ok().build();
+		resp.put("status", "success");
+		return resp;
 	}
 
 	@Path("/updateEmail")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateUmail(Long user_id, String userEmail) {
+	public Map<String, String> updateUmail(UserMeta userMeta) {
 		log.info("Start updateUmail ");
-		UserDBService db = new UserDBService();
-		User user = db.load(User.class, user_id);
-		if (user != null) {
-			user.setEmail(userEmail);
-			userDBService.save(user);
-		} else {
-			log.severe("UserNotFoiundException:");
-			Response.serverError().build();
+		Map<String, String> resp = new HashMap<String, String>();
+		try {
+			UserDBService db = new UserDBService();
+			User user = db.load(User.class, userMeta.getUser_id());
+			if (user != null) {
+				user.setEmail(userMeta.getEmail());
+				userDBService.save(user);
+			} else {
+				log.severe("UserNotFoiundException:");
+				Response.serverError().build();
+			}
+
+		} catch (Exception e) {
+			resp.put("status", "fail");
+			resp.put("error_text", e.getMessage());
 		}
+
 		log.info("End updateUmail");
-		return Response.ok().build();
+		resp.put("status", "success");
+		return resp;
+
 	}
 
 	@Path("/registration")
