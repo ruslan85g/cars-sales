@@ -1,7 +1,8 @@
 function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	$scope.addView = 0;
 	$scope.editView =0;
-	$scope.userID = {"userId" : $rootScope.cookieUserID};
+	$scope.userID = {"user_id" : $rootScope.cookieUserID,"user_name" :"","mobilePhone" :"","email" :"" };
+	
 	$http.post(''+$rootScope.mainurl+'/api/users/get', $scope.userID).
 		success(function(data, status) {
 			console.log(data);
@@ -15,8 +16,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	
 	$scope.updateUname = function(){
 		if($scope.newUname != "" && $scope.newUname != $scope.userData.dataName.name){
-			$scope.updateUnameJson = {"userId" : $rootScope.cookieUserID,"name" : $scope.newUname };
-
+			$scope.updateUnameJson = {"user_id" : $rootScope.cookieUserID,"user_name" : scope.newUname,"mobilePhone" :"","email" :"" };
 			$http.post(''+$rootScope.mainurl+'/api/users/updateName', $scope.updateUnameJson).
 				success(function(data, status) {
 					console.log(data);
@@ -35,8 +35,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	
 	$scope.updateUphone = function(){
 		if($scope.newUphone != "" && $scope.newUphone != $scope.userData.dataPhone.phone){
-			$scope.updateUphoneJson = {"userId" : $rootScope.cookieUserID,"phone" : "string" };
-
+			$scope.updateUphoneJson = {"user_id" : $rootScope.cookieUserID,"user_name" : "","mobilePhone" : $scope.newUphone,"email" :"" };
 			$http.post(''+$rootScope.mainurl+'/api/users/updatePhone', $scope.updateUphoneJson).
 				success(function(data, status) {
 					console.log(data);
@@ -55,8 +54,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	
 	$scope.updateUmail = function(){
 		if($scope.newUemail != "" && $scope.newUemail != $scope.userData.dataEmail.email){
-			$scope.updateUmailJson = {"userId" : $rootScope.cookieUserID,"email" : "string" };
-
+			$scope.updateUmailJson ={"user_id" : $rootScope.cookieUserID,"user_name" : "","mobilePhone" : "","email" :$scope.newUemail};
 			$http.post(''+$rootScope.mainurl+'/api/users/updateEmail', $scope.updateUmailJson).
 				success(function(data, status) {
 					console.log(data);
@@ -114,19 +112,6 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 								"price" : $scope.newCar.price,
 								"car_url"  :""  
 							};
-/*
-    
-    "car_model_id"  :"5668600916475904"  ,
-    "car_type_id" :"5707702298738688"  ,
-    "user_id"  :"5752754626625536"  ,
-    "car_model":"969"  ,
-    "car_url"  :"tests"  ,
-    "year"     :"2010"  ,
-    "type_geare":"ידני"  ,
-    "volume":"1250"  ,
-     "km":"66890"  ,
-   "color":"שחור"  ,
-   "price":"33000"   }*/
 
 		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.newAdJson).
 			success(function(data, status) {
