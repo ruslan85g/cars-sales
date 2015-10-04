@@ -31,10 +31,10 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 					$scope.userData.dataName.edit = 0;
 					$scope.newUname = $scope.userData.dataName.name;
 				});
-		}else{
+		}/*else{
 			$scope.userData.dataName.edit = 0;
 			$scope.newUname = $scope.userData.dataName.name;
-		}
+		}*/
 	}
 	
 	$scope.updateUphone = function(){
