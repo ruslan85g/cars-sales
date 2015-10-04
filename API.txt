@@ -150,15 +150,19 @@
 	request  :  {	
 					"userId" : "string",
 					"ad" :  {
-
-								"car_type" : "string",
-								"model" : "string",
-								"year" : num,
-								"type" : "string",  //תיבת הילוכים
-								"volume" : num,     //נפח 
-								"km" : num,         //ק"מ
+                                "car_id;" : "Long ",
+								"car_type_id" : "Long ",
+								"car_model_id" : "Long ",
+								"user_id" : "Long ",
+								"car_model" : "string ",
+								"car_name;" : "string ",
+								"car_url;" : "string ",
+								"year" : Long,
+								"type_geare" : "string",  //תיבת הילוכים
+								"volume" : string,     //נפח 
+								"km" : Long,         //ק"מ
 								"color" :"string",
-								"price" : num
+								"price" : Long
 							}
 				}
 	response :  {	"status" : "success"   }
