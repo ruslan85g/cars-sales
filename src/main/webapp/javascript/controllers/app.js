@@ -18,10 +18,9 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 			$http.post(''+$rootScope.mainurl+'/api/carmodels/get',$scope.listModel).
 			success(function(data, status) {
 				console.log(data);
-				$.each(data, function (key,val){
-					var tmp = {"id":val.car_type_id,"name":val.car_type_name};
-					$scope.mod_opts.push(tmp)
-				});
+				
+					$scope.mod_opts.push(data)
+
 			}).error(function(data, status) {console.log(data);});
 		}
 	}
