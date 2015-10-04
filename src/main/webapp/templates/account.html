@@ -8,7 +8,7 @@
 				<li><button ng-click="userData.dataName.edit = 1" class="button" >עידקון</button></li>
 			</ul>
 			<ul class="userDetailsUL" ng-if="userData.dataName.edit == 1">
-				<li><label class="bold" >שם המשתמש:</label></li>
+				<li><label class="bold" >שם המשתמש: {{newUname}}</label></li>
 				<li><input type="text" ng-model="newUname" /></li>
 				<li><button ng-click="userData.dataName.edit = 0" class="button" >ביתול</button></li>
 				<li><button class="button" ng-click="updateUname()" >שמור</button></li>
