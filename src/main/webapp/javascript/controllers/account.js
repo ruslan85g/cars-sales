@@ -15,8 +15,12 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		});
 	
 	$scope.updateUname = function(){
+	console.log($scope.newUname)
+	console.log($scope.userData.dataName.name)
 		if($scope.newUname != "" && $scope.newUname != $scope.userData.dataName.name){
+			
 			$scope.updateUnameJson = {"user_id" : $rootScope.cookieUserID,"user_name" : scope.newUname,"mobilePhone" :"","email" :"" };
+			console.log($scope.updateUnameJson)
 			$http.post(''+$rootScope.mainurl+'/api/users/updateName', $scope.updateUnameJson).
 				success(function(data, status) {
 					console.log(data);
