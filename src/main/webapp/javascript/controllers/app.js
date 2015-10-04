@@ -13,7 +13,7 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 			$.each($scope.man_opts, function (key,val){
 				if(val.name == id){$scope.typeId = val.id}
 			});
-			$scope.listModel = {"car_type_id" : $scope.typeId,"car_type_name":""};
+			$scope.listModel = {"carType_id" : $scope.typeId,"carType_Name":""};
 			$http.post(''+$rootScope.mainurl+'/api/carmodels/get',$scope.listModel).
 			success(function(data, status) {
 				console.log(data);
