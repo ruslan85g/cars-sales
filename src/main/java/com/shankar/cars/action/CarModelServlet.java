@@ -19,6 +19,7 @@ import lombok.extern.java.Log;
 
 import com.shankar.cars.data.CarModel;
 import com.shankar.cars.data.meta.CarModelMeta;
+import com.shankar.cars.data.meta.CarTypeMeta;
 import com.shankar.cars.data.persist.CarDBService;
 import com.shankar.cars.data.persist.CarModelsDBService;
 import com.shankar.cars.data.persist.CarTypeDBService;
@@ -35,17 +36,17 @@ public class CarModelServlet {
 	CarModelsDBService carModelsDBService = new CarModelsDBService();
 	CarTypeDBService carTypeDBService = new CarTypeDBService();
 
-	@Path("/get/{car_type_id}")
-	@GET
+	@Path("/get")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<CarModelMeta> getCarModelsByCarTypeId(
-			@PathParam("car_type_id") Long car_type_id) {
+	public List<CarModelMeta> getCarModelsByCarTypeId(CarTypeMeta carTypeMeta) {
 		log.info("Start getCarModelsByCarTypeId ");
 		CarModelsDBService dbModels = new CarModelsDBService();
 
 		List<CarModelMeta> carModelsMeta = new ArrayList<>();
 		List<CarModel> models = dbModels.load(CarModel.class, "car_type_id",
-				car_type_id);
+				carTypeMeta.getCarType_id());
 		for (CarModel carModels : models) {
 			CarModelMeta carModelMeta = new CarModelMeta();
 			carModelMeta.setCar_model_id(carModels.getCar_model_id());
@@ -57,7 +58,7 @@ public class CarModelServlet {
 		log.info("End getCarModelsByCarTypeId");
 		return carModelsMeta;
 	}
-	
+
 	@Path("/save")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -77,7 +78,8 @@ public class CarModelServlet {
 		try {
 
 			if (carModelMeta.getCar_model_id() != null) {
-				carModel = carModelsDBService.load(CarModel.class, carModelMeta.getCar_model_id());
+				carModel = carModelsDBService.load(CarModel.class,
+						carModelMeta.getCar_model_id());
 				carModel.setUpdate_time(System.currentTimeMillis());
 			}
 
