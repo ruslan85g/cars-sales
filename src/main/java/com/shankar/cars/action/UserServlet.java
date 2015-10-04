@@ -85,13 +85,13 @@ public class UserServlet {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updateName(Long user_id, String userName) {
+	public Response updateName(UserMeta userMeta/* Long user_id, String userName */) {
 		log.info("Start updateUname ");
 
 		UserDBService db = new UserDBService();
-		User user = db.load(User.class, user_id);
+		User user = db.load(User.class, userMeta.getUser_id());
 		if (user != null) {
-			user.setUser_name(userName);
+			user.setUser_name(userMeta.getUser_name());
 			userDBService.save(user);
 		} else {
 			log.severe("UserNotFoiundException:");
