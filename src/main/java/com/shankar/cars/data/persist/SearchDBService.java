@@ -89,7 +89,7 @@ public class SearchDBService extends DBService {
 		// Use class Query to assemble a query
 		Query q = new Query("Car").setFilter(CompositeFilterOperator
 				.and(subFilters));
-
+		log.info("Query: " + q.toString());
 		// Use PreparedQuery interface to retrieve results
 		PreparedQuery pq = datastore.prepare(q);
 		log.info("startInsertCarsFromSearch: " + pq.asIterable().toString());
