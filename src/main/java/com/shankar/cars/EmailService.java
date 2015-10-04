@@ -64,8 +64,8 @@ public class EmailService {
 
 		try {
 			Message msg = new MimeMessage(session);
-			msg.setFrom(new InternetAddress("admin@example.com",
-					"Example.com Admin"));
+			msg.setFrom(new InternetAddress("ruslan85g@gmail.com", "Car-Sales"));
+			log.info("sendEmail");
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(
 			/* "user@example.com" */email, "Mr./Ms. " + userName));
 			msg.setSubject("Your Example.com account has been activated");
