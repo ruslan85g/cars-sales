@@ -20,7 +20,7 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 				console.log(data);
 				
 					$scope.mod_opts.push(data)
-
+console.log($scope.mod_opts);
 			}).error(function(data, status) {console.log(data);});
 		}
 	}
