@@ -14,8 +14,13 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 		location.replace("/");
 	}
 	
+	$scope.changeView = function(n){
+		$scope.pLoginView = n;
+	}
+	
 	$scope.pRegView = 0;
 	$scope.pLoginView = 0;
+	$scope.pChengePView = 0;
 	$scope.userReg = {"name" : "","phone" :"","email" : ""};
 	$scope.reg = function(){
 		if($scope.userReg.email != ""){
@@ -98,6 +103,7 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 				console.log(data);
 				$scope.pLoginView = 2;
 				$scope.pForgetStatus = true;
+				$scope.pPreloader = false;
 			}).error(function(data, status) {
 				console.log(data);
 				$scope.pLoginView = 2;
@@ -109,9 +115,9 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 		}
 	}
 	
-	$scope.chengePJson = {"email" : "","OldPassword" : "","NewPassword" : ""};
+	$scope.chengePJson = {"user_id" : $rootScope.cookieUserID,"currentPassword" : "","newPassword" : ""};
 	$scope.chengeP = function(){
-		if($scope.chengePJson.email != "" && $scope.chengePJson.OldPassword != "" && $scope.chengePJson.NewPassword != ""){
+		if($scope.chengePJson.currentPassword != "" && $scope.chengePJson.newPassword != ""){
 			$scope.pPreloader = true;
 			$http.post(''+$rootScope.mainurl+'/api/users/changePassword', $scope.chengePJson).
 				success(function(data, status) {

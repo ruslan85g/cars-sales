@@ -2,10 +2,10 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	$scope.addView = 0;
 	$scope.editView =0;
 	$scope.userID = {"user_id" : $rootScope.cookieUserID,"user_name" :"","mobilePhone" :"","email" :"" };
-	$scope.newUname;
+
 	$http.post(''+$rootScope.mainurl+'/api/users/get', $scope.userID).
 		success(function(data, status) {
-			console.log(data);
+		console.log(data)
 			$scope.userData = {"id" : $rootScope.cookieUserID,"dataName" : {"name" : data.user_name,"edit" : 0},"dataPhone" : {"phone" : data.mobilePhone,"edit" : 0},"dataEmail" : {"email" : data.email,"edit" : 0}};
 			$scope.newUname = $scope.userData.dataName.name;
 			$scope.newUphone = $scope.userData.dataPhone.phone;
@@ -14,64 +14,60 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 			console.log(data);
 		});
 	
-	$scope.updateUname = function(){
-	console.log($scope.newUname)
-	console.log($scope.userData.dataName.name)
-		if($scope.newUname != "" && $scope.newUname != $scope.userData.dataName.name){
-			
-			$scope.updateUnameJson = {"user_id" : $rootScope.cookieUserID,"user_name" : scope.newUname,"mobilePhone" :"","email" :"" };
-			console.log($scope.updateUnameJson)
+		$scope.updateUname = function(newValue){
+
+		if(newValue != "" && newValue != $scope.userData.dataName.name){
+			$scope.updateUnameJson = {"user_id" : $rootScope.cookieUserID,"user_name" : newValue,"mobilePhone" :"","email" :"" };
 			$http.post(''+$rootScope.mainurl+'/api/users/updateName', $scope.updateUnameJson).
 				success(function(data, status) {
-					console.log(data);
-					$scope.userData.dataName.name = $scope.newUname;
+					$scope.userData.dataName.name = newValue;
 					$scope.userData.dataName.edit = 0;
 				}).error(function(data, status) {
 					console.log(data);
-					$scope.userData.dataName.edit = 0;
 					$scope.newUname = $scope.userData.dataName.name;
-				});
-		}/*else{
-			$scope.userData.dataName.edit = 0;
-			$scope.newUname = $scope.userData.dataName.name;
-		}*/
-	}
-	
-	$scope.updateUphone = function(){
-		if($scope.newUphone != "" && $scope.newUphone != $scope.userData.dataPhone.phone){
-			$scope.updateUphoneJson = {"user_id" : $rootScope.cookieUserID,"user_name" : "","mobilePhone" : $scope.newUphone,"email" :"" };
-			$http.post(''+$rootScope.mainurl+'/api/users/updatePhone', $scope.updateUphoneJson).
-				success(function(data, status) {
-					console.log(data);
-					$scope.userData.dataPhone.phone = $scope.newUphone;
-					$scope.userData.dataPhone.edit = 0;
-				}).error(function(data, status) {
-					console.log(data);
-					$scope.userData.dataPhone.edit = 0;
-					$scope.newUphone = $scope.userData.dataPhone.phone;
+					$scope.userData.dataName.edit = 0;
 				});
 		}else{
-			$scope.userData.dataPhone.edit = 0;
-			$scope.newUphone = $scope.userData.dataPhone.phone;
+			$scope.newUname = $scope.userData.dataName.name;
+			$scope.userData.dataName.edit = 0;
 		}
 	}
 	
-	$scope.updateUmail = function(){
-		if($scope.newUemail != "" && $scope.newUemail != $scope.userData.dataEmail.email){
-			$scope.updateUmailJson ={"user_id" : $rootScope.cookieUserID,"user_name" : "","mobilePhone" : "","email" :$scope.newUemail};
+	$scope.updateUphone = function(newValue){
+		if(newValue != "" && newValue != $scope.userData.dataPhone.phone){
+			$scope.updateUphoneJson = {"user_id" : $rootScope.cookieUserID,"user_name" : "","mobilePhone" : newValue,"email" :"" };
+			$http.post(''+$rootScope.mainurl+'/api/users/updatePhone', $scope.updateUphoneJson).
+				success(function(data, status) {
+				console.log(data);
+					$scope.userData.dataPhone.phone = newValue;
+					$scope.userData.dataPhone.edit = 0;
+				}).error(function(data, status) {
+					console.log(data);
+					$scope.newUphone = $scope.userData.dataPhone.phone;
+					$scope.userData.dataPhone.edit = 0;	
+				});
+		}else{
+			$scope.newUphone = $scope.userData.dataPhone.phone;
+			$scope.userData.dataPhone.edit = 0;
+		}
+	}
+	
+	$scope.updateUmail = function(newValue){
+		if(newValue != "" && newValue != $scope.userData.dataEmail.email){
+			$scope.updateUmailJson ={"user_id" : $rootScope.cookieUserID,"user_name" : "","mobilePhone" : "","email" :newValue};
 			$http.post(''+$rootScope.mainurl+'/api/users/updateEmail', $scope.updateUmailJson).
 				success(function(data, status) {
 					console.log(data);
-					$scope.userData.dataEmail.email = $scope.newUemail;
+					$scope.userData.dataEmail.email = newValue;
 					$scope.userData.dataEmail.edit = 0;
 				}).error(function(data, status) {
 					console.log(data);
-					$scope.userData.dataEmail.edit = 0;
 					$scope.newUemail = $scope.userData.dataEmail.email;
+					$scope.userData.dataEmail.edit = 0;
 				});
 		}else{
-			$scope.userData.dataEmail.edit = 0;
 			$scope.newUemail = $scope.userData.dataEmail.email;
+			$scope.userData.dataEmail.edit = 0;
 		}
 	}
 	
