@@ -2,8 +2,6 @@ package com.shankar.cars.data.persist;
 
 import static com.shankar.cars.data.persist.OfyService.ofy;
 
-import java.util.List;
-
 import com.shankar.cars.data.User;
 
 public class UserDBService extends DBService {

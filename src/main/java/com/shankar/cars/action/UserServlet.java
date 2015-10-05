@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -19,9 +18,9 @@ import lombok.extern.java.Log;
 import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
 //import com.shankar.ActivationCodeAlredyExist;
 import com.shankar.cars.EmailService;
-import com.shankar.cars.PasswordService;
 import com.shankar.cars.data.User;
 import com.shankar.cars.data.UserActivationCode;
+import com.shankar.cars.data.meta.ChangePassMeta;
 import com.shankar.cars.data.meta.UserAuthentication;
 import com.shankar.cars.data.meta.UserMeta;
 import com.shankar.cars.data.persist.CarDBService;
@@ -39,9 +38,6 @@ public class UserServlet {
 	HttpServletRequest request;
 	@Context
 	HttpServletResponse response;
-	//
-	// EmailService EmailService
-	// EmailService emailService = new EmailService;
 	CarDBService carDBService = new CarDBService();
 	CarModelsDBService carModelsDBService = new CarModelsDBService();
 	CarTypeDBService carTypeDBService = new CarTypeDBService();
@@ -321,27 +317,22 @@ public class UserServlet {
 		log.info("Start forgotPassword ");
 		Map<String, String> resp = new HashMap<String, String>();
 		User user = null;
-		user = userDBService.load(User.class, userMeta.getEmail());
+		user = userDBService.loadOne(User.class, "email", userMeta.getEmail());
+		// user = userDBService.loadOne(User.class, userMeta.getEmail());
 		if (user == null) {
-
 			resp.put("status", "failed");
 			resp.put("error_text", "UserNotFound");
 			return resp;
-			// throw new Exception("UserNotFound");
 		}
 		UserActivationCode newUserActivationCode = new UserActivationCode();
 		newUserActivationCode.setUser_email(userMeta.getEmail());
 		newUserActivationCode.setUser_id(user.getUser_id());
-		// PasswordService.encrypt("password");
-		// String user_activation_code =
-		// PasswordService.encrypt(UUID.randomUUID()
-		// .toString());
+
 		byte[] bytesEncoded = Base64.encodeBase64(String.valueOf(
 				user.getUser_id()).getBytes());
 		String user_activation_code = new String(bytesEncoded);
 		newUserActivationCode.setUser_activation_code(user_activation_code);
 		userActivationCodeDBService.save(newUserActivationCode);
-
 		try {
 			EmailService.sendEmail(userMeta.getEmail(), user_activation_code,
 					user.getUser_id(), user.getUser_name());
@@ -356,39 +347,42 @@ public class UserServlet {
 		return resp;
 	}
 
-	@SuppressWarnings("null")
 	@Path("/changePassword")
-	@GET
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void changePassword(String currentPassword, String newPassword)
+	public Map<String, String> changePassword(ChangePassMeta changePassMeta)
 			throws Exception {
 		log.info("Start changePassword ");
-
-		User user = null;
-		user = userDBService.load(User.class, currentPassword);
+		Map<String, String> resp = new HashMap<String, String>();
+		// User user = null;
+		// user = userDBService.load(User.class, changePassMeta.getUser_id());
+		UserDBService db = new UserDBService();
+		User user = db.load(User.class, changePassMeta.getUser_id());
 		if (user == null) {
 			throw new Exception("UserNotFound");
 		}
 		UserActivationCode newUserActivationCode = new UserActivationCode();
 		newUserActivationCode.setUser_email(user.getEmail());
 		newUserActivationCode.setUser_id(user.getUser_id());
-		// PasswordService.encrypt("password");
-		String user_activation_code = PasswordService.encrypt(newPassword);
+		byte[] bytesEncoded = Base64.encodeBase64(String.valueOf(
+				changePassMeta.getNewPassword()).getBytes());
+		String user_activation_code = new String(bytesEncoded);
 		newUserActivationCode.setUser_activation_code(user_activation_code);
 		userActivationCodeDBService.save(newUserActivationCode);
-
 		try {
 			EmailService.sendChangePasswordEmail(user.getEmail(),
 					user_activation_code, user.getUser_id(),
 					user.getUser_name());
 		} catch (Exception e) {
-			Throwable e1 = null;
-			log.severe("SendEmailForForgotPasswordException::"
-					+ e1.getMessage());
+			log.severe("SendEmailForForgotPasswordException::" + e.getMessage());
+			resp.put("status", "failed");
+			resp.put("error_text", e.getMessage());
 		}
 
 		log.info("End changePassword");
+		resp.put("status", "success");
+		return resp;
 	}
 
 	// @Path("/logIn ")
