@@ -11,6 +11,7 @@ import lombok.extern.java.Log;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
@@ -23,17 +24,14 @@ import com.shankar.cars.data.meta.SearchMeta;
 @Log
 public class SearchDBService extends DBService {
 
-
-	
 	public List<Car> load(Class<Car> class1, SearchMeta searchMeta) {
-		
-		
+
 		// Get the Datastore Service
 		log.info(" Start SearchDBService");
-		
-		Calendar c=new GregorianCalendar();
+
+		Calendar c = new GregorianCalendar();
 		c.add(Calendar.DATE, -30);
-		
+
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		Collection<Filter> subFilters = new ArrayList<Filter>();
@@ -97,11 +95,19 @@ public class SearchDBService extends DBService {
 		}
 		log.info("Start Query: ");
 		// Use class Query to assemble a query
-		Query q = new Query("Car").setFilter(CompositeFilterOperator
-				.and(subFilters));
+		Query q = new Query("Car");
+		if (subFilters.size() == 1) {
+			// strs.iterator().next();
+			q.setFilter(subFilters.iterator().next());
+
+		} else {
+			q.setFilter(CompositeFilterOperator.and(subFilters));
+		}
+		// q.
 		log.info("Query: " + q.toString());
 		// Use PreparedQuery interface to retrieve results
 		PreparedQuery pq = datastore.prepare(q);
+		pq.countEntities(FetchOptions.Builder.withLimit(5));
 		log.info("startInsertCarsFromSearch: " + pq.asIterable().toString());
 
 		for (Entity result : pq.asIterable()) {
