@@ -1,7 +1,9 @@
 package com.shankar.cars.data.persist;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import lombok.extern.java.Log;
@@ -21,9 +23,17 @@ import com.shankar.cars.data.meta.SearchMeta;
 @Log
 public class SearchDBService extends DBService {
 
+
+	
 	public List<Car> load(Class<Car> class1, SearchMeta searchMeta) {
+		
+		
 		// Get the Datastore Service
 		log.info(" Start SearchDBService");
+		
+		Calendar c=new GregorianCalendar();
+		c.add(Calendar.DATE, -30);
+		
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		Collection<Filter> subFilters = new ArrayList<Filter>();
@@ -32,8 +42,8 @@ public class SearchDBService extends DBService {
 			throw new RuntimeException("searchMeta cannot be null");
 		}
 
-		subFilters.add(new FilterPredicate("car_name",
-				FilterOperator.NOT_EQUAL, ""));
+		subFilters.add(new FilterPredicate("created_time",
+				FilterOperator.GREATER_THAN, c.getTimeInMillis()));
 		log.info("Start car_name ");
 
 		if (searchMeta.getCar_type_id() != null) {

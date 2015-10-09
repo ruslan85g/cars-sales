@@ -1,42 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- More info at: http://code.google.com/appengine/docs/java/datastore/queriesandindexes.html#Defining_Indexes_With_Configuration -->
 <datastore-indexes autoGenerate="true">
-<!-- 	<datastore-index kind="installer" ancestor="false" source="manual">
-        <property name="application" direction="asc"/>
-        <property name="uploadTime" direction="desc"/>
-    </datastore-index>
-	<datastore-index kind="installer" ancestor="false" source="manual">
-        <property name="active" direction="asc"/>
-        <property name="application" direction="asc"/>
-        <property name="uploadTime" direction="desc"/>
-    </datastore-index>
-	<datastore-index kind="d_campaign" ancestor="false" source="manual">
-        <property name="active" direction="asc"/>
-        <property name="campaign" direction="asc"/>
-        <property name="createdTime" direction="desc"/>
-    </datastore-index>
-    <datastore-index kind="d_campaign" ancestor="false" source="manual">
-    	<property name="active" direction="asc"/>
-        <property name="application" direction="asc"/>
-    </datastore-index> -->
-    <datastore-index kind="Car" ancestor="false" source="manual">
-        <property name="car_model_id" direction="asc"/>
-        <property name="car_type_id" direction="asc"/>
-        <property name="car_name" direction="asc"/>
-        <property name="car_url" direction="asc"/>
-        <property name="user_id" direction="asc"/>
-        <property name="year" direction="asc"/>
-        <property name="car_id" direction="asc"/>
-        <property name="type_geare" direction="asc"/>
-        <property name="volume" direction="asc"/>
-        <property name="km" direction="asc"/>
-        <property name="color" direction="asc"/>
-        <property name="price" direction="asc"/>
-        <property name="created_time" direction="asc"/>
-        <property name="update_time" direction="asc"/>
-    </datastore-index>
-       <datastore-index kind="Car" ancestor="false" source="manual">
-        <property name="car_type_id" direction="asc"/>
-        <property name="car_name" direction="asc"/>
-    </datastore-index>
+	<!-- <datastore-index kind="installer" ancestor="false" source="manual"> 
+		<property name="application" direction="asc"/> <property name="uploadTime" 
+		direction="desc"/> </datastore-index> <datastore-index kind="installer" ancestor="false" 
+		source="manual"> <property name="active" direction="asc"/> <property name="application" 
+		direction="asc"/> <property name="uploadTime" direction="desc"/> </datastore-index> 
+		<datastore-index kind="d_campaign" ancestor="false" source="manual"> <property 
+		name="active" direction="asc"/> <property name="campaign" direction="asc"/> 
+		<property name="createdTime" direction="desc"/> </datastore-index> <datastore-index 
+		kind="d_campaign" ancestor="false" source="manual"> <property name="active" 
+		direction="asc"/> <property name="application" direction="asc"/> </datastore-index> -->
+	<datastore-index kind="Car" ancestor="false" source="manual">
+		<property name="car_model_id" direction="asc" />
+		<property name="car_type_id" direction="asc" />
+		<property name="car_name" direction="asc" />
+		<property name="car_url" direction="asc" />
+		<property name="user_id" direction="asc" />
+		<property name="year" direction="asc" />
+		<property name="car_id" direction="asc" />
+		<property name="type_geare" direction="asc" />
+		<property name="volume" direction="asc" />
+		<property name="km" direction="asc" />
+		<property name="color" direction="asc" />
+		<property name="price" direction="asc" />
+		<property name="created_time" direction="asc" />
+	</datastore-index>
+	<datastore-index kind="Car" ancestor="false" source="manual">
+		<property name="car_type_id" direction="asc" />
+		<property name="created_time" direction="desc" />
+	</datastore-index>
+	<datastore-index kind="Car" ancestor="false" source="manual">
+		<property name="car_model_id" direction="asc" />
+		<property name="car_url" direction="asc" />
+		<property name="user_id" direction="asc" />
+		<property name="year" direction="asc" />
+		<property name="car_id" direction="asc" />
+		<property name="type_geare" direction="asc" />
+		<property name="volume" direction="asc" />
+		<property name="km" direction="asc" />
+		<property name="color" direction="asc" />
+		<property name="price" direction="asc" />
+		<property name="created_time" direction="asc" />
+		<property name="update_time" direction="asc" />
+	</datastore-index>
+	<datastore-index kind="Car" ancestor="false" source="manual">
+		<property name="car_model_id" direction="asc" />
+		<property name="created_time" direction="desc" />
+	</datastore-index>
 </datastore-indexes>
