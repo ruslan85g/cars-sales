@@ -43,7 +43,12 @@ console.log($scope.mod_opts);
 		success(function(data, status) {
 			console.log(data);
 		}).error(function(data, status) {console.log(data);});
-	$scope.selectedModel = '';
+		
+	$scope.selectedModel = function(name){
+		$.each($scope.mod_opts, function (key,val){
+			if(val.name == name){$scope.SJmodelId = val.id}
+		});
+	};
 	$scope.search = function(){
 	console.log($scope.selectedModel)
 		/*if($scope.typeId != "בחר יצרן" && $scope.typeId != ""){

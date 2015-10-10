@@ -11,7 +11,7 @@
 		</li>
 		<li>
 			<label>דגם</label>
-			<select ng-model="SJmodel" ng-change="selectedModel = SJmanuf" >
+			<select ng-model="SJmodel" ng-change="selectedModel(SJmodel);" >
 				<option ng-selected="true" >בחר דגם</option>
 				<option ng-repeat="(k,v) in mod_opts track by $index" >{{v.model_name}}</option>							
 			</select>
