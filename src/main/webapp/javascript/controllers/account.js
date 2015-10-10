@@ -70,8 +70,8 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 			$scope.userData.dataEmail.edit = 0;
 		}
 	}
-	
-	$http.post(''+$rootScope.mainurl+'/api/cars/getCarsByUserId',{"user_id" : $rootScope.cookieUserID}).
+	$scope.user = {"user_id" : $rootScope.cookieUserID};
+	$http.post(''+$rootScope.mainurl+'/api/cars/getCarsByUserId',$scope.user).
 		success(function(data, status) {
 			console.log(data);
 			$scope.viewAdsJson = data;
