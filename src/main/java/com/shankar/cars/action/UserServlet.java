@@ -385,48 +385,6 @@ public class UserServlet {
 		return resp;
 	}
 
-	// @Path("/logIn ")
-	// @POST
-	// @Consumes(MediaType.APPLICATION_JSON)
-	// @Produces(MediaType.APPLICATION_JSON)
-	// public Response logIn(String email, String password) throws Exception {
-	//
-	// log.info("Start logIn ");
-	//
-	// User user = null;
-	//
-	// try {
-	//
-	// if (email != null) {
-	// user = userDBService.loadOne(User.class, "email", email);
-	// String user_password = PasswordService.encrypt(password);
-	// // UserActivationCode userActivationCode =
-	// // userActivationCodeDBService
-	// // .loadWithActivationCode(UserActivationCode.class,
-	// // user_activation_code,
-	// // userAuthentication.getEmail());
-	// // if (userActivationCode != null) {
-	// // user = userDBService.load(User.class,
-	// // userActivationCode.getUser_id());
-	// // if (user != null) {
-	// if (user.getUpdate_time() < System.currentTimeMillis()) {
-	// user.setUpdate_time(System.currentTimeMillis());
-	// user.setIsActive(true);
-	// userDBService.save(user);
-	// }
-	// // }
-	// // }
-	// }
-	//
-	// } catch (Exception e) {
-	// log.severe("AuthenticationException::" + e.getMessage());
-	// Response.serverError().build();
-	// }
-	//
-	// log.info("End logIn");
-	// return Response.ok().build();
-	// }
-
 	private boolean emailExist(UserMeta userMeta) {
 
 		User user = null;
