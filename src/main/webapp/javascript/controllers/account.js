@@ -2,7 +2,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	$scope.addView = 0;
 	$scope.editView =0;
 	$scope.userID = {"user_id" : $rootScope.cookieUserID,"user_name" :"","mobilePhone" :"","email" :"" };
-
+	console.log($rootScope.cookieUserID)
 	$http.post(''+$rootScope.mainurl+'/api/users/get', $scope.userID).
 		success(function(data, status) {
 		console.log(data)
@@ -71,6 +71,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		}
 	}
 	$scope.user = {"user_id" : $rootScope.cookieUserID};
+	console.log($scope.user)
 	$http.post(''+$rootScope.mainurl+'/api/cars/getCarsByUserId',$scope.user).
 		success(function(data, status) {
 			console.log(data);
