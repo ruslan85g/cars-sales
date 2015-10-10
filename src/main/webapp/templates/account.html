@@ -49,7 +49,7 @@
 				<li>
 					<label>יצרן</label>
 					<select ng-model="newCar.car_type" ng-change="getListModel(newCar.car_type);" >
-						<option selected="selected" >בחר יצרן</option>
+						<option ng-selected="true" >בחר יצרן</option>
 						<option ng-repeat="(k,v) in man_opts track by $index"  >{{v.name}}</option>							
 					</select>
 				</li>
@@ -63,18 +63,16 @@
 				<li>
 					<label>שנה</label>
 					<select ng-model="newCar.year" >
-						<option selected="selected" >שנה</option>
+						<option ng-selected="true" >שנה</option>
 						<option ng-repeat="year in years" >{{year}}</option>							
 					</select>
 				</li>
 				<li>
 					<label>תיבת הילוכים</label>
 					<select ng-model="newCar.type" >
-						<option selected="selected" >בחר</option>
+						<option ng-selected="true" >בחר</option>
 						<option>ידנית</option>
 						<option>אוטומט</option>
-						<option>טיפטרוניק</option>
-						<option>רובוטית</option>
 					</select>
 				</li>
 				<li>
