@@ -41,9 +41,10 @@ console.log($scope.mod_opts);
 		}).error(function(data, status) {console.log(data);});
 	
 	$scope.search = function(){
+	console.log($scope.SJmanuf)
 		if($scope.SJmanuf != "בחר יצרן" && $scope.SJmanuf != ""){
 			$.each($scope.man_opts, function (key,val){
-				if(val.name == $scope.SJmanuf){$scope.SJtypeId = val.id}
+				if(val.name == $scope.SJmanuf){$scope.SJtypeId = val.id;console.log($scope.SJtypeId)}
 			});
 		}
 		if($scope.SJmodel != "בחר דגם" && $scope.SJmodel != ""){
@@ -76,7 +77,7 @@ console.log($scope.mod_opts);
 							"priceF" : $scope.SJpriceFrom,
 							"priceT" : $scope.SJpriceTo
 						};
-		
+		console.log($scope.searchJson)
 		$http.post(''+$rootScope.mainurl+'/api/search/searchResult', $scope.searchJson).
 			success(function(data, status) {
 				console.log(data);
