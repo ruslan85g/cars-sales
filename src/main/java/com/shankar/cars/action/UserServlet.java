@@ -285,7 +285,7 @@ public class UserServlet {
 			String userName) throws Exception {
 
 		UserActivationCode userActivationCode = userActivationCodeDBService
-				.loadOne(UserActivationCode.class, "user_email", email);// (userId,email);
+				.loadOne(UserActivationCode.class, "user_email", email);// loadOne(type, feild, value)
 		if (userActivationCode != null) {
 			log.info(" userActivationCode Exists");
 			return false;

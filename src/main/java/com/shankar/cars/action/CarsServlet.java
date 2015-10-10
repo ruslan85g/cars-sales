@@ -1,7 +1,9 @@
 package com.shankar.cars.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -76,26 +78,26 @@ public class CarsServlet {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response saveCar(CarMeta carMeta) {
+	public Map<String, String> saveCar(CarMeta carMeta) {
 
 		log.info("Start saveCar ");
-
+		Map<String, String> resp = new HashMap<String, String>();
 		Car car = null;
-
+		String car_url = carMeta.getUser_id().toString()
+				+ carMeta.getCar_model();
 		User user = userDBService.load(User.class, carMeta.getUser_id());
 		if (user == null) {
 			Response.serverError().status(Response.Status.BAD_REQUEST)
 					.entity("User not found").build();
-			log.info("userNotFind");
+			log.info("userNotfound");
 		}
-
 		try {
 			log.info("start try");
 			if (carMeta.getCar_id() != null) {
 				car = carDBService.load(Car.class, carMeta.getCar_id());
 				car.setUpdate_time(System.currentTimeMillis());
+				car.setCar_id(carMeta.getCar_id());
 			}
-
 			if (car == null) {
 				car = new Car();
 				car.setCreated_time(System.currentTimeMillis());
@@ -114,15 +116,27 @@ public class CarsServlet {
 			car.setUser_id(carMeta.getUser_id());
 			car.setYear(carMeta.getYear());
 			car.setVolume(carMeta.getVolume());
+			car.setCar_url(car_url);
 			log.info("pre save car in db");
 			carDBService.save(car);
 			log.info("save car in db");
 		} catch (Exception e) {
 			log.severe("Exception::" + e.getMessage());
-			Response.serverError().build();
+			resp.put("status", "failed");
+			resp.put("error_text", e.getMessage());
 		}
+		log.info("find new car per url");
+		// Car newCar = null;
+		// newCar = carDBService.loadOne(Car.class, "car_url", car_url);
+		// // user = userDBService.loadOne(User.class, "email",
+		// // userMeta.getEmail());
+		// if (newCar.getCar_id() != null) {
+		// log.info("finded new car per url");
+		resp.put("status", "success");
+		resp.put("car_id", car.getCar_id().toString());
+		// }
 		log.info("End saveCar");
-		return Response.ok().build();
+		return resp;
 	}
 
 	@Path("/getCarsByUserId")
