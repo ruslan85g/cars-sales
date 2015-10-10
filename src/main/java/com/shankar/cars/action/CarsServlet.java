@@ -134,12 +134,17 @@ public class CarsServlet {
 		UserDBService db = new UserDBService();
 		List<Car> carMetas = new ArrayList<>();
 		CarDBService cardb = new CarDBService();
-		User user = db.load(User.class, userMeta.getUser_id());
-		if (user != null) {
-			carMetas = cardb.load(Car.class, "user_id", user.getUser_id());
+		if (userMeta.getUser_id() != null) {
+			User user = db.load(User.class, userMeta.getUser_id());
+			if (user != null) {
+				carMetas = cardb.load(Car.class, "user_id", user.getUser_id());
+			} else {
+				log.info("UserNotFouds ");
+				throw new Exception("UserNotFouds");
+			}
 		} else {
-			log.info("UserNotFouds ");
-			throw new Exception("UserNotFouds");
+			log.info("UserId Null");
+			throw new Exception("UserId Null");
 		}
 		if (carMetas == null) {
 			log.info("CarsNotFouds ");
