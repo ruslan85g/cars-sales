@@ -74,6 +74,7 @@ public class UserServlet {
 			User user = db.load(User.class, userMeta.getUser_id());
 			if (user != null) {
 				user.setUser_name(userMeta.getUser_name());
+				user.setUser_id(user.getUser_id());
 				userDBService.save(user);
 			}
 		} catch (Exception e) {
@@ -97,6 +98,8 @@ public class UserServlet {
 			User user = db.load(User.class, userMeta.getUser_id());
 			if (user != null) {
 				user.setMobilePhone(userMeta.getMobilePhone());
+				user.setUser_id(user.getUser_id());
+				userDBService.save(user);
 			}
 		} catch (Exception e) {
 			resp.put("status", "fail");
@@ -120,6 +123,7 @@ public class UserServlet {
 			User user = db.load(User.class, userMeta.getUser_id());
 			if (user != null) {
 				user.setEmail(userMeta.getEmail());
+				user.setUser_id(user.getUser_id());
 				userDBService.save(user);
 			} else {
 				log.severe("UserNotFoiundException:");
