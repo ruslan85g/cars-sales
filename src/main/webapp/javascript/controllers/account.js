@@ -71,10 +71,10 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		}
 	}
 	
-	$http.post(''+$rootScope.mainurl+'/api/cars/getCarsByUserId', $scope.viewAdsJson).
+	$http.post(''+$rootScope.mainurl+'/api/cars/getCarsByUserId',{"user_id" : $rootScope.cookieUserID}).
 		success(function(data, status) {
 			console.log(data);
-			
+			$scope.viewAdsJson = data;
 		}).error(function(data, status) {
 			console.log(data);
 			
