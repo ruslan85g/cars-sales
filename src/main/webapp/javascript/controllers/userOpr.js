@@ -3,6 +3,7 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 	if($cookieStore.get("uID") && $cookieStore.get("uID") != ""){
 		$rootScope.cookieUserID = $cookieStore.get("uID");
 		$rootScope.userStatus = 1;
+		console.log($rootScope.cookieUserID);
 	}else{
 		$rootScope.userStatus = 0;
 	}
