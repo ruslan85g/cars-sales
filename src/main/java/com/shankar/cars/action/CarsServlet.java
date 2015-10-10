@@ -126,15 +126,15 @@ public class CarsServlet {
 			resp.put("error_text", e.getMessage());
 		}
 		log.info("find new car per url");
-		Car newCar = null;
-		newCar = carDBService.loadOne(Car.class, "car_url", car_url);
-		// user = userDBService.loadOne(User.class, "email",
-		// userMeta.getEmail());
-		if (newCar.getCar_id() != null) {
-			log.info("finded new car per url");
-			resp.put("status", "success");
-			resp.put("car_id", newCar.getCar_id().toString());
-		}
+		// Car newCar = null;
+		// newCar = carDBService.loadOne(Car.class, "car_url", car_url);
+		// // user = userDBService.loadOne(User.class, "email",
+		// // userMeta.getEmail());
+		// if (newCar.getCar_id() != null) {
+		// log.info("finded new car per url");
+		resp.put("status", "success");
+		resp.put("car_id", car.getCar_id().toString());
+		// }
 		log.info("End saveCar");
 		return resp;
 	}
