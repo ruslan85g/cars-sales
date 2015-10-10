@@ -39,9 +39,9 @@ console.log($scope.mod_opts);
 		success(function(data, status) {
 			console.log(data);
 		}).error(function(data, status) {console.log(data);});
-	$scope.SJmanuf = '';
+	$scope.SJmanufSelect = '';
 	$scope.search = function(){
-	console.log($scope.SJmanuf)
+	console.log($scope.SJmanufSelect)
 		if($scope.SJmanuf != "בחר יצרן" && $scope.SJmanuf != ""){
 			$.each($scope.man_opts, function (key,val){
 				if(val.name == $scope.SJmanuf){$scope.SJtypeId = val.id;console.log($scope.SJtypeId)}
