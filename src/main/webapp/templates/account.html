@@ -56,7 +56,7 @@
 				<li>
 					<label>דגם</label>
 					<select ng-model="newCar.model" >
-						<option selected="selected" >בחר דגם</option>
+						<option ng-selected="true" >בחר דגם</option>
 						<option ng-repeat="(k,v) in mod_opts track by $index" >{{v.model_name}}</option>							
 					</select>
 				</li>
