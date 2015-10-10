@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -84,7 +83,8 @@ public class CarsServlet {
 		log.info("Start saveCar ");
 		Map<String, String> resp = new HashMap<String, String>();
 		Car car = null;
-		String car_url = UUID.randomUUID().toString();
+		String car_url = carMeta.getUser_id().toString()
+				+ carMeta.getCar_model();
 		User user = userDBService.load(User.class, carMeta.getUser_id());
 		if (user == null) {
 			Response.serverError().status(Response.Status.BAD_REQUEST)
