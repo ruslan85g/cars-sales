@@ -113,7 +113,7 @@ public class SearchDBService extends DBService {
 		for (Entity result : pq.asIterable()) {
 
 			Car car = new Car();
-			car.setCar_id((Long) result.getProperty("Name/ID"));// car_id
+			car.setCar_id((Long) result.getProperty("Name"));// car_id
 			log.info("getCar_id " + car.getCar_id());
 			car.setCar_model_id((Long) result.getProperty("car_model_id"));
 			car.setCar_type_id((Long) result.getProperty("car_type_id"));
