@@ -48,15 +48,20 @@ public class UserServlet {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public UserMeta getUserById(UserMeta userInf) {
+	public UserMeta getUserById(UserMeta userInf) throws Exception {
 		log.info("Start newApplication ");
 		UserDBService db = new UserDBService();
-		User user = db.load(User.class, userInf.getUser_id());
 		UserMeta userMeta = new UserMeta();
-		userMeta.setUser_id(user.getUser_id());
-		userMeta.setEmail(user.getEmail());
-		userMeta.setMobilePhone(user.getMobilePhone());
-		userMeta.setUser_name(user.getUser_name());
+		if (userInf.getUser_id() != null) {
+			User user = db.load(User.class, userInf.getUser_id());
+			userMeta.setUser_id(user.getUser_id());
+			userMeta.setEmail(user.getEmail());
+			userMeta.setMobilePhone(user.getMobilePhone());
+			userMeta.setUser_name(user.getUser_name());
+		} else {
+			log.info("UserId Null");
+			throw new Exception("UserId Null");
+		}
 
 		log.info("End newApplication");
 		return userMeta;
