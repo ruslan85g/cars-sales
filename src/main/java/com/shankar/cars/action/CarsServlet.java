@@ -126,7 +126,10 @@ public class CarsServlet {
 			resp.put("error_text", e.getMessage());
 		}
 		log.info("find new car per url");
-		Car newCar = carDBService.loadOne(Car.class, "car_url", car_url);
+		Car newCar = null;
+		newCar = carDBService.loadOne(Car.class, "car_url", car_url);
+		// user = userDBService.loadOne(User.class, "email",
+		// userMeta.getEmail());
 		if (newCar.getCar_id() != null) {
 			log.info("finded new car per url");
 			resp.put("status", "success");
