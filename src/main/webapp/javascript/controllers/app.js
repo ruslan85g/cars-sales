@@ -11,9 +11,13 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 	
 	$scope.getListModel = function(id){
 	console.log(id)
+	
 		if(id != "בחר יצרן"){
 			$.each($scope.man_opts, function (key,val){
-				if(val.name == id){$scope.typeId = val.id}
+				if(val.name == id){
+					$scope.typeId = val.id;
+					//$scope.SJmanufSelect = 
+				}
 			});
 			$scope.listModel = {"carType_id" : $scope.typeId,"carType_Name":""};
 			$http.post(''+$rootScope.mainurl+'/api/carmodels/get',$scope.listModel).
@@ -41,12 +45,12 @@ console.log($scope.mod_opts);
 		}).error(function(data, status) {console.log(data);});
 	$scope.SJmanufSelect = '';
 	$scope.search = function(){
-	console.log($scope.SJmanufSelect)
-		if($scope.SJmanuf != "בחר יצרן" && $scope.SJmanuf != ""){
+	console.log($scope.typeId)
+		/*if($scope.typeId != "בחר יצרן" && $scope.typeId != ""){
 			$.each($scope.man_opts, function (key,val){
-				if(val.name == $scope.SJmanuf){$scope.SJtypeId = val.id;console.log($scope.SJtypeId)}
+				if(val.name == $scope.$scope.typeId){$scope.SJtypeId = val.id;console.log($scope.SJtypeId)}
 			});
-		}
+		}*/
 		if($scope.SJmodel != "בחר דגם" && $scope.SJmodel != ""){
 			$.each($scope.mod_opts, function (key,val){
 				if(val.name == $scope.SJmodel){$scope.SJmodelId = val.id}
@@ -69,7 +73,7 @@ console.log($scope.mod_opts);
 		}
 
 		$scope.searchJson = {
-							"car_type_id" : $scope.SJtypeId,
+							"car_type_id" : $scope.typeId,
 							 "car_model_id"  : $scope.SJmodelId,
 							"yearF" : $scope.SJyearFrom, 
 							"yearT" : $scope.SJyearTo, 
