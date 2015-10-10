@@ -76,6 +76,7 @@ console.log($scope.mod_opts);
 							"priceF" : $scope.SJpriceFrom,
 							"priceT" : $scope.SJpriceTo
 						};
+		
 		$http.post(''+$rootScope.mainurl+'/search/searchResult', $scope.searchJson).
 			success(function(data, status) {
 				console.log(data);
