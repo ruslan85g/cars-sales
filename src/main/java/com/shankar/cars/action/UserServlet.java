@@ -1,6 +1,7 @@
 package com.shankar.cars.action;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -371,7 +372,16 @@ public class UserServlet {
 		if (user == null) {
 			throw new Exception("UserNotFound");
 		}
-		UserActivationCode newUserActivationCode = new UserActivationCode();
+
+		List<UserActivationCode> newUserActivationCodes = userActivationCodeDBService
+				.load(UserActivationCode.class, "user_id", user.getUser_id());
+		if (newUserActivationCodes.size() < 1) {
+			log.severe("newUserActivationCodes not Founds");
+			resp.put("status", "failed");
+			return resp;
+		}
+		UserActivationCode newUserActivationCode = newUserActivationCodes
+				.get(0);
 		newUserActivationCode.setUser_email(user.getEmail());
 		newUserActivationCode.setUser_id(user.getUser_id());
 		byte[] bytesEncoded = Base64.encodeBase64(String.valueOf(
