@@ -5,9 +5,9 @@
 		<li>
 			<label>יצרן</label>
 			{{SJmanuf}}
-			<select ng-model="SJmanuf" ng-selected="SJmanuf == v.name" ng-change="getListModel(SJmanuf);" >
+			<select ng-model="SJmanuf" ng-change="getListModel(SJmanuf);" >
 				<option selected="selected" >בחר יצרן</option>
-				<option ng-repeat="(k,v) in man_opts track by $index"  >{{v.name}}</option>							
+				<option ng-repeat="(k,v) in man_opts track by $index" ng-selected="SJmanuf == v.name" >{{v.name}}</option>							
 			</select>
 		</li>
 		<li>
