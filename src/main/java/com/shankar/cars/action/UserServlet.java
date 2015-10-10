@@ -74,6 +74,7 @@ public class UserServlet {
 			User user = db.load(User.class, userMeta.getUser_id());
 			if (user != null) {
 				user.setUser_name(userMeta.getUser_name());
+				user.setUser_id(user.getUser_id());
 				userDBService.save(user);
 			}
 		} catch (Exception e) {
@@ -97,6 +98,8 @@ public class UserServlet {
 			User user = db.load(User.class, userMeta.getUser_id());
 			if (user != null) {
 				user.setMobilePhone(userMeta.getMobilePhone());
+				user.setUser_id(user.getUser_id());
+				userDBService.save(user);
 			}
 		} catch (Exception e) {
 			resp.put("status", "fail");
@@ -120,6 +123,7 @@ public class UserServlet {
 			User user = db.load(User.class, userMeta.getUser_id());
 			if (user != null) {
 				user.setEmail(userMeta.getEmail());
+				user.setUser_id(user.getUser_id());
 				userDBService.save(user);
 			} else {
 				log.severe("UserNotFoiundException:");
@@ -384,48 +388,6 @@ public class UserServlet {
 		resp.put("status", "success");
 		return resp;
 	}
-
-	// @Path("/logIn ")
-	// @POST
-	// @Consumes(MediaType.APPLICATION_JSON)
-	// @Produces(MediaType.APPLICATION_JSON)
-	// public Response logIn(String email, String password) throws Exception {
-	//
-	// log.info("Start logIn ");
-	//
-	// User user = null;
-	//
-	// try {
-	//
-	// if (email != null) {
-	// user = userDBService.loadOne(User.class, "email", email);
-	// String user_password = PasswordService.encrypt(password);
-	// // UserActivationCode userActivationCode =
-	// // userActivationCodeDBService
-	// // .loadWithActivationCode(UserActivationCode.class,
-	// // user_activation_code,
-	// // userAuthentication.getEmail());
-	// // if (userActivationCode != null) {
-	// // user = userDBService.load(User.class,
-	// // userActivationCode.getUser_id());
-	// // if (user != null) {
-	// if (user.getUpdate_time() < System.currentTimeMillis()) {
-	// user.setUpdate_time(System.currentTimeMillis());
-	// user.setIsActive(true);
-	// userDBService.save(user);
-	// }
-	// // }
-	// // }
-	// }
-	//
-	// } catch (Exception e) {
-	// log.severe("AuthenticationException::" + e.getMessage());
-	// Response.serverError().build();
-	// }
-	//
-	// log.info("End logIn");
-	// return Response.ok().build();
-	// }
 
 	private boolean emailExist(UserMeta userMeta) {
 

@@ -20,6 +20,7 @@ import lombok.extern.java.Log;
 import com.shankar.cars.data.Car;
 import com.shankar.cars.data.User;
 import com.shankar.cars.data.meta.CarMeta;
+import com.shankar.cars.data.meta.UserMeta;
 import com.shankar.cars.data.persist.CarDBService;
 import com.shankar.cars.data.persist.CarMetaDBService;
 import com.shankar.cars.data.persist.CarModelsDBService;
@@ -88,55 +89,62 @@ public class CarsServlet {
 			log.info("userNotFind");
 		}
 
-			try {
-				log.info("start try");
-				if (carMeta.getCar_id() != null) {
-					car = carDBService.load(Car.class, carMeta.getCar_id());
-					car.setUpdate_time(System.currentTimeMillis());
-				}
-
-				if (car == null) {
-					car = new Car();
-					car.setCreated_time(System.currentTimeMillis());
-					log.info("setCreated_time");
-				}
-				log.info("start sets");
-				car.setCar_model_id(carMeta.getCar_model_id());
-				log.info("setCar_model_id save car in db");
-				car.setCar_type_id(carMeta.getCar_type_id());
-				car.setColor(carMeta.getColor());
-				car.setCreated_time(System.currentTimeMillis());
-				car.setKm(carMeta.getKm());
-				car.setPrice(carMeta.getPrice());
-				car.setType_geare(carMeta.getType_geare());
+		try {
+			log.info("start try");
+			if (carMeta.getCar_id() != null) {
+				car = carDBService.load(Car.class, carMeta.getCar_id());
 				car.setUpdate_time(System.currentTimeMillis());
-				car.setUser_id(carMeta.getUser_id());
-				car.setYear(carMeta.getYear());
-				car.setVolume(carMeta.getVolume());
-				log.info("pre save car in db");
-				carDBService.save(car);
-				log.info("save car in db");
-			} catch (Exception e) {
-				log.severe("Exception::" + e.getMessage());
-				Response.serverError().build();
 			}
+
+			if (car == null) {
+				car = new Car();
+				car.setCreated_time(System.currentTimeMillis());
+				log.info("setCreated_time");
+			}
+			log.info("start sets");
+			car.setCar_model_id(carMeta.getCar_model_id());
+			log.info("setCar_model_id save car in db");
+			car.setCar_type_id(carMeta.getCar_type_id());
+			car.setColor(carMeta.getColor());
+			car.setCreated_time(System.currentTimeMillis());
+			car.setKm(carMeta.getKm());
+			car.setPrice(carMeta.getPrice());
+			car.setType_geare(carMeta.getType_geare());
+			car.setUpdate_time(System.currentTimeMillis());
+			car.setUser_id(carMeta.getUser_id());
+			car.setYear(carMeta.getYear());
+			car.setVolume(carMeta.getVolume());
+			log.info("pre save car in db");
+			carDBService.save(car);
+			log.info("save car in db");
+		} catch (Exception e) {
+			log.severe("Exception::" + e.getMessage());
+			Response.serverError().build();
+		}
 		log.info("End saveCar");
 		return Response.ok().build();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Path("/getCarsByUserId")
-	@GET
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public List<Car> getCarsByUserId(Long user_id) throws Exception {
+	public List<Car> getCarsByUserId(UserMeta userMeta) throws Exception {
 		log.info("Start newApplication ");
-
+		UserDBService db = new UserDBService();
 		List<Car> carMetas = new ArrayList<>();
-		CarDBService db = new CarDBService();
-		carMetas = (List<Car>) db.loadCarsByUserId(Car.class, user_id);
+		CarDBService cardb = new CarDBService();
+		User user = db.load(User.class, userMeta.getUser_id());
+		if (user != null) {
+			carMetas = cardb.load(Car.class, "user_id", user.getUser_id());
+		} else {
+			log.info("UserNotFouds ");
+			throw new Exception("UserNotFouds");
+		}
 		if (carMetas == null) {
+			log.info("CarsNotFouds ");
 			throw new Exception("CarsNotFouds");
+
 		}
 		// Car carMeta = new Car();
 		// carMeta.setCar_id(car.getCar_id());
