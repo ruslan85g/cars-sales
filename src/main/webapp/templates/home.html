@@ -4,7 +4,8 @@
 	<ul class="searchBar" >
 		<li>
 			<label>יצרן</label>
-			<select ng-model="SJmanuf" ng-change="getListModel(SJmanuf);" >
+			{{SJmanuf}}
+			<select ng-model="SJmanuf" ng-selected="SJmanuf == v.name" ng-change="getListModel(SJmanuf);" >
 				<option selected="selected" >בחר יצרן</option>
 				<option ng-repeat="(k,v) in man_opts track by $index"  >{{v.name}}</option>							
 			</select>
@@ -36,8 +37,6 @@
 				<option selected="selected" >בחר</option>
 				<option>ידנית</option>
 				<option>אוטומט</option>
-				<option>טיפטרוניק</option>
-				<option>רובוטית</option>
 			</select>
 		</li>
 		<li>
