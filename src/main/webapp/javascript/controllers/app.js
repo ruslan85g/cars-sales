@@ -50,17 +50,17 @@ console.log($scope.mod_opts);
 		});
 	};
 	$scope.search = function(){
-	console.log($scope.selectedModel)
+	console.log($scope.SJmodelId)
 		/*if($scope.typeId != "בחר יצרן" && $scope.typeId != ""){
 			$.each($scope.man_opts, function (key,val){
 				if(val.name == $scope.$scope.typeId){$scope.SJtypeId = val.id;console.log($scope.SJtypeId)}
 			});
-		}*/
+		}
 		if($scope.SJmodel != "בחר דגם" && $scope.SJmodel != ""){
 			$.each($scope.mod_opts, function (key,val){
 				if(val.name == $scope.SJmodel){$scope.SJmodelId = val.id}
 			});
-		}
+		}*/
 		if($scope.SJyearF != "משנה" && $scope.SJyearF != ""){
 			$scope.SJyearFrom = $scope.SJyearF;
 		}
