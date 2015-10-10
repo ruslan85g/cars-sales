@@ -75,6 +75,7 @@ public class SearchServlet {
 			}
 
 			searchResponseMeta.setColor(car.getColor());
+			searchResponseMeta.setCar_id(car.getCar_id());
 			searchResponseMeta.setYear(car.getYear());
 			searchResponseMeta.setKm(car.getKm());
 			searchResponseMeta.setPrice(car.getPrice());
