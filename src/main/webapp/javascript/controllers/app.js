@@ -46,7 +46,7 @@ console.log($scope.mod_opts);
 		
 	$scope.selectedModel = function(name){
 		$.each($scope.mod_opts, function (key,val){
-			if(val.name == name){$scope.SJmodelId = val.id}
+			if(val.model_name == name){$scope.SJmodelId = val.car_model_id;}
 		});
 	};
 	$scope.search = function(){
