@@ -43,7 +43,7 @@ console.log($scope.mod_opts);
 		success(function(data, status) {
 			console.log(data);
 		}).error(function(data, status) {console.log(data);});
-	$scope.SJmanufSelect = '';
+	$scope.SJmodel = '';
 	$scope.search = function(){
 	console.log($scope.SJmodel)
 		/*if($scope.typeId != "בחר יצרן" && $scope.typeId != ""){
