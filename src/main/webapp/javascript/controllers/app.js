@@ -93,8 +93,7 @@ console.log($scope.mod_opts);
 							"priceF" : $scope.SJpriceFrom,
 							"priceT" : $scope.SJpriceTo
 						};
-		$scope.typeId = '';
-		$scope.SJmodelId = '';
+
 		console.log($scope.searchJson)
 		$http.post(''+$rootScope.mainurl+'/api/search/searchResult', $scope.searchJson).
 			success(function(data, status) {
