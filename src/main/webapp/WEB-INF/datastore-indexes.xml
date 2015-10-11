@@ -64,4 +64,9 @@
 		<property name="price" direction="asc" />
 		<property name="created_time" direction="desc" />
 	</datastore-index>
+	<datastore-index kind="Car" ancestor="false" source="manual">
+		<property name="yearF" direction="asc" />
+		<property name="yearT" direction="asc" />
+		<property name="created_time" direction="desc" />
+	</datastore-index>
 </datastore-indexes>

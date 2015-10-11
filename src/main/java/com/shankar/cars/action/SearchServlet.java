@@ -82,8 +82,13 @@ public class SearchServlet {
 						+ carModel.getModel_name();
 				log.info("try find Car per Car_id ");
 				Car newCar = db.loadOne(Car.class, "car_url", car_url);
-				log.info(" find Car SUCSESS");
-				searchResponseMeta.setCar_id(newCar.getCar_id());
+				if(newCar!=null){
+					log.info(" find Car SUCSESS");
+					searchResponseMeta.setCar_id(newCar.getCar_id());
+				}
+				else {
+					log.info(" find Car FAILED");
+				}
 			}
 			searchResponseMeta.setColor(car.getColor());
 			// searchResponseMeta.setCar_id(car.getCar_id());
