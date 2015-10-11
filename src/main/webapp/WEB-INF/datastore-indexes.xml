@@ -69,4 +69,35 @@
 		<property name="yearT" direction="asc" />
 		<property name="created_time" direction="desc" />
 	</datastore-index>
+	<datastore-index kind="Car" ancestor="false" source="manual">
+		<property name="car_model_id" direction="asc" />
+		<property name="car_type_id" direction="asc" />
+		<property name="year" direction="asc" />
+		<property name="created_time" direction="asc" />
+	</datastore-index>
+	<datastore-index kind="Car" ancestor="false" source="manual">
+		<property name="car_model_id" direction="asc" />
+		<property name="car_type_id" direction="asc" />
+		<property name="yearF" direction="asc" />
+		<property name="yearT" direction="asc" />
+		<property name="created_time" direction="asc" />
+	</datastore-index>
+	<datastore-index kind="Car" ancestor="false" source="manual">
+		<property name="car_model_id" direction="asc" />
+		<property name="car_type_id" direction="asc" />
+		<property name="yearF" direction="asc" />
+		<property name="created_time" direction="asc" />
+	</datastore-index>
+	<datastore-index kind="Car" ancestor="false" source="manual">
+		<property name="car_model_id" direction="asc" />
+		<property name="car_type_id" direction="asc" />
+		<property name="yearT" direction="asc" />
+		<property name="created_time" direction="asc" />
+	</datastore-index>
+	<datastore-index kind="Car" ancestor="false" source="manual">
+		<property name="car_model_id" direction="asc" />
+		<property name="car_type_id" direction="asc" />
+		<property name="year" direction="asc" />
+		<property name="created_time" direction="asc" />
+	</datastore-index>
 </datastore-indexes>
