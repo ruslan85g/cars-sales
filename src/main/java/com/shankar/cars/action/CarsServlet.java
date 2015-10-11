@@ -24,7 +24,6 @@ import com.shankar.cars.data.User;
 import com.shankar.cars.data.meta.CarMeta;
 import com.shankar.cars.data.meta.UserMeta;
 import com.shankar.cars.data.persist.CarDBService;
-import com.shankar.cars.data.persist.CarMetaDBService;
 import com.shankar.cars.data.persist.CarModelsDBService;
 import com.shankar.cars.data.persist.CarTypeDBService;
 import com.shankar.cars.data.persist.UserDBService;
@@ -173,93 +172,95 @@ public class CarsServlet {
 	}
 
 	@Path("/deleteCar")
-	@GET
+	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public CarMeta deleteCar(@QueryParam("car_id") Long car_id) {
+	public Map<String, String> deleteCar(CarMeta carMeta) {
 		log.info("Start deleteCar ");
-
-		CarDBService db = new CarDBService();
-		CarMetaDBService carmetaDB = new CarMetaDBService();
-		Car car = db.load(Car.class, car_id);
-		if (car != null) {
-			db.deleteCarPerId(Car.class, car_id);
-		} else {
-			log.severe("CarNotFoundException:");
-			Response.serverError().build();
-		}
-		CarMeta carMeta = new CarMeta();
-		carMeta = carmetaDB.load(CarMeta.class, car_id);
-		if (carMeta != null) {
-			carmetaDB.deleteCarPerId(CarMeta.class, car_id);
-		} else {
-			log.severe("CarMetaNotFoundException:");
-			Response.serverError().build();
+		Map<String, String> resp = new HashMap<String, String>();
+		Long car_id = carMeta.getCar_id();
+		if (car_id != null) {
+			log.info("car_id not NULL");
+			CarDBService db = new CarDBService();
+			Car car = db.load(Car.class, car_id);
+			log.severe("load Car");
+			if (car != null) {
+				try {
+					log.severe("try DELETE Car");
+					db.deleteCarPerId(Car.class, car_id);
+					log.severe("Car DELETED SUCSESS ");
+					resp.put("status", "success");
+				} catch (Exception e) {
+					log.severe("Car DELETE FAILED " + e.getMessage());
+					resp.put("status", "failed");
+					resp.put("error_text", e.getMessage());
+				}
+			}
 		}
 		log.info("End deleteCar");
-		return carMeta;
+
+		return resp;
 	}
-
-	@Path("/deleteCarPerUserId")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public CarMeta deleteCarPerUserId(@QueryParam("user_id") Long user_id) {
-		log.info("Start deleteCarPerUserId ");
-
-		CarDBService db = new CarDBService();
-		CarMetaDBService carmetaDB = new CarMetaDBService();
-		Car car = db.load(Car.class, user_id);
-		if (car != null) {
-			db.deleteCarPerId(Car.class, user_id);
-		} else {
-			log.severe("CarNotFoundException:");
-			Response.serverError().build();
-		}
-		CarMeta carMeta = new CarMeta();
-		carMeta = carmetaDB.load(CarMeta.class, user_id);
-		if (carMeta != null) {
-			carmetaDB.deleteCarPerId(CarMeta.class, user_id);
-		} else {
-			log.severe("CarMetaNotFoundException:");
-			Response.serverError().build();
-		}
-		log.info("End deleteCarPerUserId");
-		return carMeta;
-	}
-
-	@Path("/updateCar")
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response updateCar(CarMeta carMeta) {
-
-		log.info("Start updateCar ");
-
-		Car car = null;
-		User user = userDBService.load(User.class, carMeta.getUser_id());
-		if (user == null) {
-			Response.serverError().status(Response.Status.BAD_REQUEST)
-					.entity("User not found").build();
-		}
-
-		try {
-			car = carDBService.load(Car.class, carMeta.getCar_id());
-			if (car != null) {
-				car.setUpdate_time(System.currentTimeMillis());
-				car.setCar_model_id(carMeta.getCar_model_id());
-			} else {
-				Response.serverError().status(Response.Status.BAD_REQUEST)
-						.entity("Car not found").build();
-			}
-
-			carDBService.save(car);
-
-		} catch (Exception e) {
-			log.severe("UpdateCarException::" + e.getMessage());
-			Response.serverError().build();
-		}
-		log.info("End updateCar");
-		return Response.ok().build();
-	}
+	// @Path("/deleteCarPerUserId")
+	// @GET
+	// @Produces(MediaType.APPLICATION_JSON)
+	// @Consumes(MediaType.APPLICATION_JSON)
+	// public CarMeta deleteCarPerUserId(@QueryParam("user_id") Long user_id) {
+	// log.info("Start deleteCarPerUserId ");
+	//
+	// CarDBService db = new CarDBService();
+	// CarMetaDBService carmetaDB = new CarMetaDBService();
+	// Car car = db.load(Car.class, user_id);
+	// if (car != null) {
+	// db.deleteCarPerId(Car.class, user_id);
+	// } else {
+	// log.severe("CarNotFoundException:");
+	// Response.serverError().build();
+	// }
+	// CarMeta carMeta = new CarMeta();
+	// carMeta = carmetaDB.load(CarMeta.class, user_id);
+	// if (carMeta != null) {
+	// carmetaDB.deleteCarPerId(CarMeta.class, user_id);
+	// } else {
+	// log.severe("CarMetaNotFoundException:");
+	// Response.serverError().build();
+	// }
+	// log.info("End deleteCarPerUserId");
+	// return carMeta;
+	// }
+	//
+	// @Path("/updateCar")
+	// @POST
+	// @Consumes(MediaType.APPLICATION_JSON)
+	// @Produces(MediaType.APPLICATION_JSON)
+	// public Response updateCar(CarMeta carMeta) {
+	//
+	// log.info("Start updateCar ");
+	//
+	// Car car = null;
+	// User user = userDBService.load(User.class, carMeta.getUser_id());
+	// if (user == null) {
+	// Response.serverError().status(Response.Status.BAD_REQUEST)
+	// .entity("User not found").build();
+	// }
+	//
+	// try {
+	// car = carDBService.load(Car.class, carMeta.getCar_id());
+	// if (car != null) {
+	// car.setUpdate_time(System.currentTimeMillis());
+	// car.setCar_model_id(carMeta.getCar_model_id());
+	// } else {
+	// Response.serverError().status(Response.Status.BAD_REQUEST)
+	// .entity("Car not found").build();
+	// }
+	//
+	// carDBService.save(car);
+	//
+	// } catch (Exception e) {
+	// log.severe("UpdateCarException::" + e.getMessage());
+	// Response.serverError().build();
+	// }
+	// log.info("End updateCar");
+	// return Response.ok().build();
+	// }
 }
