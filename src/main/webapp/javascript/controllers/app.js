@@ -71,12 +71,12 @@ console.log($scope.mod_opts);
 		}
 	};
 	
+	$scope.SJpriceF = 0;
+	$scope.SJpriceT = 0;
+	
 	$scope.search = function(){
-	console.log($scope.SJmodelId)
+	console.log($scope.SJpriceF)
 		
-		if($scope.SJtypeGear != "בחר" && $scope.SJtypeGear != ""){
-			$scope.SJsontypeGear = $scope.SJtypeGear;
-		}
 		if($scope.SJpriceF != "ממחיר" && $scope.SJpriceF != ""){
 			$scope.SJpriceFrom = $scope.SJpriceF;
 		}
