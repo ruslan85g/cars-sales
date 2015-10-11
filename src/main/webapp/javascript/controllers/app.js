@@ -43,6 +43,8 @@ console.log($scope.mod_opts);
 			console.log(data);
 		}).error(function(data, status) {console.log(data);});
 		
+		
+/************************************************ search *****************************************/		
 	$scope.selectedModel = function(name){
 		if(name != "בחר דגם" && name != ""){
 			$.each($scope.mod_opts, function (key,val){
