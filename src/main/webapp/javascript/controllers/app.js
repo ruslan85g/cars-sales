@@ -16,7 +16,6 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 			$.each($scope.man_opts, function (key,val){
 				if(val.name == id){
 					$scope.typeId = val.id;
-					//$scope.SJmanufSelect = 
 				}
 			});
 			$scope.listModel = {"carType_id" : $scope.typeId,"carType_Name":""};
@@ -39,34 +38,40 @@ console.log($scope.mod_opts);
 			});
 		}).error(function(data, status) {console.log(data);});
 	
-	$http.get(''+$rootScope.mainurl+'/api/home', {}).
+	$http.post(''+$rootScope.mainurl+'/api/search/searchResult', {}).
 		success(function(data, status) {
 			console.log(data);
 		}).error(function(data, status) {console.log(data);});
 		
 	$scope.selectedModel = function(name){
-		$.each($scope.mod_opts, function (key,val){
-			if(val.model_name == name){$scope.SJmodelId = val.car_model_id;}
-		});
+		if(name != "בחר דגם" && name != ""){
+			$.each($scope.mod_opts, function (key,val){
+				if(val.model_name == name){$scope.SJmodelId = val.car_model_id;}
+			});
+		}
 	};
+	
+	$scope.selectedYearF = function(year){
+		if(year != "משנה" && year != ""){
+			$scope.SJyearFrom = year;
+		}
+	};
+	
+	$scope.selectedYearT = function(year){
+		if(year != "עד שנה" && year != ""){
+			$scope.SJyearTo = year;
+		}
+	};
+	
+	$scope.selectedTypeGear = function(type){
+		if(type != "בחר" && type != ""){
+			$scope.SJsontypeGear = type;
+		}
+	};
+	
 	$scope.search = function(){
 	console.log($scope.SJmodelId)
-		/*if($scope.typeId != "בחר יצרן" && $scope.typeId != ""){
-			$.each($scope.man_opts, function (key,val){
-				if(val.name == $scope.$scope.typeId){$scope.SJtypeId = val.id;console.log($scope.SJtypeId)}
-			});
-		}
-		if($scope.SJmodel != "בחר דגם" && $scope.SJmodel != ""){
-			$.each($scope.mod_opts, function (key,val){
-				if(val.name == $scope.SJmodel){$scope.SJmodelId = val.id}
-			});
-		}*/
-		if($scope.SJyearF != "משנה" && $scope.SJyearF != ""){
-			$scope.SJyearFrom = $scope.SJyearF;
-		}
-		if($scope.SJyearT != "משנה" && $scope.SJyearT != ""){
-			$scope.SJyearTo = $scope.SJyearT;
-		}
+		
 		if($scope.SJtypeGear != "בחר" && $scope.SJtypeGear != ""){
 			$scope.SJsontypeGear = $scope.SJtypeGear;
 		}
@@ -86,6 +91,8 @@ console.log($scope.mod_opts);
 							"priceF" : $scope.SJpriceFrom,
 							"priceT" : $scope.SJpriceTo
 						};
+		$scope.typeId = '';
+		$scope.SJmodelId = '';
 		console.log($scope.searchJson)
 		$http.post(''+$rootScope.mainurl+'/api/search/searchResult', $scope.searchJson).
 			success(function(data, status) {

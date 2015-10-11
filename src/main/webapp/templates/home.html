@@ -18,21 +18,21 @@
 		</li>
 		<li>
 			<label>משנה</label>
-			<select ng-model="SJyearF" >
+			<select ng-model="SJyearF" ng-change="selectedYearF(SJyearF);" >
 				<option ng-selected="true" >משנה</option>
 				<option ng-repeat="year in years" >{{year}}</option>							
 			</select>
 		</li>
 		<li>
 			<label>עד שנה</label>
-			<select ng-model="SJyearT" >
+			<select ng-model="SJyearT" ng-change="selectedYearT(SJyearT);" >
 				<option ng-selected="true" >עד שנה</option>
 				<option ng-repeat="year in years" >{{year}}</option>							
 			</select>
 		</li>
 		<li>
 			<label>תיבת הילוכים</label>
-			<select ng-model="SJtypeGear" >
+			<select ng-model="SJtypeGear" ng-change="selectedTypeGear(SJtypeGear);" >
 				<option ng-selected="true" >בחר</option>
 				<option>ידנית</option>
 				<option>אוטומט</option>

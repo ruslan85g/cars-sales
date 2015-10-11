@@ -225,9 +225,9 @@
  2. activaciya/pervyi login :
  	claint otpravlyaet 2 parametra (mail,actCod/password)
  	
- 	Activation cod eto password usera do momenta poka on ne pomenyal password		
-
-
+ 	Activation cod eto password usera do momenta poka on ne pomenyal password	
+	
+		*********** ispravit grammaticheskie oshibki ************
 
 
 
