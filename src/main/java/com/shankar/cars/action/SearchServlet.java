@@ -50,6 +50,7 @@ public class SearchServlet {
 		List<Car> cars = searchDBService.load(Car.class, searchMeta);
 		log.info("find : " + cars.size() + "cars");
 		UserDBService db = new UserDBService();
+		CarModel carModel = null;
 		for (Car car : cars) {
 			SearchResponseMeta searchResponseMeta = new SearchResponseMeta();
 			if (car.getCar_id() != null) {
@@ -58,7 +59,7 @@ public class SearchServlet {
 			}
 			if (car.getCar_model_id() != null) {
 
-				CarModel carModel = carModelsDBService.load(CarModel.class,
+				carModel = carModelsDBService.load(CarModel.class,
 						car.getCar_model_id());
 				if (carModel != null) {
 					searchResponseMeta.setCar_model_name(carModel
@@ -72,10 +73,20 @@ public class SearchServlet {
 					searchResponseMeta.setCar_type_name(carType
 							.getCar_type_name());
 				}
-			}
 
+			}
+			if (car.getCar_id() != null) {
+				searchResponseMeta.setCar_id(car.getCar_id());
+			} else {
+				String car_url = car.getUser_id().toString()
+						+ carModel.getModel_name();
+				log.info("try find Car per Car_id ");
+				Car newCar = db.loadOne(Car.class, "car_url", car_url);
+				log.info(" find Car SUCSESS");
+				searchResponseMeta.setCar_id(newCar.getCar_id());
+			}
 			searchResponseMeta.setColor(car.getColor());
-			searchResponseMeta.setCar_id(car.getCar_id());
+			// searchResponseMeta.setCar_id(car.getCar_id());
 			searchResponseMeta.setYear(car.getYear());
 			searchResponseMeta.setKm(car.getKm());
 			searchResponseMeta.setPrice(car.getPrice());
