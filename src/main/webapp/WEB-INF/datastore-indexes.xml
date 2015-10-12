@@ -104,4 +104,8 @@
 		<property name="car_type_id" direction="asc" />
 		<property name="created_time" direction="asc" />
 	</datastore-index>
+	<datastore-index kind="Car" ancestor="false" source="manual">
+        <property name="car_type_id" direction="asc"/>
+        <property name="created_time" direction="asc"/>
+    </datastore-index>
 </datastore-indexes>
