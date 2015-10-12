@@ -18,7 +18,6 @@ import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
-import com.google.appengine.api.datastore.Query.SortDirection;
 import com.shankar.cars.data.Car;
 import com.shankar.cars.data.meta.SearchMeta;
 
@@ -105,7 +104,9 @@ public class SearchDBService extends DBService {
 			q.setFilter(CompositeFilterOperator.and(subFilters));
 		}
 		log.info("Try SortDirection");
-		q.addSort("price", SortDirection.DESCENDING);
+//		q.addSort("created_time", SortDirection.ASCENDING);
+		log.info("Try SortDirection");
+		// q.
 		log.info("Query: " + q.toString());
 		// Use PreparedQuery interface to retrieve results
 		PreparedQuery pq = datastore.prepare(q);
