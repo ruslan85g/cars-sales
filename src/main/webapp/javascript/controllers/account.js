@@ -74,10 +74,11 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	console.log($scope.user)
 	$http.post(''+$rootScope.mainurl+'/api/cars/getCarsByUserId',$scope.user).
 		success(function(data, status) {
-			console.log(data);
+			console.log($scope.man_opts);
 			var typeName = "typeName";
 			$.each(data, function (key,val){
-				if(val.car_model_id != null){
+			
+				if(val.car_model_id){
 					$.each($scope.man_opts, function (k,v){
 						if(val.car_model_id == v.id){
 							val.typeName = v.name;
