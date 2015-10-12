@@ -100,6 +100,7 @@ public class SearchDBService extends DBService {
 		Query q = new Query("Car");
 		log.info("Try SortDirection");
 		q.addSort("created_time", SortDirection.DESCENDING);
+		// q.addSort("year", SortDirection.DESCENDING);
 		log.info("Sucsess SortDirection");
 		if (subFilters.size() == 1) {
 			// strs.iterator().next();
