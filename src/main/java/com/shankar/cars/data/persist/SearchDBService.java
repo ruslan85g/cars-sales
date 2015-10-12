@@ -12,12 +12,14 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.shankar.cars.data.Car;
 import com.shankar.cars.data.meta.SearchMeta;
 
@@ -96,6 +98,9 @@ public class SearchDBService extends DBService {
 		log.info("Start Query: ");
 		// Use class Query to assemble a query
 		Query q = new Query("Car");
+		log.info("Try SortDirection");
+		q.addSort("price", SortDirection.ASCENDING);
+		log.info("Sucsess SortDirection");
 		if (subFilters.size() == 1) {
 			// strs.iterator().next();
 			q.setFilter(subFilters.iterator().next());
@@ -103,10 +108,6 @@ public class SearchDBService extends DBService {
 		} else {
 			q.setFilter(CompositeFilterOperator.and(subFilters));
 		}
-		log.info("Try SortDirection");
-//		q.addSort("created_time", SortDirection.ASCENDING);
-		log.info("Try SortDirection");
-		// q.
 		log.info("Query: " + q.toString());
 		// Use PreparedQuery interface to retrieve results
 		PreparedQuery pq = datastore.prepare(q);
