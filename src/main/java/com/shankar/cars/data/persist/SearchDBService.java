@@ -97,9 +97,9 @@ public class SearchDBService extends DBService {
 		}
 		log.info("Start Query: ");
 		// Use class Query to assemble a query
-		Query q = new Query("Car");
+		Query q = new Query("created_time");
 		log.info("Try SortDirection");
-		q.addSort("price", SortDirection.ASCENDING);
+		q.addSort("price", SortDirection.DESCENDING);
 		log.info("Sucsess SortDirection");
 		if (subFilters.size() == 1) {
 			// strs.iterator().next();
@@ -108,6 +108,7 @@ public class SearchDBService extends DBService {
 		} else {
 			q.setFilter(CompositeFilterOperator.and(subFilters));
 		}
+
 		log.info("Query: " + q.toString());
 		// Use PreparedQuery interface to retrieve results
 		PreparedQuery pq = datastore.prepare(q);
