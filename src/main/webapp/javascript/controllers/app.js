@@ -70,20 +70,19 @@ console.log($scope.mod_opts);
 			$scope.SJsontypeGear = type;
 		}
 	};
-	
-	$scope.SJpriceF;
-	$scope.SJpriceT;
-	
+	$scope.model = {};
+	$scope.model.SJpriceF;
+	$scope.model.SJpriceT;
 	$scope.search = function(){
-	console.log($scope.SJpriceF)
+	console.log($scope.model.SJpriceF)
 		
-		if($scope.SJpriceF != "ממחיר" && $scope.SJpriceF != ""){
+		/*if($scope.SJpriceF != "ממחיר" && $scope.SJpriceF != ""){
 			$scope.SJpriceFrom = $scope.SJpriceF;
 		}
 		if($scope.SJpriceT != "עד מחיר" && $scope.SJpriceT != ""){
 			$scope.SJpriceTo = $scope.SJpriceT;
 		}
-
+*/
 		$scope.searchJson = {
 							"car_type_id" : $scope.typeId,
 							 "car_model_id"  : $scope.SJmodelId,
