@@ -197,7 +197,7 @@ console.log($scope.newAdJson)
 					"car_id" :  id
 				};
 
-		$http.post(''+$rootScope.mainurl+'/api/cars/deleteCarPerUserId', $scope.deleteAdJson).
+		$http.post(''+$rootScope.mainurl+'/api/cars/deleteCar', $scope.deleteAdJson).
 			success(function(data, status) {
 				console.log(data);
 				$scope.getCarsList();
