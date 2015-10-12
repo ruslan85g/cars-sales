@@ -103,7 +103,7 @@
 		</div>
 		<ul>
 		<li ng-repeat="(key,val) in viewAdsJson" >
-		<div ng-show="editView == 0" ng-click="editView = 1" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;" >
+		<div ng-show="editView == 0" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;" >
 			<ul class="adUP bold" >
 				<li style="width: 45px;margin-right: 25px;" ><label>{{$index+1}}.</label></li>
 				<li><label>{{val.typeName}}</label></li>
@@ -116,7 +116,7 @@
 				<!-- span class="symbolX_s icon-error"></span --></li>
 			</ul>
 			<ul class="adBut" >
-				<li><button class="button" >עידקון</button></li>
+				<li><button class="button" ng-click="editView = 1" >עידקון</button></li>
 				<li><button class="button" >למחוק</button></li>
 			</ul>
 		</div>

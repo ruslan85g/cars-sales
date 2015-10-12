@@ -72,6 +72,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	}
 	$scope.user = {"user_id" : $rootScope.cookieUserID};
 	console.log($scope.user)
+	$scope.getCarsList = function(){
 	$http.post(''+$rootScope.mainurl+'/api/cars/getCarsByUserId',$scope.user).
 		success(function(data, status) {
 			var typeName = "typeName";
@@ -100,7 +101,9 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 			console.log(data);
 			
 		});
-
+	}
+	$scope.getCarsList();
+	
 	
 	$scope.newCar = {	
 						"car_type" : "",
@@ -137,7 +140,7 @@ console.log($scope.newAdJson)
 		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.newAdJson).
 			success(function(data, status) {
 				console.log(data);
-				
+				$scope.getCarsList();
 			}).error(function(data, status) {
 				console.log(data);
 				
@@ -180,6 +183,7 @@ console.log($scope.newAdJson)
 		$http.post(''+$rootScope.mainurl+'/api/cars/updateCar', $scope.updateAdJson).
 			success(function(data, status) {
 				console.log(data);
+				$scope.getCarsList();
 				
 			}).error(function(data, status) {
 				console.log(data);
@@ -187,17 +191,16 @@ console.log($scope.newAdJson)
 			});
 	}
 	
-	$scope.deleteAd = function(){
+	$scope.deleteAd = function(id){
 		
 		$scope.deleteAdJson = {	
-					"userId" : $rootScope.cookieUserID,
-					"id" :  num
+					"car_id" :  id
 				};
 
 		$http.post(''+$rootScope.mainurl+'/api/cars/deleteCarPerUserId', $scope.deleteAdJson).
 			success(function(data, status) {
 				console.log(data);
-				
+				$scope.getCarsList();
 			}).error(function(data, status) {
 				console.log(data);
 				
