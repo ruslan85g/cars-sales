@@ -89,7 +89,7 @@
 				</li>
 				<li style=" margin-top: 10px;" >
 					<label>צבע</label>
-					<input type="number" placeholder="צבע" ng-model="newCar.color" />
+					<input type="text" placeholder="צבע" ng-model="newCar.color" />
 				</li>
 				<li style="    margin-top: 10px;" >
 					<label>תמונה</label>
@@ -101,9 +101,11 @@
 				<li><button class="button" ng-click="newAd()" >להוסיף מודעה</button><li>
 			</ul>	
 		</div>
+		<ul>
+		<li ng-repeat="(key,val) in viewAdsJson" >
 		<div ng-show="editView == 0" ng-click="editView = 1" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;" >
 			<ul class="adUP bold" >
-				<li style="width: 45px;margin-right: 25px;" ><label>1.</label></li>
+				<li style="width: 45px;margin-right: 25px;" ><label>{{$index+1}}.</label></li>
 				<li><label>דייהו</label></li>
 				<li><label>דייהו לאנוס</label></li>
 				<li><label>2001</label></li>
@@ -174,8 +176,10 @@
 			</ul>
 			<ul class="adBut" style="width: 100%" >
 				<li><button ng-click="editView = 0" class="button" >ביתול</button></li>
-				<li><button class="button" >שמור</button><li>
+				<li><button class="button" >שמור</button></li>
 			</ul>	
 		</div>
+		</li>
+		</ul>
 	</div>
 </div>
