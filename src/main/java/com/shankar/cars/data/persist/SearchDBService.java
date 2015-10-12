@@ -58,7 +58,7 @@ public class SearchDBService extends DBService {
 		}
 		if (searchMeta.getYearF() != null) {
 			subFilters.add(new FilterPredicate("yearF",
-					FilterOperator.GREATER_THAN, searchMeta.getYearF()));
+					FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta.getYearF()));
 			log.info("find cars per yearF " + subFilters.size());
 		}
 		if (searchMeta.getYearT() != null) {
