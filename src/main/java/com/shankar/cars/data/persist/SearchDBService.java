@@ -97,9 +97,9 @@ public class SearchDBService extends DBService {
 		}
 		log.info("Start Query: ");
 		// Use class Query to assemble a query
-		Query q = new Query("created_time");
+		Query q = new Query("Car");
 		log.info("Try SortDirection");
-		q.addSort("price", SortDirection.DESCENDING);
+		q.addSort("created_time", SortDirection.DESCENDING);
 		log.info("Sucsess SortDirection");
 		if (subFilters.size() == 1) {
 			// strs.iterator().next();
