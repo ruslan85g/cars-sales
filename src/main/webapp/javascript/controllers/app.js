@@ -71,8 +71,8 @@ console.log($scope.mod_opts);
 		}
 	};
 	
-	$scope.SJpriceF = 0;
-	$scope.SJpriceT = 0;
+	$scope.SJpriceF;
+	$scope.SJpriceT;
 	
 	$scope.search = function(){
 	console.log($scope.SJpriceF)
