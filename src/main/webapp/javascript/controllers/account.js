@@ -113,7 +113,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 								"price" : $scope.newCar.price,
 								"car_url"  :""  
 							};
-
+console.log($scope.newAdJson)
 		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.newAdJson).
 			success(function(data, status) {
 				console.log(data);

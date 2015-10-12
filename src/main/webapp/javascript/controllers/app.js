@@ -3,14 +3,14 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 	popupFunctions($scope,$http, $rootScope, $location, $route,$cookieStore);
 
 	$scope.userID = "string";
-	console.log($cookieStore)
+	//console.log($cookieStore)
 	$scope.years = [1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015];
 	$scope.years.reverse();
 	$scope.man_opts = [];
 	$scope.mod_opts = [];
 	
 	$scope.getListModel = function(id){
-	console.log(id)
+	//console.log(id)
 	
 		if(id != "בחר יצרן"){
 			$.each($scope.man_opts, function (key,val){
@@ -21,17 +21,17 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 			$scope.listModel = {"carType_id" : $scope.typeId,"carType_Name":""};
 			$http.post(''+$rootScope.mainurl+'/api/carmodels/get',$scope.listModel).
 			success(function(data, status) {
-				console.log(data);
+				//console.log(data);
 				
 					$scope.mod_opts = data;
-console.log($scope.mod_opts);
+//console.log($scope.mod_opts);
 			}).error(function(data, status) {console.log(data);});
 		}
 	}
 	$scope.man_opts = [];
 	$http.get(''+$rootScope.mainurl+'/api/cartypes/getalltypes').
 		success(function(data, status) {
-			console.log(data);
+			//console.log(data);
 			$.each(data, function (key,val){
 				var tmp = {"id":val.car_type_id,"name":val.car_type_name};
 				$scope.man_opts.push(tmp)
@@ -40,7 +40,7 @@ console.log($scope.mod_opts);
 	
 	$http.post(''+$rootScope.mainurl+'/api/search/searchResult', {}).
 		success(function(data, status) {
-			console.log(data);
+			//console.log(data);
 		}).error(function(data, status) {console.log(data);});
 		
 		
@@ -94,7 +94,7 @@ console.log($scope.mod_opts);
 							"priceT" : $scope.SJpriceTo
 						};
 
-		console.log($scope.searchJson)
+		//console.log($scope.searchJson)
 		$http.post(''+$rootScope.mainurl+'/api/search/searchResult', $scope.searchJson).
 			success(function(data, status) {
 				console.log(data);
