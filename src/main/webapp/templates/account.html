@@ -106,11 +106,11 @@
 		<div ng-show="editView == 0" ng-click="editView = 1" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;" >
 			<ul class="adUP bold" >
 				<li style="width: 45px;margin-right: 25px;" ><label>{{$index+1}}.</label></li>
-				<li><label>דייהו</label></li>
-				<li><label>דייהו לאנוס</label></li>
-				<li><label>2001</label></li>
-				<li><label>אוטומט</label></li>
-				<li><label>6,000</label></li>
+				<li><label>{{val.typeName}}</label></li>
+				<li><label>{{val.modName}}</label></li>
+				<li><label>{{val.year}}</label></li>
+				<li><label>{{val.type_geare}}</label></li>
+				<li><label ng-if="val.price != 0" >{{val.price}}</label></li>
 				<li style="width: 75px;" ><label>תמונה </label>
 				<span class="symbolV_s icon-tick"></span>
 				<!-- span class="symbolX_s icon-error"></span --></li>

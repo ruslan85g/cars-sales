@@ -74,14 +74,21 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	console.log($scope.user)
 	$http.post(''+$rootScope.mainurl+'/api/cars/getCarsByUserId',$scope.user).
 		success(function(data, status) {
-			
 			var typeName = "typeName";
+			var modName = "modName";
 			$.each(data, function (key,val){
 			console.log(val.car_type_id);
 				if(val.car_type_id){
 					$.each($scope.man_opts, function (k,v){
 						if(val.car_type_id == v.id){
 							val.typeName = v.name;
+						}
+					});
+				}
+				if(val.car_model_id){
+					$.each($scope.mod_opts, function (k,v){
+						if(val.car_model_id == v.id){
+							val.modName = v.name;
 						}
 					});
 				}
