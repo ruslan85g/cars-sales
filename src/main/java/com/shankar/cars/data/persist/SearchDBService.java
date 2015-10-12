@@ -105,7 +105,7 @@ public class SearchDBService extends DBService {
 			q.setFilter(CompositeFilterOperator.and(subFilters));
 		}
 		log.info("Try SortDirection");
-		q.addSort("created_time", SortDirection.ASCENDING);
+		q.addSort("price", SortDirection.DESCENDING);
 		log.info("Query: " + q.toString());
 		// Use PreparedQuery interface to retrieve results
 		PreparedQuery pq = datastore.prepare(q);
