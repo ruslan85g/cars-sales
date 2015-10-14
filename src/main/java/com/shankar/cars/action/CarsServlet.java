@@ -44,7 +44,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataParam;
+//import com.sun.jersey.multipart.FormDataParam;
 
 //
 @Path("/cars")
@@ -235,9 +235,9 @@ public class CarsServlet {
 	public Response uploadFile(
 			// @FormDataParam("inputfile") File inputfile
 			// @FormParam
-			@FormDataParam("file") InputStream uploadedInputStream,
-			@FormDataParam("someparameter") Long param,
-			@FormDataParam("file") FormDataContentDisposition fileDetail) {
+			@FormParam("file") InputStream uploadedInputStream,
+			@FormParam("someparameter") Long param,
+			@FormParam("file") FormDataContentDisposition fileDetail) {
 		log.info("Start saveCar ");
 		String uploadedFileLocation = "c://uploadedFiles/"
 				+ fileDetail.getFileName();

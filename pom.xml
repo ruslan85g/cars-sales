@@ -19,11 +19,6 @@
             <artifactId>appengine-api-1.0-sdk</artifactId>
             <version>${appengine.target.version}</version>
         </dependency>
-<dependency>
-	<groupId>com.sun.jersey.contribs</groupId>
-	<artifactId>jersey-multipart</artifactId>
-	<version>1.18.3</version>
-</dependency>
         <dependency>
 			<groupId>com.google.appengine</groupId>
 			<artifactId>appengine-api-labs</artifactId>
