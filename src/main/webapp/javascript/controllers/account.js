@@ -163,8 +163,7 @@ console.log($scope.newAdJson)
 						}
 					]
 
-
-	$scope.updateAdJson = {	
+	$scope.updCar = {	
 						"car_type" : "",
 						"model" : "",
 						"year" : 0,
@@ -175,10 +174,27 @@ console.log($scope.newAdJson)
 						"price" : 0,
 						"text" : ""
 					}
-	$scope.updateAd = function(){
-		
-		
-
+	
+	$scope.updateAd = function(id){
+		$.each($scope.mod_opts, function (key,val){
+			if(val.model_name == $scope.updCar.model){
+				$scope.updCar_type = val.car_type_id;
+				$scope.updCar_mod = val.car_model_id;
+			}
+		});
+		$scope.updateAdJson = {		"car_id" : id,
+								"user_id" : $rootScope.cookieUserID,
+								"car_type_id" : $scope.updCar_type,
+								"car_model_id" : $scope.updCar_mod,
+								"car_model": $scope.updCar.model,
+								"year" : $scope.updCar.year,
+								"type_geare" : ""+$scope.updCar.type+"",  //תיבת הילוכים
+								"volume" : $scope.updCar.volume,     //נפח 
+								"km" : $scope.updCar.km,         //ק"מ
+								"color" : $scope.updCar.color,
+								"price" : $scope.updCar.price,
+								"car_url"  :""  
+							};
 		$http.post(''+$rootScope.mainurl+'/api/cars/updateCar', $scope.updateAdJson).
 			success(function(data, status) {
 				console.log(data);
