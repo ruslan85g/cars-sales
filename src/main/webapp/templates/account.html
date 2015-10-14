@@ -91,9 +91,13 @@
 					<label>צבע</label>
 					<input type="text" placeholder="צבע" ng-model="newCar.color" />
 				</li>
-				<li style="    margin-top: 10px;" >
+				<li style="margin-top: 10px;" >
 					<label>תמונה</label>
-					<input type="file" />
+					<form action="api/cars/fileupload" method="post" enctype="multipart/form-data" >
+					   <input type="file" name="file" />
+					   <input type="hidden" name="car_id" value="{{newCarID}}" />
+					   <input type="submit" id="Upload" style="width: 0px;height: 0px;border: medium none;" />
+					</form>
 				</li>
 			</ul>
 			<ul class="adBut" style="width: 100%" >
@@ -124,9 +128,9 @@
 			<ul class="searchBar" >
 				<li>
 					<label>יצרן</label>
-					<select>
+					<select ng-model="car_type" ng-change="getListModel(car_type);" >
 						<option>בחר יצרן</option>
-						<option   ></option>							
+						<option ng-repeat="(k,v) in man_opts track by $index" ng-init="val.typeName == v.name">{{v.name}}</option>							
 					</select>
 				</li>
 				<li>

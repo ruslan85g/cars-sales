@@ -140,7 +140,9 @@ console.log($scope.newAdJson)
 		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.newAdJson).
 			success(function(data, status) {
 				console.log(data);
-				$scope.getCarsList();
+				$scope.newCarID = data.car_id;
+				$("#Upload").click();
+				setTimeout(function() {console.log('3000');$scope.getCarsList();}, 3000)
 			}).error(function(data, status) {
 				console.log(data);
 				
@@ -162,23 +164,20 @@ console.log($scope.newAdJson)
 					]
 
 
-	
+	$scope.updateAdJson = {	
+						"car_type" : "",
+						"model" : "",
+						"year" : 0,
+						"type" : "",  
+						"volume" : 0,  
+						"km" : 0,    
+						"color" :"",
+						"price" : 0,
+						"text" : ""
+					}
 	$scope.updateAd = function(){
 		
-		$scope.updateAdJson = {	
-					"userId" : $rootScope.cookieUserID,
-					"ad" :  {/*
-								"id" :  num,
-								"car_type" : "string",
-								"model" : "string",
-								"year" : num,
-								"type" : "string",  //תיבת הילוכים
-								"volume" : num,     //נפח 
-								"km" : num,         //ק"מ
-								"color" :"string",
-								"price" : num"*/
-							}
-				};
+		
 
 		$http.post(''+$rootScope.mainurl+'/api/cars/updateCar', $scope.updateAdJson).
 			success(function(data, status) {
