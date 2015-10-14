@@ -12,7 +12,6 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
@@ -58,7 +57,7 @@ public class SearchDBService extends DBService {
 		}
 		if (searchMeta.getYearF() != null) {
 			subFilters.add(new FilterPredicate("yearF",
-					FilterOperator.GREATER_THAN, searchMeta.getYearF()));
+					FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta.getYearF()));
 			log.info("find cars per yearF " + subFilters.size());
 		}
 		if (searchMeta.getYearT() != null) {
@@ -99,6 +98,8 @@ public class SearchDBService extends DBService {
 		log.info("Try SortDirection");
 		q.addSort("created_time", SortDirection.DESCENDING);
 		q.addSort("year", SortDirection.ASCENDING);
+		q.addSort("yearF", SortDirection.ASCENDING);
+		q.addSort("yearT", SortDirection.DESCENDING);
 		log.info("Sucsess SortDirection");
 		if (subFilters.size() == 1) {
 			// strs.iterator().next();
