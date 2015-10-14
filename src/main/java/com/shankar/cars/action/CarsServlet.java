@@ -1,5 +1,6 @@
 package com.shankar.cars.action;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -27,6 +29,22 @@ import com.shankar.cars.data.persist.CarDBService;
 import com.shankar.cars.data.persist.CarModelsDBService;
 import com.shankar.cars.data.persist.CarTypeDBService;
 import com.shankar.cars.data.persist.UserDBService;
+import com.sun.jersey.core.header.FormDataContentDisposition;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
 
 //
 @Path("/cars")
@@ -201,6 +219,66 @@ public class CarsServlet {
 
 		return resp;
 	}
+
+	// @POST
+	// @Consumes(MediaType.MULTIPART_FORM_DATA)
+	// public void execute(
+	// @FormParam("someparameter") String param
+	// @FormDataParam("inputfile") File inputfile
+	// )
+	// {
+	// System.out.println(param);
+	// }
+	@Path("/fileupload")
+	@POST
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Response uploadFile(
+			// @FormDataParam("inputfile") File inputfile
+			// @FormParam
+			@FormDataParam("file") InputStream uploadedInputStream,
+			@FormDataParam("someparameter") Long param,
+			@FormDataParam("file") FormDataContentDisposition fileDetail) {
+		log.info("Start saveCar ");
+		String uploadedFileLocation = "c://uploadedFiles/"
+				+ fileDetail.getFileName();
+
+		// save it
+		saveToFile(uploadedInputStream, uploadedFileLocation);
+
+		String output = "File uploaded via Jersey based RESTFul Webservice to: "
+				+ uploadedFileLocation;
+		if (param != null) {
+			log.info("car_id not NULL");
+			CarDBService db = new CarDBService();
+			Car car = db.load(Car.class, param);
+			System.out.println(param);
+		}
+		return Response.status(200).entity(output).build();
+
+	}
+
+	// save uploaded file to new location
+	private void saveToFile(InputStream uploadedInputStream,
+			String uploadedFileLocation) {
+
+		try {
+			OutputStream out = null;
+			int read = 0;
+			byte[] bytes = new byte[1024];
+
+			out = new FileOutputStream(new File(uploadedFileLocation));
+			while ((read = uploadedInputStream.read(bytes)) != -1) {
+				out.write(bytes, 0, read);
+			}
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
 	// @Path("/deleteCarPerUserId")
 	// @GET
 	// @Produces(MediaType.APPLICATION_JSON)
