@@ -18,7 +18,6 @@ import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
-import com.google.appengine.api.datastore.Query.SortDirection;
 import com.shankar.cars.data.Car;
 import com.shankar.cars.data.meta.SearchMeta;
 
@@ -56,8 +55,10 @@ public class SearchDBService extends DBService {
 			log.info("find cars per car_model_id " + subFilters.size());
 		}
 		if (searchMeta.getYearF() != null) {
-			subFilters.add(new FilterPredicate("yearF",
-					FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta.getYearF()));
+			subFilters
+					.add(new FilterPredicate("yearF",
+							FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta
+									.getYearF()));
 			log.info("find cars per yearF " + subFilters.size());
 		}
 		if (searchMeta.getYearT() != null) {
@@ -96,10 +97,10 @@ public class SearchDBService extends DBService {
 		// Use class Query to assemble a query
 		Query q = new Query("Car");
 		log.info("Try SortDirection");
-		q.addSort("created_time", SortDirection.DESCENDING);
-		q.addSort("year", SortDirection.ASCENDING);
-		q.addSort("yearF", SortDirection.ASCENDING);
-		q.addSort("yearT", SortDirection.DESCENDING);
+		// q.addSort("created_time", SortDirection.DESCENDING);
+		// q.addSort("year", SortDirection.ASCENDING);
+		// q.addSort("yearF", SortDirection.ASCENDING);
+		// q.addSort("yearT", SortDirection.DESCENDING);
 		log.info("Sucsess SortDirection");
 		if (subFilters.size() == 1) {
 			// strs.iterator().next();
