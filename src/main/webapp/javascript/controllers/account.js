@@ -182,7 +182,7 @@ console.log($scope.newAdJson)
 				$scope.updCar_mod = val.car_model_id;
 			}
 		});
-		$scope.updateAdJson = {		"car_id" : id,
+		$scope.updateAdJson = {	"car_id" : id,
 								"user_id" : $rootScope.cookieUserID,
 								"car_type_id" : $scope.updCar_type,
 								"car_model_id" : $scope.updCar_mod,
@@ -195,7 +195,8 @@ console.log($scope.newAdJson)
 								"price" : $scope.updCar.price,
 								"car_url"  :""  
 							};
-		$http.post(''+$rootScope.mainurl+'/api/cars/updateCar', $scope.updateAdJson).
+			console.log($scope.updateAdJson);
+		/*$http.post(''+$rootScope.mainurl+'/api/cars/updateCar', $scope.updateAdJson).
 			success(function(data, status) {
 				console.log(data);
 				$scope.getCarsList();
@@ -203,7 +204,7 @@ console.log($scope.newAdJson)
 			}).error(function(data, status) {
 				console.log(data);
 				
-			});
+			});*/
 	}
 	
 	$scope.deleteAd = function(id){

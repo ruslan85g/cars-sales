@@ -60,7 +60,7 @@ a.buttonFFF:active {
 #main_continer{margin-top:50px;width:70%;margin:0 auto;height:auto}
 .searchBar{display: inline-block;margin:20px 35px 0px 0px;}
 .searchBar li{float:right;width: 119px;}
-.searchBar li label{width: 120px;display: block;}
+.searchBar li label{width: 120px;display: block;height: 18px;}
 .searchBar li select{    width: 100px;    height: 30px;    border-color: #1ba4ab;}
 .searchBar li input{    width: 100px;    height: 26px;    border: 1px solid #1ba4ab;}
 .button{    width: 120px;    height: 30px;    color: #FFFFFF;    background-color: #1ba4ab;cursor:pointer;
