@@ -78,8 +78,9 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 			var typeName = "typeName";
 			var modName = "modName";
 			$.each(data, function (key,val){
-			console.log(val.car_type_id);
+			console.log($scope.man_opts);
 				if(val.car_type_id){
+					
 					$.each($scope.man_opts, function (k,v){
 						if(val.car_type_id == v.id){
 							val.typeName = v.name;
@@ -87,14 +88,21 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 					});
 				}
 				if(val.car_model_id){
-					$.each($scope.mod_opts, function (k,v){
-						if(val.car_model_id == v.id){
-							val.modName = v.name;
-						}
-					});
+				$scope.listModel = {"carType_id" : val.car_type_id,"carType_Name":""};
+					$http.post(''+$rootScope.mainurl+'/api/carmodels/get',$scope.listModel).
+						success(function(data, status) {
+							$scope.modN = data;
+							$.each($scope.modN, function (k,v){
+								if(val.car_model_id == v.car_model_id){
+									val.modName = v.model_name;
+									console.log(val.modName)
+								}
+						});
+					}).error(function(data, status) {console.log(data);});
+		
 				}
 			});
-		
+		console.log($scope.mod_opts)
 			$scope.viewAdsJson = data;
 			console.log($scope.viewAdsJson);
 		}).error(function(data, status) {
@@ -174,14 +182,34 @@ console.log($scope.newAdJson)
 						"price" : 0,
 						"text" : ""
 					}
+	$scope.getNewTypeId = function(id){
+	$scope.getListModel(id);
+		if(id != "בחר יצרן"){
+			$.each($scope.man_opts, function (key,val){
+				if(val.name == id){
+					$scope.updCar_type = val.id;
+				}
+			});
+			$scope.listModel = {"carType_id" : $scope.updCar_type,"carType_Name":""};
+					$http.post(''+$rootScope.mainurl+'/api/carmodels/get',$scope.listModel).
+						success(function(data, status) {
+							$scope.mod_opts = data;
+					}).error(function(data, status) {console.log(data);});
+		
+			
+		}
+	}
 	
 	$scope.updateAd = function(id){
-		$.each($scope.mod_opts, function (key,val){
-			if(val.model_name == $scope.updCar.model){
-				$scope.updCar_type = val.car_type_id;
-				$scope.updCar_mod = val.car_model_id;
-			}
-		});
+		if($scope.updCar.model){
+			$.each($scope.mod_opts, function (key,val){
+				if(val.model_name == $scope.updCar.model){
+					$scope.updCar_type = val.car_type_id;
+					$scope.updCar_mod = val.car_model_id;
+				}
+			});
+		}
+		
 		$scope.updateAdJson = {	"car_id" : id,
 								"user_id" : $rootScope.cookieUserID,
 								"car_type_id" : $scope.updCar_type,

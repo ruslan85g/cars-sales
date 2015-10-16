@@ -129,7 +129,7 @@
 				<li>
 					<label>יצרן</label>
 					<label>{{val.typeName}}</label>
-					<select ng-model="updCar.car_type" ng-change="getListModel(updCar.car_type);" >
+					<select ng-model="updCar.car_type" ng-change="getNewTypeId(updCar.car_type);" >
 						<option ng-selected="true" >בחר יצרן</option>
 						<option ng-repeat="(k,v) in man_opts track by $index"  >{{v.name}}</option>							
 					</select>
