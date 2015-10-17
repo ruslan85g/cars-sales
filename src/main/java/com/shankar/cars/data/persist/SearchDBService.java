@@ -109,7 +109,7 @@ public class SearchDBService extends DBService {
 
 		if (q_year != null) {
 			log.info("Start q_year: ");
-			q_year = setFilter(q_year, subFilters);
+			q_year = setFilter(q_year, subFiltersYear);
 			PreparedQuery pq = datastore.prepare(q_year);
 			//pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("Query: " + q_year.toString());
@@ -118,7 +118,7 @@ public class SearchDBService extends DBService {
 
 		if (q_price != null) {
 			log.info("Start q_price: ");
-			q_price = setFilter(q_price, subFilters);
+			q_price = setFilter(q_price, subFiltersPrice);
 			PreparedQuery pq = datastore.prepare(q_price);
 			//pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("Query: " + q_price.toString());

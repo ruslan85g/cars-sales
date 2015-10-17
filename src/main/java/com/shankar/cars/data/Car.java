@@ -32,6 +32,7 @@ public class Car {
 	protected Long car_type_id;
 	
 	
+	@Index
 	@Getter
 	@Setter
 	public String car_url;
@@ -40,6 +41,7 @@ public class Car {
 	@Setter
 	public Long year;
 
+	@Index
 	@Getter
 	@Setter
 	public String type_geare;
@@ -56,6 +58,7 @@ public class Car {
 	@Setter
 	public String color;
 	
+	@Index
 	@Getter
 	@Setter
 	public Long price;
