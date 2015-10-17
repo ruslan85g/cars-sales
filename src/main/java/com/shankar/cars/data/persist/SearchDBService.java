@@ -18,7 +18,6 @@ import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
-import com.google.appengine.labs.repackaged.com.google.common.collect.Lists;
 import com.shankar.cars.data.Car;
 import com.shankar.cars.data.meta.SearchMeta;
 
@@ -35,6 +34,10 @@ public class SearchDBService extends DBService {
 		List<Entity> results = null;
 		List<Entity> result_year = null;
 		List<Entity> result_price = null;
+		Collection<Filter> subFilters = new ArrayList<Filter>();
+		Collection<Filter> subFiltersPrice = new ArrayList<Filter>();
+		Collection<Filter> subFiltersYear = new ArrayList<Filter>();
+		
 		List<Car> carsList = new ArrayList<Car>();
 
 		Calendar c = new GregorianCalendar();
@@ -42,22 +45,21 @@ public class SearchDBService extends DBService {
 
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
-		Collection<Filter> subFilters = new ArrayList<Filter>();
-
+		
 		if (searchMeta == null) {
 			throw new RuntimeException("searchMeta cannot be null");
 		}
 
-		if (searchMeta.getYearF() != null && searchMeta.getYearT() != null) {
+		if (searchMeta.getYearF() != null || searchMeta.getYearT() != null) {
 
 			if (searchMeta.getYearF() != null) {
-				subFilters.add(new FilterPredicate("year",
+				subFiltersYear.add(new FilterPredicate("year",
 						FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta
 								.getYearF()));
 				log.info("find cars per yearF " + subFilters.size());
 			}
 			if (searchMeta.getYearT() != null) {
-				subFilters.add(new FilterPredicate("year",
+				subFiltersYear.add(new FilterPredicate("year",
 						FilterOperator.LESS_THAN_OR_EQUAL, searchMeta
 								.getYearT()));
 				log.info("find cars per yearT " + subFilters.size());
@@ -65,16 +67,16 @@ public class SearchDBService extends DBService {
 			q_year = new Query("Car");
 		}
 
-		if (searchMeta.getPriceF() != null && searchMeta.getPriceT() != null) {
+		if (searchMeta.getPriceF() != null || searchMeta.getPriceT() != null) {
 
 			if (searchMeta.getPriceF() != null) {
-				subFilters.add(new FilterPredicate("price",
+				subFiltersPrice.add(new FilterPredicate("price",
 						FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta
 								.getPriceF()));
 			}
 
 			if (searchMeta.getPriceT() != null) {
-				subFilters.add(new FilterPredicate("price",
+				subFiltersPrice.add(new FilterPredicate("price",
 						FilterOperator.LESS_THAN_OR_EQUAL, searchMeta
 								.getPriceT()));
 			}
@@ -109,29 +111,29 @@ public class SearchDBService extends DBService {
 			log.info("Start q_year: ");
 			q_year = setFilter(q_year, subFilters);
 			PreparedQuery pq = datastore.prepare(q_year);
-			pq.countEntities(FetchOptions.Builder.withLimit(5));
+			//pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("Query: " + q_year.toString());
-			result_year = pq.asList(null);
+			result_year = pq.asList(FetchOptions.Builder.withLimit(5));
 		}
 
 		if (q_price != null) {
 			log.info("Start q_price: ");
 			q_price = setFilter(q_price, subFilters);
 			PreparedQuery pq = datastore.prepare(q_price);
-			pq.countEntities(FetchOptions.Builder.withLimit(5));
+			//pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("Query: " + q_price.toString());
-			result_price = pq.asList(null);
+			result_price = pq.asList(FetchOptions.Builder.withLimit(5));
 		}
 
 		if (q != null) {
 			log.info("Start q: ");
 			q = setFilter(q, subFilters);
 			PreparedQuery pq = datastore.prepare(q);
-			pq.countEntities(FetchOptions.Builder.withLimit(5));
+			//pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("startInsertCarsFromSearch: " + pq.asIterable().toString());
 			log.info("Query: " + q.toString());
-			results = pq.asList(null);
-
+			results = pq.asList(FetchOptions.Builder.withLimit(5));
+			log.info("results size: " + results.size());
 		}
 
 		if (results != null) {
