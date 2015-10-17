@@ -36,7 +36,12 @@ public class Car {
 	@Getter
 	@Setter
 	public String car_url;
-
+	
+	@Index
+	@Getter
+	@Setter
+	protected String image;
+	
 	@Getter
 	@Setter
 	public Long year;

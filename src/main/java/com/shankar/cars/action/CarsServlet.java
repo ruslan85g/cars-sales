@@ -1,13 +1,17 @@
 package com.shankar.cars.action;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -74,11 +78,12 @@ public class CarsServlet {
 		return carMeta;
 	}
 
-	@Path("/save")
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Map<String, String> saveCar(CarMeta carMeta) {
+    @Path("/save")
+    @POST
+    @Consumes("application/x-www-form-urlencoded")
+	public  Boolean saveCar( 
+			@DefaultValue("") @FormParam("user_id") Long  user_id,
+            @DefaultValue("") @FormParam("filename") String  file) {
 
 		log.info("Start saveCar ");
 		Map<String, String> resp = new HashMap<String, String>();
@@ -113,10 +118,11 @@ public class CarsServlet {
 			car.setPrice(carMeta.getPrice());
 			car.setType_geare(carMeta.getType_geare());
 			car.setUpdate_time(System.currentTimeMillis());
-			car.setUser_id(carMeta.getUser_id());
+			car.setUser_id(user_id);
 			car.setYear(carMeta.getYear());
 			car.setVolume(carMeta.getVolume());
 			car.setCar_url(car_url);
+			car.setImage(file);
 			log.info("pre save car in db");
 			carDBService.save(car);
 			log.info("save car in db");
@@ -203,56 +209,16 @@ public class CarsServlet {
 		return resp;
 	}
 
-	// @Path("/fileupload")
-	// @POST
-	// @Consumes(MediaType.MULTIPART_FORM_DATA)
-	// public Response uploadFile(
-	// // @FormDataParam("inputfile") File inputfile
-	// // @FormParam
-	// @FormParam("file") InputStream uploadedInputStream,
-	// @FormParam("someparameter") Long param,
-	// @FormParam("file") FormDataContentDisposition fileDetail) {
-	// log.info("Start saveCar ");
-	// String uploadedFileLocation = "c://uploadedFiles/"
-	// + fileDetail.getFileName();
-	//
-	// // save it
-	// saveToFile(uploadedInputStream, uploadedFileLocation);
-	//
-	// String output = "File uploaded via Jersey based RESTFul Webservice to: "
-	// + uploadedFileLocation;
-	// if (param != null) {
-	// log.info("car_id not NULL");
-	// CarDBService db = new CarDBService();
-	// Car car = db.load(Car.class, param);
-	// System.out.println(param);
-	// }
-	// return Response.status(200).entity(output).build();
-	//
-	// }
-	//
-	// // save uploaded file to new location
-	// private void saveToFile(InputStream uploadedInputStream,
-	// String uploadedFileLocation) {
-	//
-	// try {
-	// OutputStream out = null;
-	// int read = 0;
-	// byte[] bytes = new byte[1024];
-	//
-	// out = new FileOutputStream(new File(uploadedFileLocation));
-	// while ((read = uploadedInputStream.read(bytes)) != -1) {
-	// out.write(bytes, 0, read);
-	// }
-	// out.flush();
-	// out.close();
-	// } catch (IOException e) {
-	//
-	// e.printStackTrace();
-	// }
-	//
-	// }
-
+	@Path("/e")
+	@GET
+	public Boolean uploadFile(@QueryParam("car_id") Long car_id) throws ServletException, IOException {
+		CarDBService db = new CarDBService();
+		Car car = db.load(Car.class, car_id);
+		request.setAttribute("car", car);
+		request.getRequestDispatcher("/car_form.jsp").forward(request, response);
+        return true;
+	}
+	
 	// @Path("/deleteCarPerUserId")
 	// @GET
 	// @Produces(MediaType.APPLICATION_JSON)
@@ -281,38 +247,5 @@ public class CarsServlet {
 	// return carMeta;
 	// }
 	//
-	// @Path("/updateCar")
-	// @POST
-	// @Consumes(MediaType.APPLICATION_JSON)
-	// @Produces(MediaType.APPLICATION_JSON)
-	// public Response updateCar(CarMeta carMeta) {
-	//
-	// log.info("Start updateCar ");
-	//
-	// Car car = null;
-	// User user = userDBService.load(User.class, carMeta.getUser_id());
-	// if (user == null) {
-	// Response.serverError().status(Response.Status.BAD_REQUEST)
-	// .entity("User not found").build();
-	// }
-	//
-	// try {
-	// car = carDBService.load(Car.class, carMeta.getCar_id());
-	// if (car != null) {
-	// car.setUpdate_time(System.currentTimeMillis());
-	// car.setCar_model_id(carMeta.getCar_model_id());
-	// } else {
-	// Response.serverError().status(Response.Status.BAD_REQUEST)
-	// .entity("Car not found").build();
-	// }
-	//
-	// carDBService.save(car);
-	//
-	// } catch (Exception e) {
-	// log.severe("UpdateCarException::" + e.getMessage());
-	// Response.serverError().build();
-	// }
-	// log.info("End updateCar");
-	// return Response.ok().build();
-	// }
+	
 }
