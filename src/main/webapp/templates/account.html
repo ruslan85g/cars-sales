@@ -93,10 +93,10 @@
 				</li>
 				<li style="margin-top: 10px;" >
 					<label>תמונה</label>
-					<form action="api/cars/fileupload" method="post" enctype="multipart/form-data" >
+					<form action="/api/cars/fileupload" method="post" enctype="multipart/form-data" >
 					   <input type="file" name="file" />
 					   <input type="hidden" name="car_id" value="{{newCarID}}" />
-					   <input type="submit" id="Upload" style="width: 0px;height: 0px;border: medium none;" />
+					   <input type="submit" id="Upload" />
 					</form>
 				</li>
 			</ul>
@@ -128,59 +128,69 @@
 			<ul class="searchBar" >
 				<li>
 					<label>יצרן</label>
-					<select ng-model="car_type" ng-change="getListModel(car_type);" >
-						<option>בחר יצרן</option>
-						<option ng-repeat="(k,v) in man_opts track by $index" ng-init="val.typeName == v.name">{{v.name}}</option>							
+					<label>{{val.typeName}}</label>
+					<select ng-model="updCar.car_type" ng-change="getNewTypeId(updCar.car_type);" >
+						<option ng-selected="true" >בחר יצרן</option>
+						<option ng-repeat="(k,v) in man_opts track by $index"  >{{v.name}}</option>							
 					</select>
 				</li>
 				<li>
 					<label>דגם</label>
-					<select>
-						<option>בחר דגם</option>
-						<option   ></option>							
+					<label>{{val.modName}}</label>
+					<select ng-model="updCar.model" >
+						<option ng-selected="true" >בחר דגם</option>
+						<option ng-repeat="(k,v) in mod_opts track by $index" >{{v.model_name}}</option>							
 					</select>
 				</li>
 				<li>
 					<label>שנה</label>
-					<select>
-						<option>שנה</option>
+					<label>{{val.year}}</label>
+					<select ng-model="updCar.year" >
+						<option ng-selected="true" >שנה</option>
 						<option ng-repeat="year in years" >{{year}}</option>							
 					</select>
 				</li>
 				<li>
 					<label>תיבת הילוכים</label>
-					<select>
-						<option value="">בחר</option>
-						<option value="-1">ידנית</option>
-						<option value="1">אוטומט</option>
-						<option value="6">טיפטרוניק</option>
-						<option value="9">רובוטית</option>
+					<label>{{val.type_geare}}</label>
+					<select ng-model="updCar.type" >
+						<option ng-selected="true" >בחר</option>
+						<option>ידנית</option>
+						<option>אוטומט</option>
 					</select>
 				</li>
 				<li>
 					<label>נפח:</label>
-					<input type="number" />
+					<label>{{val.volume}}</label>
+					<input type="number" placeholder="נפח" ng-model="updCar.volume" />
 				</li>
 				<li>
 					<label>ק"מ:</label>
-					<input type="number" />
+					<label>{{val.km}}</label>
+					<input type="number" placeholder='ק"מ' ng-model="updCar.km" />
 				</li>
-				<li style="    margin-top: 10px;" >
+				<li style=" margin-top: 10px;" >
 					<label>מחיר</label>
-					<input type="number" />
+					<label>{{val.price}}</label>
+					<input type="number" placeholder="מחיר" ng-model="updCar.price" />
 				</li>
-				<li style="    margin-top: 10px;width: 220px;margin-left: 18px;" >
-					<label>צבע:</label>
-					<input type="text" style="width: 215px;" />
+				<li style=" margin-top: 10px;" >
+					<label>צבע</label>
+					<label>{{val.color}}</label>
+					<input type="text" placeholder="צבע" ng-model="updCar.color" />
 				</li>
-				<li style="    margin-top: 10px;" >
+				<li style="margin-top: 10px;" >
 					<label>תמונה</label>
-					<input type="file" />
+					<form action="/api/cars/fileupload" method="post" enctype="multipart/form-data" >
+					   <input type="file" name="file" />
+					   <input type="hidden" name="car_id" value="{{newCarID}}" />
+					   <input type="submit" id="Upload" />
+					</form>
 				</li>
 			</ul>
 			<ul class="adBut" style="width: 100%" >
 				<li><button ng-click="editView = 0" class="button" >ביתול</button></li>
-				<li><button class="button" >שמור</button></li>
+				<li><button class="button" ng-click="updateAd(val.car_id)" >שמור</button></li>
 			</ul>	
 		</div>
 		</li>
