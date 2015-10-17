@@ -12,7 +12,6 @@ import lombok.Setter;
 public class Car {
 	
 	@Id
-	@Index
 	@Getter
 	@Setter
 	protected Long car_id;
