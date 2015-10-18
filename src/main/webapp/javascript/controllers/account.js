@@ -274,7 +274,7 @@ console.log($scope.newAdJson)
 			});
 	}
 	
-	$scope.file = function() {
+	/*$scope.file = function() {
 		var fileInput = document.getElementById('file');
 		fd = new FormData(fileInput.files[0]);
 		fd.append( 'file', fileInput.files[0] );
@@ -296,6 +296,16 @@ console.log($scope.newAdJson)
 		}
 	}
 	
+	*/
 	
+	$scope.getForm = function(){
+		$http.get(''+$rootScope.mainurl+'/api/cars/uploadFile').
+			success(function(data, status) {
+				console.log(data);
+			}).error(function(data, status) {
+				console.log(data);
+				
+			});
+	}
 
 }
