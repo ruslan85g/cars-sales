@@ -1,68 +1,67 @@
-ο»Ώ		<script>
-			function onchangeFun(item){alert(item)}
-		</script>
 		<form action="/api/cars/save" method="post" enctype="application/x-www-form-urlencoded" >	
-			<p>${types}</p>
 			<ul class="searchBar" >
 				<li>
-					<label>Χ™Χ¦Χ¨Χ</label>
-					<select  onchange="onchangeFun(this);" >
+					<label>ιφψο</label>
 				   	   <c:forEach var="Customer" items="${types}" >
-                        <option value=""> <c:out value="${type}" /></option>
+                        <option value=""> <c:out value="${type}" />${type.car_type_name}</option>
                        </c:forEach>
+					
+					<select ng-model="updCar.car_type" ng-change="getNewTypeId(updCar.car_type);" >
+						<option ng-selected="true" >αηψ ιφψο</option>
+						<option ng-repeat="(k,v) in man_opts track by $index"  >{{v.name}}</option>							
 					</select>
 				</li>
 				<li>
-					<label>Χ“Χ’Χ</label>
+					<label>γβν</label>
 					<label>{{val.modName}}</label>
 					<select ng-model="updCar.model" >
-						<option ng-selected="true" >Χ‘Χ—Χ¨ Χ“Χ’Χ</option>
+						<option ng-selected="true" >αηψ γβν</option>
 						<option ng-repeat="(k,v) in mod_opts track by $index" >{{v.model_name}}</option>							
 					</select>
 				</li>
 				<li>
-					<label>Χ©Χ Χ”</label>
+					<label>ωπδ</label>
 					<label>${car.year}</label>
 					<select ng-model="updCar.year" >
-						<option ng-selected="true" >Χ©Χ Χ”</option>
+						<option ng-selected="true" >ωπδ</option>
 						<option ng-repeat="year in years" >{{year}}</option>							
 					</select>
 				</li>
 				<li>
-					<label>ΧªΧ™Χ‘Χª Χ”Χ™ΧΧ•Χ›Χ™Χ</label>
+					<label>ϊιαϊ διμελιν</label>
 					<label>${car.type_geare}</label>
 					<select ng-model="updCar.type" >
-						<option ng-selected="true" >Χ‘Χ—Χ¨</option>
-						<option>Χ™Χ“Χ Χ™Χª</option>
-						<option>ΧΧ•ΧΧ•ΧΧ</option>
+						<option ng-selected="true" >αηψ</option>
+						<option>ιγπιϊ</option>
+						<option>ΰεθεξθ</option>
 					</select>
 				</li>
 				<li>
-					<label>Χ Χ¤Χ—:</label>
+					<label>πτη:</label>
 					<label>${car.volume}</label>
-					<input type="number" placeholder="Χ Χ¤Χ—" ng-model="updCar.volume" />
+					<input type="number" placeholder="πτη" ng-model="updCar.volume" />
 				</li>
 				<li>
-					<label>Χ§"Χ:</label>
+					<label>χ"ξ:</label>
 					<label>${car.km}</label>
-					<input type="number" placeholder='Χ§"Χ' ng-model="updCar.km" />
+					<input type="number" placeholder='χ"ξ' ng-model="updCar.km" />
 				</li>
 				<li style=" margin-top: 10px;" >
-					<label>ΧΧ—Χ™Χ¨</label>
+					<label>ξηιψ</label>
 					<label>${car.price}</label>
-					<input type="number" placeholder="ΧΧ—Χ™Χ¨" ng-model="updCar.price" />
+					<input type="number" placeholder="ξηιψ" ng-model="updCar.price" />
 				</li>
 				<li style=" margin-top: 10px;" >
-					<label>Χ¦Χ‘ΧΆ</label>
+					<label>φας</label>
 					<label>${car.color}</label>
-					<input type="text" placeholder="Χ¦Χ‘ΧΆ" ng-model="updCar.color" />
+					<input type="text" placeholder="φας" ng-model="updCar.color" />
 				</li>
 				<li style="margin-top: 10px;" >
-					<label>ΧªΧΧ•Χ Χ”</label>
+					<label>ϊξεπδ</label>
 					<label></label>
 					<input type="file" name="file" />
 				</li>
-				<li><button ng-click="editView = 0" class="button" >Χ‘Χ™ΧªΧ•Χ</button></li>
+				<li><button ng-click="editView = 0" class="button" >αιϊεμ</button></li>
 				<input type="submit" id="Upload" class="button" />
 			</ul>
 		</form>
