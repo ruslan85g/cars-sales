@@ -83,6 +83,7 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 					$rootScope.cookieUserID = data.userId;
 					$cookieStore.put("uID", $rootScope.cookieUserID);
 					$rootScope.userStatus = 1;
+					console.log($cookieStore)
 				}).error(function(data, status) {
 					console.log(data);
 					$scope.pLoginView = 2;
