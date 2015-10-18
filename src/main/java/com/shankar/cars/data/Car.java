@@ -12,7 +12,6 @@ import lombok.Setter;
 public class Car {
 	
 	@Id
-	@Index
 	@Getter
 	@Setter
 	protected Long car_id;
@@ -33,14 +32,21 @@ public class Car {
 	protected Long car_type_id;
 	
 	
+	@Index
 	@Getter
 	@Setter
 	public String car_url;
-
+	
+	@Index
+	@Getter
+	@Setter
+	protected String image;
+	
 	@Getter
 	@Setter
 	public Long year;
 
+	@Index
 	@Getter
 	@Setter
 	public String type_geare;
@@ -57,6 +63,7 @@ public class Car {
 	@Setter
 	public String color;
 	
+	@Index
 	@Getter
 	@Setter
 	public Long price;

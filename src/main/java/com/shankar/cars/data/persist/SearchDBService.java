@@ -27,118 +27,201 @@ public class SearchDBService extends DBService {
 	public List<Car> load(Class<Car> class1, SearchMeta searchMeta) {
 
 		// Get the Datastore Service
-		log.info(" Start SearchDBService");
+		log.info(" Start SearchDBService.load");
+		Query q_year = null;
+		Query q_price = null;
+		Query q = null;
+		List<Entity> results = null;
+		List<Entity> result_year = null;
+		List<Entity> result_price = null;
+		Collection<Filter> subFilters = new ArrayList<Filter>();
+		Collection<Filter> subFiltersPrice = new ArrayList<Filter>();
+		Collection<Filter> subFiltersYear = new ArrayList<Filter>();
+		
+		List<Car> carsList = new ArrayList<Car>();
 
 		Calendar c = new GregorianCalendar();
 		c.add(Calendar.DATE, -30);
 
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
-		Collection<Filter> subFilters = new ArrayList<Filter>();
-		List<Car> carsList = new ArrayList<Car>();
+		
 		if (searchMeta == null) {
 			throw new RuntimeException("searchMeta cannot be null");
 		}
 
-		subFilters.add(new FilterPredicate("created_time",
-				FilterOperator.GREATER_THAN, c.getTimeInMillis()));
-		log.info("Start car_name ");
+		if (searchMeta.getYearF() != null || searchMeta.getYearT() != null) {
+
+			if (searchMeta.getYearF() != null) {
+				subFiltersYear.add(new FilterPredicate("year",
+						FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta
+								.getYearF()));
+				log.info("find cars per yearF " + subFilters.size());
+			}
+			if (searchMeta.getYearT() != null) {
+				subFiltersYear.add(new FilterPredicate("year",
+						FilterOperator.LESS_THAN_OR_EQUAL, searchMeta
+								.getYearT()));
+				log.info("find cars per yearT " + subFilters.size());
+			}
+			q_year = new Query("Car");
+		}
+
+		if (searchMeta.getPriceF() != null || searchMeta.getPriceT() != null) {
+
+			if (searchMeta.getPriceF() != null) {
+				subFiltersPrice.add(new FilterPredicate("price",
+						FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta
+								.getPriceF()));
+			}
+
+			if (searchMeta.getPriceT() != null) {
+				subFiltersPrice.add(new FilterPredicate("price",
+						FilterOperator.LESS_THAN_OR_EQUAL, searchMeta
+								.getPriceT()));
+			}
+			q_price = new Query("Car");
+		}
+
+		if (q_price == null && q_year == null) {
+			subFilters.add(new FilterPredicate("created_time",
+					FilterOperator.GREATER_THAN, c.getTimeInMillis()));
+
+			q = new Query("Car");
+		}
 
 		if (searchMeta.getCar_type_id() != null) {
 			subFilters.add(new FilterPredicate("car_type_id",
 					FilterOperator.EQUAL, searchMeta.getCar_type_id()));
 			log.info("find cars per car_type_id " + subFilters.size());
 		}
+
 		if (searchMeta.getCar_model_id() != null) {
 			subFilters.add(new FilterPredicate("car_model_id",
 					FilterOperator.EQUAL, searchMeta.getCar_model_id()));
-			log.info("find cars per car_model_id " + subFilters.size());
 		}
-		if (searchMeta.getYearF() != null) {
-			subFilters
-					.add(new FilterPredicate("yearF",
-							FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta
-									.getYearF()));
-			log.info("find cars per yearF " + subFilters.size());
-		}
-		if (searchMeta.getYearT() != null) {
-			subFilters.add(new FilterPredicate("yearT",
-					FilterOperator.LESS_THAN_OR_EQUAL, searchMeta.getYearT()));
-			log.info("find cars per yearT " + subFilters.size());
-		}
+
 		if (searchMeta.getType_geare() != null
 				&& !searchMeta.getType_geare().isEmpty()) {
 			subFilters.add(new FilterPredicate("type_geare",
 					FilterOperator.EQUAL, searchMeta.getType_geare()));
 		}
-		if (searchMeta.getVolume() != null && !searchMeta.getVolume().isEmpty()) {
-			subFilters.add(new FilterPredicate("volume", FilterOperator.EQUAL,
-					searchMeta.getVolume()));
-		}
-		if (searchMeta.getKm() != null) {
-			subFilters.add(new FilterPredicate("km",
-					FilterOperator.LESS_THAN_OR_EQUAL, searchMeta.getKm()));
-		}
-		if (searchMeta.getColor() != null && !searchMeta.getColor().isEmpty()) {
-			subFilters.add(new FilterPredicate("color", FilterOperator.EQUAL,
-					searchMeta.getColor()));
-		}
-		if (searchMeta.getPriceF() != null) {
-			subFilters.add(new FilterPredicate("priceF",
-					FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta
-							.getPriceF()));
+
+		if (q_year != null) {
+			log.info("Start q_year: ");
+			q_year = setFilter(q_year, subFiltersYear);
+			PreparedQuery pq = datastore.prepare(q_year);
+			//pq.countEntities(FetchOptions.Builder.withLimit(5));
+			log.info("Query: " + q_year.toString());
+			result_year = pq.asList(FetchOptions.Builder.withLimit(5));
 		}
 
-		if (searchMeta.getPriceF() != null) {
-			subFilters.add(new FilterPredicate("priceT",
-					FilterOperator.LESS_THAN_OR_EQUAL, searchMeta.getPriceF()));
-		}
-		log.info("Start Query: ");
-		// Use class Query to assemble a query
-		Query q = new Query("Car");
-		log.info("Try SortDirection");
-		// q.addSort("created_time", SortDirection.DESCENDING);
-		// q.addSort("year", SortDirection.ASCENDING);
-		// q.addSort("yearF", SortDirection.ASCENDING);
-		// q.addSort("yearT", SortDirection.DESCENDING);
-		log.info("Sucsess SortDirection");
-		if (subFilters.size() == 1) {
-			// strs.iterator().next();
-			q.setFilter(subFilters.iterator().next());
-
-		} else {
-			q.setFilter(CompositeFilterOperator.and(subFilters));
+		if (q_price != null) {
+			log.info("Start q_price: ");
+			q_price = setFilter(q_price, subFiltersPrice);
+			PreparedQuery pq = datastore.prepare(q_price);
+			//pq.countEntities(FetchOptions.Builder.withLimit(5));
+			log.info("Query: " + q_price.toString());
+			result_price = pq.asList(FetchOptions.Builder.withLimit(5));
 		}
 
-		log.info("Query: " + q.toString());
-		// Use PreparedQuery interface to retrieve results
-		PreparedQuery pq = datastore.prepare(q);
-		pq.countEntities(FetchOptions.Builder.withLimit(5));
-		log.info("startInsertCarsFromSearch: " + pq.asIterable().toString());
+		if (q != null) {
+			log.info("Start q: ");
+			q = setFilter(q, subFilters);
+			PreparedQuery pq = datastore.prepare(q);
+			//pq.countEntities(FetchOptions.Builder.withLimit(5));
+			log.info("startInsertCarsFromSearch: " + pq.asIterable().toString());
+			log.info("Query: " + q.toString());
+			results = pq.asList(FetchOptions.Builder.withLimit(5));
+			log.info("results size: " + results.size());
+		}
 
-		for (Entity result : pq.asIterable()) {
+		if (results != null) {
+			for (Entity result : results) {
+				Car car = new Car();
+				car.setCar_id((Long) result.getProperty("car_id"));// car_id
+				log.info("getCar_id " + car.getCar_id());
+				car.setCar_model_id((Long) result.getProperty("car_model_id"));
+				car.setCar_type_id((Long) result.getProperty("car_type_id"));
+				car.setColor((String) result.getProperty("color"));
+				car.setCreated_time((Long) result.getProperty("created_time"));
+				car.setUpdate_time((Long) result.getProperty("updated_time"));
+				car.setKm((Long) result.getProperty("km"));
+				car.setPrice((Long) result.getProperty("price"));
+				car.setType_geare((String) result.getProperty("type_geare"));
+				car.setUser_id((Long) result.getProperty("user_id"));
+				car.setUpdate_time((Long) result.getProperty("update_time"));
+				car.setVolume((String) result.getProperty("volume"));
+				car.setYear((Long) result.getProperty("year"));
+				log.info("carsList.add(getCar_model_id): "
+						+ car.getCar_model_id());
+				carsList.add(car);
 
-			Car car = new Car();
-			car.setCar_id((Long) result.getProperty("Name"));// car_id
-			log.info("getCar_id " + car.getCar_id());
-			car.setCar_model_id((Long) result.getProperty("car_model_id"));
-			car.setCar_type_id((Long) result.getProperty("car_type_id"));
-			car.setColor((String) result.getProperty("color"));
-			car.setCreated_time((Long) result.getProperty("created_time"));
-			car.setUpdate_time((Long) result.getProperty("updated_time"));
-			car.setKm((Long) result.getProperty("km"));
-			car.setPrice((Long) result.getProperty("price"));
-			car.setType_geare((String) result.getProperty("type_geare"));
-			car.setUser_id((Long) result.getProperty("user_id"));
-			car.setUpdate_time((Long) result.getProperty("update_time"));
-			car.setVolume((String) result.getProperty("volume"));
-			car.setYear((Long) result.getProperty("year"));
-			log.info("carsList.add(getCar_model_id): " + car.getCar_model_id());
-			carsList.add(car);
+			}
+		}
 
+		if (result_price != null) {
+			for (Entity result : result_price) {
+				Car car = new Car();
+				car.setCar_id((Long) result.getProperty("Name"));// car_id
+				log.info("getCar_id " + car.getCar_id());
+				car.setCar_model_id((Long) result.getProperty("car_model_id"));
+				car.setCar_type_id((Long) result.getProperty("car_type_id"));
+				car.setColor((String) result.getProperty("color"));
+				car.setCreated_time((Long) result.getProperty("created_time"));
+				car.setUpdate_time((Long) result.getProperty("updated_time"));
+				car.setKm((Long) result.getProperty("km"));
+				car.setPrice((Long) result.getProperty("price"));
+				car.setType_geare((String) result.getProperty("type_geare"));
+				car.setUser_id((Long) result.getProperty("user_id"));
+				car.setUpdate_time((Long) result.getProperty("update_time"));
+				car.setVolume((String) result.getProperty("volume"));
+				car.setYear((Long) result.getProperty("year"));
+				log.info("carsList.add(getCar_model_id): "
+						+ car.getCar_model_id());
+				if (!carsList.contains(car)) {
+					carsList.add(car);
+				}
+			}
+		}
+		if (result_year != null) {
+			for (Entity result : result_year) {
+				Car car = new Car();
+				car.setCar_id((Long) result.getProperty("Name"));// car_id
+				log.info("getCar_id " + car.getCar_id());
+				car.setCar_model_id((Long) result.getProperty("car_model_id"));
+				car.setCar_type_id((Long) result.getProperty("car_type_id"));
+				car.setColor((String) result.getProperty("color"));
+				car.setCreated_time((Long) result.getProperty("created_time"));
+				car.setUpdate_time((Long) result.getProperty("updated_time"));
+				car.setKm((Long) result.getProperty("km"));
+				car.setPrice((Long) result.getProperty("price"));
+				car.setType_geare((String) result.getProperty("type_geare"));
+				car.setUser_id((Long) result.getProperty("user_id"));
+				car.setUpdate_time((Long) result.getProperty("update_time"));
+				car.setVolume((String) result.getProperty("volume"));
+				car.setYear((Long) result.getProperty("year"));
+				log.info("carsList.add(getCar_model_id): "
+						+ car.getCar_model_id());
+				if (!carsList.contains(car)) {
+					carsList.add(car);
+				}
+
+			}
 		}
 
 		return carsList;
+	}
+
+	private Query setFilter(Query query, Collection<Filter> subFilters) {
+		if (subFilters.size() == 1) {
+			// strs.iterator().next();
+			query.setFilter(subFilters.iterator().next());
+
+		} else {
+			query.setFilter(CompositeFilterOperator.and(subFilters));
+		}
+		return query;
 	}
 
 }
