@@ -77,6 +77,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		success(function(data, status) {
 			var typeName = "typeName";
 			var modName = "modName";
+			var viewImg = "viewImg";
 			$.each(data, function (key,val){
 			console.log($scope.man_opts);
 				if(val.car_type_id){
@@ -101,6 +102,9 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 					}).error(function(data, status) {console.log(data);});
 		
 				}
+				if(val.image != '' && val.image != 'undefined'){
+					val.viewImg = 1;
+				}
 			});
 		console.log($scope.mod_opts)
 			$scope.viewAdsJson = data;
@@ -112,22 +116,22 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	}
 	$scope.getCarsList();
 	
-	function readImage(input) {
+	function readImage(input,e) {
     if ( input.files && input.files[0] ) {
         var FR= new FileReader();
         FR.onload = function(e) {
-             //$('#img').attr( "src", e.target.result );
-            // $('#base').text( e.target.result );
-			 //console.log(e.target.result);
-			 console.log(e.target.result);
-			$scope.dataFile = e.target.result;
+            if(e==0){$scope.dataFile = e.target.result;}
+			if(e==1){$scope.newImage = e.target.result;$scope.oldImg = 0}
         };       
         FR.readAsDataURL( input.files[0] );
     }
 }
 
 $("#Upload").change(function(){
-    readImage( this );
+    readImage( this ,0);
+});
+$("#newImg").change(function(){
+    readImage( this ,1);
 });
 	$scope.newCar = {	
 						"car_type" : "",

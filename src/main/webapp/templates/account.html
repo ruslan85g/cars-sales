@@ -119,7 +119,7 @@
 				<li><button class="button" ng-click="editView = 1;reset();" >עידקון</button></li>
 				<li><button class="button" ng-click="deleteAd(val.car_id)" >למחוק</button></li>
 			</ul>
-			<img src="{{val.file}}" style="width: 100px" />
+			<img src="{{val.image}}" style="width: 100px" />
 		</div>
 		<div ng-show="editView == 1" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;">
 			<ul class="searchBar" >
@@ -178,13 +178,12 @@
 				</li>
 				<li style="margin-top: 10px;" >
 					<label>תמונה</label>
-					<form action="/api/cars/fileupload" method="post" enctype="multipart/form-data" >
-					   <input type="file" name="file" />
-					   <input type="hidden" name="car_id" value="{{newCarID}}" />
-					   <input type="submit" id="Upload" />
+					   <input type="file" name="file" id="newImg" />
 					</form>
 				</li>
 			</ul>
+			<img src="{{val.image}}" style="width: 100px" ng-if="oldImg = 1" />
+			<img src="{{newImage}}" style="width: 100px" ng-if="oldImg = 0" />
 			<ul class="adBut" style="width: 100%" >
 				<li><button ng-click="editView = 0" class="button" >ביתול</button></li>
 				<li><button class="button" ng-click="updateAd(val.car_id)" >שמור</button></li>
