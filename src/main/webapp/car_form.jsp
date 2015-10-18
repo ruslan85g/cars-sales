@@ -2,7 +2,10 @@
 			<ul class="searchBar" >
 				<li>
 					<label>יצרן</label>
-					<label>{{val.typeName}}</label>
+				   	   <c:forEach var="Customer" items="${types}" >
+                        <option value=""> <c:out value="${type}" /></option>
+                       </c:forEach>
+					<label>${type.car_type_name} </label>
 					<select ng-model="updCar.car_type" ng-change="getNewTypeId(updCar.car_type);" >
 						<option ng-selected="true" >בחר יצרן</option>
 						<option ng-repeat="(k,v) in man_opts track by $index"  >{{v.name}}</option>							

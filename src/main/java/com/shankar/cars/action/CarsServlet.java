@@ -24,6 +24,7 @@ import javax.ws.rs.core.Response;
 import lombok.extern.java.Log;
 
 import com.shankar.cars.data.Car;
+import com.shankar.cars.data.CarType;
 import com.shankar.cars.data.User;
 import com.shankar.cars.data.meta.CarMeta;
 import com.shankar.cars.data.meta.UserMeta;
@@ -234,6 +235,9 @@ public class CarsServlet {
 			Car car = db.load(Car.class, car_id);
 			request.setAttribute("car", car);
 		}
+		CarTypeDBService dbType = new CarTypeDBService();
+		List<CarType> types = dbType.loadAll(CarType.class);
+		request.setAttribute("types", types);
 		request.getRequestDispatcher("/car_form.jsp")
 				.forward(request, response);
 		return true;
