@@ -32,6 +32,10 @@ public class CarMeta {
 
 	@Getter
 	@Setter
+	public String file;
+	
+	@Getter
+	@Setter
 	public String car_url;
 
 	@Getter

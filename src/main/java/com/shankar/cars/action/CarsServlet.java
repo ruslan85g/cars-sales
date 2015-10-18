@@ -10,8 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -81,32 +79,16 @@ public class CarsServlet {
 
 	@Path("/save")
 	@POST
-	@Consumes("application/x-www-form-urlencoded")
-	public Boolean saveCar(
-
-	@DefaultValue("") @FormParam("car_id") Long car_id,
-			@DefaultValue("") @FormParam("user_id") Long user_id,
-			@DefaultValue("") @FormParam("car_model_id") Long car_model_id,
-			@DefaultValue("") @FormParam("car_type_id") Long car_type_id,
-			@DefaultValue("") @FormParam("car_url") String car_url,
-			@DefaultValue("") @FormParam("filename") String file,
-			@DefaultValue("") @FormParam("year") Long year,
-			@DefaultValue("") @FormParam("type_geare") String type_geare,
-			@DefaultValue("") @FormParam("volume") String volume,
-			@DefaultValue("") @FormParam("km") Long km,
-			@DefaultValue("") @FormParam("color") String color,
-			@DefaultValue("") @FormParam("price") Long price,
-			@DefaultValue("") @FormParam("created_time") Long created_time,
-			@DefaultValue("") @FormParam("update_time") Long update_time)
-
-	{
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Map<String, String> saveCar(CarMeta carMeta) {
 
 		log.info("Start saveCar ");
 		Map<String, String> resp = new HashMap<String, String>();
 		Car car = null;
-		// String car_url = carMeta.getUser_id().toString()
-		// + carMeta.getCar_model();
-		User user = userDBService.load(User.class, user_id);
+		String car_url = carMeta.getUser_id().toString()
+				+ carMeta.getCar_model();
+		User user = userDBService.load(User.class, carMeta.getUser_id());
 		if (user == null) {
 			Response.serverError().status(Response.Status.BAD_REQUEST)
 					.entity("User not found").build();
@@ -114,10 +96,10 @@ public class CarsServlet {
 		}
 		try {
 			log.info("start try");
-			if (car_id != null) {
-				car = carDBService.load(Car.class, car_id);
+			if (carMeta.getCar_id() != null) {
+				car = carDBService.load(Car.class, carMeta.getCar_id());
 				car.setUpdate_time(System.currentTimeMillis());
-				car.setCar_id(car_id);
+				car.setCar_id(carMeta.getCar_id());
 			}
 			if (car == null) {
 				car = new Car();
@@ -125,20 +107,21 @@ public class CarsServlet {
 				log.info("setCreated_time");
 			}
 			log.info("start sets");
-			car.setCar_model_id(car_model_id);
+			car.setCar_model_id(carMeta.getCar_model_id());
 			log.info("setCar_model_id save car in db");
-			car.setCar_type_id(car_type_id);
-			car.setColor(color);
+			car.setCar_type_id(carMeta.getCar_type_id());
+			car.setColor(carMeta.getColor());
 			car.setCreated_time(System.currentTimeMillis());
-			car.setKm(km);
-			car.setPrice(price);
-			car.setType_geare(type_geare);
+			car.setKm(carMeta.getKm());
+			car.setPrice(carMeta.getPrice());
+			car.setType_geare(carMeta.getType_geare());
 			car.setUpdate_time(System.currentTimeMillis());
-			car.setUser_id(user_id);
-			car.setYear(year);
-			car.setVolume(volume);
+			car.setUser_id(carMeta.getUser_id());
+			car.setYear(carMeta.getYear());
+			car.setVolume(carMeta.getVolume());
 			car.setCar_url(car_url);
-			car.setImage(file);
+			log.info("set Image");
+			car.setImage(carMeta.getFile());
 			log.info("pre save car in db");
 			carDBService.save(car);
 			log.info("save car in db");
@@ -146,7 +129,6 @@ public class CarsServlet {
 			log.severe("Exception::" + e.getMessage());
 			resp.put("status", "failed");
 			resp.put("error_text", e.getMessage());
-			return false;
 		}
 		log.info("find new car per url");
 		// Car newCar = null;
@@ -159,7 +141,7 @@ public class CarsServlet {
 		resp.put("car_id", car.getCar_id().toString());
 		// }
 		log.info("End saveCar");
-		return true;
+		return resp;
 	}
 
 	@Path("/getCarsByUserId")
