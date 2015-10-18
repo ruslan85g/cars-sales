@@ -298,7 +298,7 @@ console.log($scope.newAdJson)
 	
 	*/
 	
-	$scope.getForm(){
+	$scope.getForm = function(){
 		$http.get(''+$rootScope.mainurl+'/api/cars/uploadFile').
 			success(function(data, status) {
 				console.log(data);
