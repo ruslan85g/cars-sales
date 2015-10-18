@@ -35,15 +35,15 @@
 				</li>
 				<li>
 					<label>׳§"׳�:</label>
-					<input type="number" placeholder='׳§"׳�' ng-model="newCar.km" />
+					<input type="number" placeholder='׳§"׳�' ng-model="newCar.km"  value="${car.km}"/>
 				</li>
 				<li style=" margin-top: 10px;" >
 					<label>׳�׳—׳™׳¨</label>
-					<input type="number" placeholder="׳�׳—׳™׳¨" ng-model="newCar.price" />
+					<input type="number" placeholder="׳�׳—׳™׳¨" ng-model="newCar.price"   value="${car.price}" />
 				</li>
 				<li style=" margin-top: 10px;" >
 					<label>׳¦׳‘׳¢</label>
-					<input type="text" placeholder="׳¦׳‘׳¢" ng-model="newCar.color" />
+					<input type="text" placeholder="׳¦׳‘׳¢" ng-model="newCar.color" value="${car.color}"/>
 				</li>
 				<li style="margin-top: 10px;" >
 					<label>׳×׳�׳•׳ ׳”</label>
