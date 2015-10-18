@@ -205,9 +205,9 @@ console.log($scope.newAdJson)
 					}
 	}
 	
-	$scope.updateAd = function(id){
+	/*$scope.updateAd = function(id){
 		
-		/*$.each($scope.viewAdsJson, function (key,val){
+		$.each($scope.viewAdsJson, function (key,val){
 			if($scope.viewAdsJson.car_id == id){
 				if(!$scope.updCar.model){
 					$scope.updCar_mod = $scope.viewAdsJson.car_model_id;
@@ -246,7 +246,7 @@ console.log($scope.newAdJson)
 							};
 			console.log($scope.updateAdJson);
 			
-	*/
+	
 		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.updateAdJson).
 			success(function(data, status) {
 				console.log(data);
@@ -256,7 +256,7 @@ console.log($scope.newAdJson)
 				console.log(data);
 				
 			});
-	}
+	}*/
 	
 	$scope.deleteAd = function(id){
 		
@@ -302,6 +302,7 @@ console.log($scope.newAdJson)
 		$http.get(''+$rootScope.mainurl+'/api/cars/uploadFile').
 			success(function(data, status) {
 				console.log(data);
+				$('#newCarForm').html(data);
 			}).error(function(data, status) {
 				console.log(data);
 				
