@@ -93,11 +93,7 @@
 				</li>
 				<li style="margin-top: 10px;" >
 					<label>תמונה</label>
-					<form action="/api/cars/fileupload" method="post" enctype="multipart/form-data" >
-					   <input type="file" name="file" />
-					   <input type="hidden" name="car_id" value="{{newCarID}}" />
-					   <input type="submit" id="Upload" />
-					</form>
+					<input type="file" name="file" id="Upload"/>  
 				</li>
 			</ul>
 			<ul class="adBut" style="width: 100%" >

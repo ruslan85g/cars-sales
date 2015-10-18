@@ -1,14 +1,15 @@
-﻿		<form action="/api/cars/save" method="post" enctype="application/x-www-form-urlencoded" >	
+﻿		<script>
+			function onchangeFun(item){alert(item)}
+		</script>
+		<form action="/api/cars/save" method="post" enctype="application/x-www-form-urlencoded" >	
+			<p>${types}</p>
 			<ul class="searchBar" >
 				<li>
 					<label>יצרן</label>
+					<select  onchange="onchangeFun(this);" >
 				   	   <c:forEach var="Customer" items="${types}" >
                         <option value=""> <c:out value="${type}" /></option>
                        </c:forEach>
-					<label>${type.car_type_name} </label>
-					<select ng-model="updCar.car_type" ng-change="getNewTypeId(updCar.car_type);" >
-						<option ng-selected="true" >בחר יצרן</option>
-						<option ng-repeat="(k,v) in man_opts track by $index"  >{{v.name}}</option>							
 					</select>
 				</li>
 				<li>

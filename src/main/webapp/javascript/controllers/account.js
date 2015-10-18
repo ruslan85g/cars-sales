@@ -205,7 +205,7 @@ console.log($scope.newAdJson)
 					}
 	}
 	
-	/*$scope.updateAd = function(id){
+	$scope.updateAd = function(id){
 		
 		$.each($scope.viewAdsJson, function (key,val){
 			if($scope.viewAdsJson.car_id == id){
@@ -256,7 +256,7 @@ console.log($scope.newAdJson)
 				console.log(data);
 				
 			});
-	}*/
+	}
 	
 	$scope.deleteAd = function(id){
 		
@@ -296,7 +296,7 @@ console.log($scope.newAdJson)
 		}
 	}
 	
-	*/
+	
 	
 	$scope.getForm = function(){
 		$http.get(''+$rootScope.mainurl+'/api/cars/uploadFile').
@@ -307,6 +307,6 @@ console.log($scope.newAdJson)
 				console.log(data);
 				
 			});
-	}
+	}*/
 
 }
