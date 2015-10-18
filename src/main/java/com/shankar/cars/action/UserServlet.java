@@ -84,7 +84,7 @@ public class UserServlet {
 				userDBService.save(user);
 			}
 		} catch (Exception e) {
-			resp.put("status", "fail");
+			resp.put("status", "failed");
 			resp.put("error_text", e.getMessage());
 		}
 		log.info("End updateUname");
@@ -108,7 +108,7 @@ public class UserServlet {
 				userDBService.save(user);
 			}
 		} catch (Exception e) {
-			resp.put("status", "fail");
+			resp.put("status", "failed");
 			resp.put("error_text", e.getMessage());
 		}
 
@@ -137,7 +137,7 @@ public class UserServlet {
 			}
 
 		} catch (Exception e) {
-			resp.put("status", "fail");
+			resp.put("status", "failed");
 			resp.put("error_text", e.getMessage());
 		}
 
@@ -160,7 +160,7 @@ public class UserServlet {
 
 			if (emailExist(userMeta)) {
 				log.severe("EmailExistsException email exist::");
-				resp.put("status", "fail");
+				resp.put("status", "failed");
 				resp.put("error_text", "email exists");
 				return resp;
 			}
@@ -183,7 +183,7 @@ public class UserServlet {
 				resp.put("status", "success");
 			} else {
 				userDBService.deleteUserPerId(User.class, user.getUser_id());
-				resp.put("status", "fail");
+				resp.put("status", "failed");
 				resp.put("error_text",
 						"Email not sends with activation code , Try again with another email ");
 			}
@@ -192,7 +192,7 @@ public class UserServlet {
 
 		} catch (Exception e) {
 			log.severe("Exception::" + e.getMessage());
-			resp.put("status", "fail");
+			resp.put("status", "failed");
 			resp.put("error_text", "Regestration Failed");
 
 		}
@@ -228,7 +228,7 @@ public class UserServlet {
 				log.info("End loadWithActivationCode ");
 				if (userActivationCode == null) {
 					log.info(" userActivationCode not Exists");
-					resp.put("status", "fail");
+					resp.put("status", "failed");
 					resp.put("error_text", "userActivationCode not Exists");
 					return resp;
 				}
@@ -246,7 +246,7 @@ public class UserServlet {
 					log.info(" codeFromTableAfterDecode" + valueDecoded);
 					log.info(" user_activation_code" + user_activation_code);
 					log.info(" userActivationCode not Valid");
-					resp.put("status", "fail");
+					resp.put("status", "failed");
 					resp.put("error_text", "userActivationCode not Valid");
 					return resp;
 				}
@@ -259,7 +259,7 @@ public class UserServlet {
 					log.info(" load user ");
 					if (user == null) {
 						log.info(" user == null ");
-						resp.put("status", "fail");
+						resp.put("status", "failed");
 						resp.put("error_text", "user not find");
 						return resp;
 					}
