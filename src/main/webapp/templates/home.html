@@ -66,13 +66,13 @@
 			<li><span style="color:#FFFFFF" >|</span></li>
 			<li><label>תמונה</label></li>
 		</ul>
-		<div>
+		<div><ul style="width:100%" ><li ng-repeat="(key,val) in listCars" >
 			<ul class="ad" >
-				<li><label>דייהו</label></li>
-				<li><label>דייהו לאנוס</label></li>
-				<li><label>2001</label></li>
-				<li><label>אוטומט</label></li>
-				<li><label>6,000</label></li>
+				<li><label>{{val.typeName}}</label></li>
+				<li><label>{{val.modName}}</label></li>
+				<li><label>{{val.year}}</label></li>
+				<li><label>{{val.type_geare}}</label></li>
+				<li><label>{{val.price}}</label></li>
 				<li style="width: 146px;" ><span class="symbolV_l icon-tick"></span>
 				<!-- span class="symbolX_l icon-error"></span --></li>
 			</ul>
@@ -81,68 +81,30 @@
 				<div class="adDetailsR" >
 					<div class="adTitle" >פרטים</div>
 					<ul class="adDetailList" >
-						<li><label class="labelKey" >יצרן:</label><label>דייהו</label></li>
-						<li><label class="labelKey" >דגם:</label><label>דייהו לאנוס</label></li>
-						<li><label class="labelKey" >שנה:</label><label>2001</label></li>
-						<li><label class="labelKey" >תיבת הילוכים:</label><label>אוטומט</label></li>
-						<li><label class="labelKey" >נפח:</label><label>1,498</label></li>
-						<li><label class="labelKey" >ק"מ:</label><label>175,000</label></li>
-						<li><label class="labelKey" >מחיר:</label><label style="font-weight: bold;" >6,000</label><span>₪</span></li>
+						<li><label class="labelKey" >יצרן:</label><label>{{val.typeName}}</label></li>
+						<li><label class="labelKey" >דגם:</label><label>{{val.modName}}</label></li>
+						<li><label class="labelKey" >שנה:</label><label>{{val.year}}</label></li>
+						<li><label class="labelKey" >תיבת הילוכים:</label><label>{{val.type_geare}}</label></li>
+						<li><label class="labelKey" >נפח:</label><label>{{val.volume}}</label></li>
+						<li><label class="labelKey" >ק"מ:</label><label>{{val.km}}</label></li>
+						<li><label class="labelKey" >צבע:</label><label>{{val.color}}</label></li>
+						<li><label class="labelKey" >מחיר:</label><label style="font-weight: bold;" >{{val.price}}</label><span>₪</span></li>
 					</ul>
 				</div>
 				<div class="adDetailsL" >
 					<div class="adTitle" >צור קשר</div>
 					<ul class="adDetailList" >
-						<li><label class="labelKey" >איש קשר:</label><label>משה</label></li>
-						<li><label class="labelKey" >טלפון:</label><label>054-803-42-73</label></li>
-						<li><label class="labelKey" >דוא"ל:</label><label>moshe@gmail.com</label></li>
+						<li><label class="labelKey" >איש קשר:</label><label>{{val.user.name}}</label></li>
+						<li><label class="labelKey" >טלפון:</label><label>{{val.user.phone}}</label></li>
+						<li><label class="labelKey" >דוא"ל:</label><label>{{val.user.email}}</label></li>
 					</ul>
-					<p style="margin: 0 5% 5%;" ><label style="font-weight: bold;    margin-left: 5px;" >תאור:</label>מטופל בזמן, במצב מצוין, שמור מאוד! מוכר עקב קבלת רכב חדש. כולל דיבורית בלוטוס' קבועה, רדיו דיסק פיוניר USB.</p>
 				</div>
 				<div class="adDetailsPic" >
 					<img src="images/car.jpg" style="width:100%" />
 				</div>
 			</div>
 			<hr />
-			<ul class="ad" >
-				<li><label>דייהו</label></li>
-				<li><label>אספרו</label></li>
-				<li><label>2010</label></li>
-				<li><label>אוטומט</label></li>
-				<li><label>25,000</label></li>
-				<li style="width: 146px;" ><span class="symbolV_l icon-tick"></span>
-				<!-- span class="symbolX_l icon-error"></span --></li>
-			</ul>
-			<hr />
-			<ul class="ad" >
-				<li><label>הונדה</label></li>
-				<li><label>אודסיי</label></li>
-				<li><label>2012</label></li>
-				<li><label>אוטומט</label></li>
-				<li><label>50,000</label></li>
-				<li style="width: 146px;" ><span class="symbolV_l icon-tick"></span>
-				<!-- span class="symbolX_l icon-error"></span --></li>
-			</ul>
-			<hr />
-			<ul class="ad" >
-				<li><label>וולוו</label></li>
-				<li><label>760</label></li>
-				<li><label>2005</label></li>
-				<li><label>אוטומט</label></li>
-				<li><label>30,000</label></li>
-				<li style="width: 146px;" ><span class="symbolV_l icon-tick"></span>
-				<!-- span class="symbolX_l icon-error"></span --></li>
-			</ul>
-			<hr />
-			<ul class="ad" >
-				<li><label>טויוטה</label></li>
-				<li><label>אוולון</label></li>
-				<li><label>2013</label></li>
-				<li><label>אוטומט</label></li>
-				<li><label>78,000</label></li>
-				<li style="width: 146px;" ><span class="symbolV_l icon-tick"></span>
-				<!-- span class="symbolX_l icon-error"></span --></li>
-			</ul>
+			</li></ul>
 		</div>
 	</div>
 </div>

@@ -171,17 +171,7 @@ console.log($scope.newAdJson)
 						}
 					]
 
-	$scope.updCar = {	
-						"car_type" : "",
-						"model" : "",
-						"year" : 0,
-						"type" : "",  
-						"volume" : 0,  
-						"km" : 0,    
-						"color" :"",
-						"price" : 0,
-						"text" : ""
-					}
+	
 	$scope.getNewTypeId = function(id){
 	$scope.getListModel(id);
 		if(id != "בחר יצרן"){
@@ -200,14 +190,45 @@ console.log($scope.newAdJson)
 		}
 	}
 	
+	$scope.reset = function(){
+		$scope.updateAdJson = {};
+		$scope.updCar = {	
+						"car_type" : "",
+						"model" : "",
+						"year" : 0,
+						"type" : "",  
+						"volume" : 0,  
+						"km" : 0,    
+						"color" :"",
+						"price" : 0,
+						"text" : ""
+					}
+	}
+	
 	$scope.updateAd = function(id){
-		if($scope.updCar.model){
-			$.each($scope.mod_opts, function (key,val){
-				if(val.model_name == $scope.updCar.model){
-					$scope.updCar_type = val.car_type_id;
-					$scope.updCar_mod = val.car_model_id;
+		
+		$.each($scope.viewAdsJson, function (key,val){
+			if($scope.viewAdsJson.car_id == id){
+				if(!$scope.updCar.model){
+					$scope.updCar_mod = $scope.viewAdsJson.car_model_id;
+					if(!$scope.updCar_type){
+						$scope.updCar_type = $scope.viewAdsJson.car_type_id;	
+					}
+				}else{
+					$.each($scope.mod_opts, function (key,val){
+						if(val.model_name == $scope.updCar.model){
+							$scope.updCar_type = val.car_type_id;
+							$scope.updCar_mod = val.car_model_id;
+						}
+					});
 				}
-			});
+				if(!$scope.updCar.year){$scope.updCar.year = val.year;}
+				if(!$scope.updCar.type){$scope.updCar.type = val.type_geare;}
+				if(!$scope.updCar.volume){$scope.updCar.volume = val.volume;}
+				if(!$scope.updCar.km){$scope.updCar.km = val.km;}
+				if(!$scope.updCar.color){$scope.updCar.color = val.color;}
+				if(!$scope.updCar.price){$scope.updCar.price = val.price;}
+			}
 		}
 		
 		$scope.updateAdJson = {	"car_id" : id,
@@ -224,7 +245,7 @@ console.log($scope.newAdJson)
 								"car_url"  :""  
 							};
 			console.log($scope.updateAdJson);
-		/*$http.post(''+$rootScope.mainurl+'/api/cars/updateCar', $scope.updateAdJson).
+		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.updateAdJson).
 			success(function(data, status) {
 				console.log(data);
 				$scope.getCarsList();
@@ -232,7 +253,7 @@ console.log($scope.newAdJson)
 			}).error(function(data, status) {
 				console.log(data);
 				
-			});*/
+			});
 	}
 	
 	$scope.deleteAd = function(id){
