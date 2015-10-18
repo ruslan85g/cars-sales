@@ -112,7 +112,23 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	}
 	$scope.getCarsList();
 	
-	
+	function readImage(input) {
+    if ( input.files && input.files[0] ) {
+        var FR= new FileReader();
+        FR.onload = function(e) {
+             //$('#img').attr( "src", e.target.result );
+            // $('#base').text( e.target.result );
+			 //console.log(e.target.result);
+			 console.log(e.target.result);
+			$scope.dataFile = e.target.result;
+        };       
+        FR.readAsDataURL( input.files[0] );
+    }
+}
+
+$("#Upload").change(function(){
+    readImage( this );
+});
 	$scope.newCar = {	
 						"car_type" : "",
 						"model" : "",
@@ -142,7 +158,8 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 								"km" : $scope.newCar.km,         //ק"מ
 								"color" : $scope.newCar.color,
 								"price" : $scope.newCar.price,
-								"car_url"  :""  
+								"car_url"  :"" ,
+								"file"  : $scope.dataFile
 							};
 console.log($scope.newAdJson)
 		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.newAdJson).
