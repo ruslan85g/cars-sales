@@ -40,7 +40,7 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 	
 	$http.post(''+$rootScope.mainurl+'/api/search/searchResult', {}).
 		success(function(data, status) {
-			//console.log(data);
+			$scope.listCars = data;
 		}).error(function(data, status) {console.log(data);});
 		
 		
@@ -94,10 +94,32 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 							"priceT" : $scope.SJpriceTo
 						};
 
-		//console.log($scope.searchJson)
 		$http.post(''+$rootScope.mainurl+'/api/search/searchResult', $scope.searchJson).
 			success(function(data, status) {
-				console.log(data);
+				var typeName = "typeName";
+				var modName = "modName";
+				$.each(data, function (key,val){
+					if(val.car_type_id){
+						$.each($scope.man_opts, function (k,v){
+							if(val.car_type_id == v.id){
+								val.typeName = v.name;
+							}
+						});
+					}
+					if(val.car_model_id){
+					$scope.listModel = {"carType_id" : val.car_type_id,"carType_Name":""};
+						$http.post(''+$rootScope.mainurl+'/api/carmodels/get',$scope.listModel).
+							success(function(data, status) {
+								$scope.modN = data;
+								$.each($scope.modN, function (k,v){
+									if(val.car_model_id == v.car_model_id){
+										val.modName = v.model_name;
+									}
+							});
+						}).error(function(data, status) {console.log(data);});
+					}
+				});
+				$scope.listCars = data;
 			}).error(function(data, status) {console.log(data);});
 	}
 	
