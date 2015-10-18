@@ -230,8 +230,10 @@ public class CarsServlet {
 	public Boolean uploadFile(@QueryParam("car_id") Long car_id)
 			throws ServletException, IOException {
 		CarDBService db = new CarDBService();
-		Car car = db.load(Car.class, car_id);
-		request.setAttribute("car", car);
+		if (car_id != null) {
+			Car car = db.load(Car.class, car_id);
+			request.setAttribute("car", car);
+		}
 		request.getRequestDispatcher("/car_form.jsp")
 				.forward(request, response);
 		return true;
