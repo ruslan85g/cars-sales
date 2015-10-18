@@ -41,6 +41,7 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 	$http.post(''+$rootScope.mainurl+'/api/search/searchResult', {}).
 		success(function(data, status) {
 			$scope.listCars = data;
+			console.log(data)
 		}).error(function(data, status) {console.log(data);});
 		
 		
