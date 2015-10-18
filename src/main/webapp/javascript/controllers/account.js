@@ -229,7 +229,7 @@ console.log($scope.newAdJson)
 				if(!$scope.updCar.color){$scope.updCar.color = val.color;}
 				if(!$scope.updCar.price){$scope.updCar.price = val.price;}
 			}
-		}
+		})
 		
 		$scope.updateAdJson = {	"car_id" : id,
 								"user_id" : $rootScope.cookieUserID,
