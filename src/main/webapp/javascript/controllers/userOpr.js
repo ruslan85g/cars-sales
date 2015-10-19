@@ -31,11 +31,16 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 			$http.post(''+$rootScope.mainurl+'/api/users/registration', $scope.regJson).
 				success(function(data, status) {
 					console.log(data);
-					$scope.pRegView = 1;
-					$scope.pPreloader = false;
+					if(data.status == "success"){
+						$scope.pRegView = 1;
+						$scope.pPreloader = false;
+					}else{
+						$scope.pRegStatus = false;
+						$scope.pPreloader = false;
+					}
 				}).error(function(data, status) {
 					console.log(data);
-					$scope.pRegView = 2;
+					$scope.error_text = "שגיאה, נסה שוב בעוד מספר דקות";
 					$scope.pRegStatus = false;
 					$scope.pPreloader = false;
 				});
@@ -55,20 +60,19 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 				success(function(data, status) {
 					console.log(data);
 					if(data.status == "success"){
-					$scope.hidePopup();
-					$rootScope.cookieUserID = data.userId;
-					$cookieStore.put("uID", $rootScope.cookieUserID);
-					$rootScope.userStatus = 1;
+						$scope.hidePopup();
+						$rootScope.cookieUserID = data.userId;
+						$cookieStore.put("uID", $rootScope.cookieUserID);
+						$rootScope.userStatus = 1;
 					}else{
 						console.log(data.error_text);
 						$scope.error_text = data.error_text;
-						$scope.pLoginView = 2;
 						$scope.pLoginStatus = false;
 						$scope.pPreloader = false;
 					}
 				}).error(function(data, status) {
 					console.log(data);
-					$scope.pRegView = 2;
+					$scope.error_text = "שגיאה, נסה שוב בעוד מספר דקות";
 					$scope.pActivStatus = false;
 					$scope.pPreloader = false;
 				});
@@ -88,21 +92,20 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 				success(function(data, status) {
 					console.log(data);
 						if(data.status == "success"){
-						$scope.hidePopup();
-						$rootScope.cookieUserID = data.userId;
-						$cookieStore.put("uID", $rootScope.cookieUserID);
-						$rootScope.userStatus = 1;
-						console.log($cookieStore)
-					}else{
-						console.log(data.error_text);
-						$scope.error_text = data.error_text;
-						$scope.pLoginView = 2;
-						$scope.pLoginStatus = false;
-						$scope.pPreloader = false;
-					}
+							$scope.hidePopup();
+							$rootScope.cookieUserID = data.userId;
+							$cookieStore.put("uID", $rootScope.cookieUserID);
+							$rootScope.userStatus = 1;
+							console.log($cookieStore)
+						}else{
+							console.log(data.error_text);
+							$scope.error_text = data.error_text;
+							$scope.pLoginStatus = false;
+							$scope.pPreloader = false;
+						}
 				}).error(function(data, status) {
 					console.log(data);
-					$scope.pLoginView = 2;
+					$scope.error_text = "שגיאה, נסה שוב בעוד מספר דקות";
 					$scope.pLoginStatus = false;
 					$scope.pPreloader = false;
 				});
@@ -119,12 +122,17 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 		$http.post(''+$rootScope.mainurl+'/api/users/forgotPassword', $scope.forgetJson).
 			success(function(data, status) {
 				console.log(data);
-				$scope.pLoginView = 2;
-				$scope.pForgetStatus = true;
-				$scope.pPreloader = false;
+				if(data.status == "success"){
+					$scope.pForgetStatus = true;
+					$scope.pPreloader = false;
+				}else{
+					$scope.error_text = data.error_text;
+					$scope.pForgetStatus = false;
+					$scope.pPreloader = false;
+				}
 			}).error(function(data, status) {
 				console.log(data);
-				$scope.pLoginView = 2;
+				$scope.error_text = "שגיאה, נסה שוב בעוד מספר דקות";
 				$scope.pForgetStatus = false;
 				$scope.pPreloader = false;
 			});
@@ -140,10 +148,19 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 			$http.post(''+$rootScope.mainurl+'/api/users/changePassword', $scope.chengePJson).
 				success(function(data, status) {
 					console.log(data);
-					$scope.pChengePStatus = true;
+					if(data.status == "success"){
+						$scope.pChengePStatus = true;
+						$scope.pPreloader = false;
+					}else{
+						$scope.error_text = data.error_text;
+						$scope.pChengePStatus = false;
+						$scope.pPreloader = false;
+					}
 				}).error(function(data, status) {
 					console.log(data);
+					$scope.error_text = "שגיאה, נסה שוב בעוד מספר דקות";
 					$scope.pChengePStatus = false;
+					$scope.pPreloader = false;
 				});
 		}else{
 				$scope.errorMes = true;
