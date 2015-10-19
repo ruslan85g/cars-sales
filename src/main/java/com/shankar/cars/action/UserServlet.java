@@ -247,7 +247,7 @@ public class UserServlet {
 					log.info(" user_activation_code" + user_activation_code);
 					log.info(" userActivationCode not Valid");
 					resp.put("status", "failed");
-					resp.put("error_text", "userActivationCode not Valid");
+					resp.put("error_text", "user PASSWORD not Valid");
 					return resp;
 				}
 				log.info(" same user_activation_code ");
@@ -260,7 +260,7 @@ public class UserServlet {
 					if (user == null) {
 						log.info(" user == null ");
 						resp.put("status", "failed");
-						resp.put("error_text", "user not find");
+						resp.put("error_text", "user EMAIL not found");
 						return resp;
 					}
 
