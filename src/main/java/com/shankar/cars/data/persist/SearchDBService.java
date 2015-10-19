@@ -111,6 +111,7 @@ public class SearchDBService extends DBService {
 			log.info("Start q_year: ");
 			q_year = setFilter(q_year, subFiltersYear);
 			PreparedQuery pq = datastore.prepare(q_year);
+			log.info("pq: in q_year " + pq);
 			// pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("Query: " + q_year.toString());
 			result_year = pq.asList(FetchOptions.Builder.withLimit(5));
@@ -121,6 +122,7 @@ public class SearchDBService extends DBService {
 			log.info("Start q_price: ");
 			q_price = setFilter(q_price, subFiltersPrice);
 			PreparedQuery pq = datastore.prepare(q_price);
+			log.info("pq: in q_price " + pq);
 			// pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("Query: " + q_price.toString());
 			result_price = pq.asList(FetchOptions.Builder.withLimit(5));
