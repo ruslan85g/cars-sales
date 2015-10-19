@@ -114,6 +114,7 @@ public class SearchDBService extends DBService {
 			// pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("Query: " + q_year.toString());
 			result_year = pq.asList(FetchOptions.Builder.withLimit(5));
+			log.info("result_year size: " + result_year.size());
 		}
 
 		if (q_price != null) {
@@ -123,6 +124,7 @@ public class SearchDBService extends DBService {
 			// pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("Query: " + q_price.toString());
 			result_price = pq.asList(FetchOptions.Builder.withLimit(5));
+			log.info("result_price size: " + result_price.size());
 		}
 
 		if (q != null) {
