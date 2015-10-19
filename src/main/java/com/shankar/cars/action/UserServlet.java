@@ -229,7 +229,7 @@ public class UserServlet {
 				if (userActivationCode == null) {
 					log.info(" userActivationCode not Exists");
 					resp.put("status", "failed");
-					resp.put("error_text", "userActivationCode not Exists");
+					resp.put("error_text", "user EMAIL not found");
 					return resp;
 				}
 				String codeFromTable = userActivationCode
@@ -285,7 +285,9 @@ public class UserServlet {
 			String userName) throws Exception {
 
 		UserActivationCode userActivationCode = userActivationCodeDBService
-				.loadOne(UserActivationCode.class, "user_email", email);// loadOne(type, feild, value)
+				.loadOne(UserActivationCode.class, "user_email", email);// loadOne(type,
+																		// feild,
+																		// value)
 		if (userActivationCode != null) {
 			log.info(" userActivationCode Exists");
 			return false;
