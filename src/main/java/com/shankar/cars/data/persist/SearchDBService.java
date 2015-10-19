@@ -109,17 +109,19 @@ public class SearchDBService extends DBService {
 					FilterOperator.EQUAL, searchMeta.getType_geare()));
 		}
 
-		if (q_year != null) {
+		if (q_year != null && subFiltersYear != null) {
 			log.info("Start q_year: ");
 			q_year = setFilter(q_year, subFiltersYear);
 			PreparedQuery pq = datastore.prepare(q_year);
-			// q = setFilter(q, subFilters);
-			// PreparedQuery pq = datastore.prepare(q);
 			log.info("pq: in q_year " + pq);
 			// pq.countEntities(FetchOptions.Builder.withLimit(5));
+			log.info("startInsertCarsFromSearch q_year: "
+					+ pq.asIterable().toString());
 			log.info("Query: " + q_year.toString());
 			result_year = pq.asList(FetchOptions.Builder.withLimit(5));
+			int num = pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("result_year size: " + result_year.size());
+			log.info("result_year num: " + num);
 		}
 
 		if (q_price != null) {
@@ -143,7 +145,6 @@ public class SearchDBService extends DBService {
 			results = pq.asList(FetchOptions.Builder.withLimit(5));
 			log.info("results size: " + results.size());
 		}
-
 		if (results != null) {
 			log.info("Start set for results");
 			for (Entity result : results) {
