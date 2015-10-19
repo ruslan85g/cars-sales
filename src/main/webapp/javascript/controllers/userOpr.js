@@ -66,12 +66,14 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 						$rootScope.userStatus = 1;
 					}else{
 						console.log(data.error_text);
+						$scope.pLoginView = 0;
 						$scope.error_text = data.error_text;
 						$scope.pLoginStatus = false;
 						$scope.pPreloader = false;
 					}
 				}).error(function(data, status) {
 					console.log(data);
+					$scope.pLoginView = 0;
 					$scope.error_text = "שגיאה, נסה שוב בעוד מספר דקות";
 					$scope.pActivStatus = false;
 					$scope.pPreloader = false;
@@ -99,12 +101,14 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 							console.log($cookieStore)
 						}else{
 							console.log(data.error_text);
+							$scope.pLoginView = 0;
 							$scope.error_text = data.error_text;
 							$scope.pLoginStatus = false;
 							$scope.pPreloader = false;
 						}
 				}).error(function(data, status) {
 					console.log(data);
+					$scope.pLoginView = 0;
 					$scope.error_text = "שגיאה, נסה שוב בעוד מספר דקות";
 					$scope.pLoginStatus = false;
 					$scope.pPreloader = false;
@@ -123,15 +127,18 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 			success(function(data, status) {
 				console.log(data);
 				if(data.status == "success"){
+					$scope.pLoginView = 1;
 					$scope.pForgetStatus = true;
 					$scope.pPreloader = false;
 				}else{
+					$scope.pLoginView = 1;
 					$scope.error_text = data.error_text;
 					$scope.pForgetStatus = false;
 					$scope.pPreloader = false;
 				}
 			}).error(function(data, status) {
 				console.log(data);
+				$scope.pLoginView = 1;
 				$scope.error_text = "שגיאה, נסה שוב בעוד מספר דקות";
 				$scope.pForgetStatus = false;
 				$scope.pPreloader = false;
