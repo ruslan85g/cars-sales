@@ -54,12 +54,14 @@ public class SearchDBService extends DBService {
 
 			if (searchMeta.getYearF() != null) {
 				subFiltersYear.add(new FilterPredicate("year",
-						FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta.getYearF()));
+						FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta
+								.getYearF()));
 				log.info("find cars per yearF " + subFiltersYear.size());
 			}
 			if (searchMeta.getYearT() != null) {
 				subFiltersYear.add(new FilterPredicate("year",
-						FilterOperator.LESS_THAN_OR_EQUAL, searchMeta.getYearT()));
+						FilterOperator.LESS_THAN_OR_EQUAL, searchMeta
+								.getYearT()));
 				log.info("find cars per yearT " + subFiltersYear.size());
 			}
 			q_year = new Query("Car");
@@ -69,13 +71,15 @@ public class SearchDBService extends DBService {
 
 			if (searchMeta.getPriceF() != null) {
 				subFiltersPrice.add(new FilterPredicate("price",
-						FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta.getPriceF()));
+						FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta
+								.getPriceF()));
 				log.info("find cars per getPriceF " + subFiltersPrice.size());
 			}
 
 			if (searchMeta.getPriceT() != null) {
 				subFiltersPrice.add(new FilterPredicate("price",
-						FilterOperator.LESS_THAN_OR_EQUAL, searchMeta.getPriceT()));
+						FilterOperator.LESS_THAN_OR_EQUAL, searchMeta
+								.getPriceT()));
 				log.info("find cars per getPriceT " + subFiltersPrice.size());
 			}
 			q_price = new Query("Car");
@@ -109,6 +113,8 @@ public class SearchDBService extends DBService {
 			log.info("Start q_year: ");
 			q_year = setFilter(q_year, subFiltersYear);
 			PreparedQuery pq = datastore.prepare(q_year);
+			// q = setFilter(q, subFilters);
+			// PreparedQuery pq = datastore.prepare(q);
 			log.info("pq: in q_year " + pq);
 			// pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("Query: " + q_year.toString());
@@ -139,6 +145,7 @@ public class SearchDBService extends DBService {
 		}
 
 		if (results != null) {
+			log.info("Start set for results");
 			for (Entity result : results) {
 				Car car = new Car();
 				car.setCar_id((Long) result.getProperty("car_id"));// car_id
@@ -163,6 +170,7 @@ public class SearchDBService extends DBService {
 		}
 
 		if (result_price != null) {
+			log.info("Start set for result_price");
 			for (Entity result : result_price) {
 				Car car = new Car();
 				car.setCar_id((Long) result.getProperty("Name"));// car_id
@@ -188,6 +196,7 @@ public class SearchDBService extends DBService {
 			}
 		}
 		if (result_year != null) {
+			log.info("Start set for result_year");
 			for (Entity result : result_year) {
 				Car car = new Car();
 				car.setCar_id((Long) result.getProperty("Name"));// car_id
