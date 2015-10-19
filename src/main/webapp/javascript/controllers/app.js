@@ -40,6 +40,10 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 	
 	$http.post(''+$rootScope.mainurl+'/api/search/searchResult', {}).
 		success(function(data, status) {
+			var viewDet = "viewDet";
+			$.each(data, function (key,val){
+				val.viewDet = 0;
+			})
 			$scope.listCars = data;
 			console.log(data)
 		}).error(function(data, status) {console.log(data);});
