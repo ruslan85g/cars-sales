@@ -10,7 +10,7 @@
 			<ul class="userDetailsUL" ng-if="userData.dataName.edit == 1">
 				<li><label class="bold" >שם המשתמש:</label></li>
 				<li><input type="text" ng-model="newUname" /></li>
-				<li><button ng-click="userData.dataName.edit = 0" class="button" >ביתול</button></li>
+				<li><button ng-click="userData.dataName.edit = 0" class="button" >ביטול</button></li>
 				<li><button class="button" ng-click="updateUname(newUname)" >שמור</button></li>
 			</ul>
 		</div>
@@ -23,7 +23,7 @@
 			<ul class="userDetailsUL" ng-if="userData.dataPhone.edit == 1" >
 				<li><label class="bold" >מ'ס טלפון:</label></li>
 				<li><input type="text" ng-model="newUphone" /></li>
-				<li><button ng-click="userData.dataPhone.edit = 0" class="button" >ביתול</button></li>
+				<li><button ng-click="userData.dataPhone.edit = 0" class="button" >ביטול</button></li>
 				<li><button class="button" ng-click="updateUphone(newUphone)" >שמור</button></li>
 			</ul>
 		</div>
@@ -36,7 +36,7 @@
 			<ul class="userDetailsUL" ng-if="userData.dataEmail.edit == 1" >
 				<li><label class="bold" >דואר אלקטרוני:</label></li>
 				<li><input type="text" ng-model="newUemail" /></li>
-				<li><button ng-click="userData.dataEmail.edit = 0" class="button" >ביתול</button></li>
+				<li><button ng-click="userData.dataEmail.edit = 0" class="button" >ביטול</button></li>
 				<li><button class="button" ng-click="updateUmail(newUemail)" >שמור</button></li>
 			</ul>
 		</div>
@@ -97,7 +97,7 @@
 				</li>
 			</ul>
 			<ul class="adBut" style="width: 100%" >
-				<li><button ng-click="addView = 0" class="button" >ביתול</button></li>
+				<li><button ng-click="addView = 0" class="button" >ביטול</button></li>
 				<li><button class="button" ng-click="newAd()" >להוסיף מודעה</button><li>
 			</ul>	
 		</div>
@@ -185,7 +185,7 @@
 			<img src="{{val.image}}" style="width: 100px" ng-if="oldImg = 1" />
 			<img src="{{newImage}}" style="width: 100px" ng-if="oldImg = 0" />
 			<ul class="adBut" style="width: 100%" >
-				<li><button ng-click="editView = 0" class="button" >ביתול</button></li>
+				<li><button ng-click="editView = 0" class="button" >ביטול</button></li>
 				<li><button class="button" ng-click="updateAd(val.car_id)" >שמור</button></li>
 			</ul>	
 		</div>

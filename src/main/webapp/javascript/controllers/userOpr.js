@@ -140,13 +140,10 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 			$http.post(''+$rootScope.mainurl+'/api/users/changePassword', $scope.chengePJson).
 				success(function(data, status) {
 					console.log(data);
-					$scope.pChengePView = 1;
 					$scope.pChengePStatus = true;
 				}).error(function(data, status) {
 					console.log(data);
-					$scope.pChengePView = 1;
 					$scope.pChengePStatus = false;
-					
 				});
 		}else{
 				$scope.errorMes = true;

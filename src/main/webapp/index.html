@@ -37,7 +37,7 @@
 		<div id="popupBack" ng-if="pBack == true" ></div>
 		<div id="popupReg" ng-if="pReg == true" >
 			<div class="popup_title" ><span class="close" ng-click="hidePopup()" ></span>הרשמה</div>
-			<div ng-if="pPreloader == true" ><img src="images/preloader.gif" /></div>
+			<div ng-if="pPreloader == false" class="preloader" ><img src="images/preloader.gif" class="preloaderImgB" /></div>
 			<span ng-if="pRegView == 0" >
 				<input type="text" placeholder="שם" ng-model="userReg.name" />
 				<input type="mail" placeholder='דוא"ל' ng-model="userReg.email" />
@@ -51,16 +51,13 @@
 				<button ng-click="hidePopup()" class="button" >סגור</button>
 				<button ng-click="activ()" class="button login" >כניסה</button>
 			</span>
-			<span ng-if="pRegView == 2" >
-				<p ng-if="pRegStatus == false" ></p>
-				<p ng-if="pActivStatus == false" ></p>
-				<button ng-click="hidePopup()" class="button" >סגור</button>
-			</span>
-			<p ng-if="errorMes == true" style="color:red" >מייל שדה חובה</p>
+			<p ng-if="pRegStatus == false" class="red" ></p>
+			<p ng-if="pActivStatus == false" class="red" ></p>
+			<p ng-if="errorMes == true" class="red" >מייל שדה חובה</p>
 		</div>
 		<div id="popupLogin" ng-if="pLogin == true" >
 			<div class="popup_title" ><span class="close" ng-click="hidePopup()" ></span>כניסה</div>
-			<div ng-if="pPreloader == true" ><img src="images/preloader.gif" /></div>
+			<div ng-if="pPreloader == true" class="preloader" ><img src="images/preloader.gif" class="preloaderImgB" /></div>
 			<span ng-if="pLoginView == 0" >
 				<input type="mail" placeholder='דוא"ל' ng-model="loginJson.email" />
 				<input type="text" placeholder="סיסמא" ng-model="loginJson.activationCode" />
@@ -69,31 +66,23 @@
 			</span>
 			<span ng-if="pLoginView == 1">
 				<input type="mail" placeholder='דוא"ל' ng-model="loginJson.email" />
-				<button ng-click="changeView(0)" class="button" >ביתול</button>
+				<button ng-click="changeView(0)" class="button" >ביטול</button>
 				<button ng-click="forget()" class="button login" >שלך</button>
 			</span>
-			<span ng-if="pLoginView == 2">
-				<p ng-if="pForgetStatus == true" > סיסמה חדשה נשלחה  למייל שלך </p>
-				<p ng-if="pForgetStatus == false" >{{error_text}}</p>
-				<p ng-if="pLoginStatus == false" >{{error_text}}</p>
-				<button ng-click="hidePopup()" class="button" >סגור</button>
-			</span>
-			<p ng-if="errorMes == true" style="color:red" >תמלה שדות</p>
+			<p ng-if="pForgetStatus == true" style="color:red" > סיסמה חדשה נשלחה  למייל שלך </p>
+			<p ng-if="pForgetStatus == false" style="color:red" >{{error_text}}</p>
+			<p ng-if="pLoginStatus == false" style="color:red" >{{error_text}}</p>
+			<p ng-if="errorMes == true" style="color:red" >מלא את השדות</p>
 		</div>
 		<div id="popupChengeP" ng-if="pChengeP == true" >
 			<div class="popup_title" ><span class="close" ng-click="hidePopup()" ></span>שינוי סיסמא</div>
-			<div ng-if="pPreloader == true" ><img src="images/preloader.gif" /></div>
-			<span ng-if="pChengePView == 0" >
-				<input type="text" placeholder="סיסמא נוכחות" ng-model="chengePJson.currentPassword" />
-				<input type="text" placeholder="סיסמא חדשה" ng-model="chengePJson.newPassword" />
-				<button ng-click="chengeP()" class="button login" >שלך</button>
-			</span>
-			<span ng-if="pChengePView == 1" >
-				<p ng-if="pChengePStatus == true" ></p>
-				<p ng-if="pChengePStatus == false" ></p>
-				<button ng-click="hidePopup()" class="button" >סגור</button>
-			</span>
-			<p ng-if="errorMes == true" style="color:red" >תמלה שדות</p>
+			<div ng-if="pPreloader == true" class="preloader" ><img src="images/preloader.gif" class="preloaderImgB" /></div>
+			<input type="text" placeholder="סיסמא נוכחות" ng-model="chengePJson.currentPassword" />
+			<input type="text" placeholder="סיסמא חדשה" ng-model="chengePJson.newPassword" />
+			<button ng-click="chengeP()" class="button login" >שלך</button>
+			<p ng-if="pChengePStatus == true" ></p>
+			<p ng-if="pChengePStatus == false" ></p>
+			<p ng-if="errorMes == true" style="color:red" >מלא את השדות</p>
 		</div>
 		
 	</body>
