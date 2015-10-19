@@ -54,10 +54,14 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 			$http.post(''+$rootScope.mainurl+'/api/users/authentication', $scope.activJson).
 				success(function(data, status) {
 					console.log(data);
+					if(data.status == "success"){
 					$scope.hidePopup();
 					$rootScope.cookieUserID = data.userId;
 					$cookieStore.put("uID", $rootScope.cookieUserID);
 					$rootScope.userStatus = 1;
+					}else{
+						console.log(data.error_text);
+					}
 				}).error(function(data, status) {
 					console.log(data);
 					$scope.pRegView = 2;
@@ -79,11 +83,15 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 			$http.post(''+$rootScope.mainurl+'/api/users/authentication', $scope.loginJson).
 				success(function(data, status) {
 					console.log(data);
-					$scope.hidePopup();
-					$rootScope.cookieUserID = data.userId;
-					$cookieStore.put("uID", $rootScope.cookieUserID);
-					$rootScope.userStatus = 1;
-					console.log($cookieStore)
+						if(data.status == "success"){
+						$scope.hidePopup();
+						$rootScope.cookieUserID = data.userId;
+						$cookieStore.put("uID", $rootScope.cookieUserID);
+						$rootScope.userStatus = 1;
+						console.log($cookieStore)
+					}else{
+						console.log(data.error_text);
+					}
 				}).error(function(data, status) {
 					console.log(data);
 					$scope.pLoginView = 2;
