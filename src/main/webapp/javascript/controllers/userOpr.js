@@ -61,6 +61,10 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 					$rootScope.userStatus = 1;
 					}else{
 						console.log(data.error_text);
+						$scope.error_text = data.error_text;
+						$scope.pLoginView = 2;
+						$scope.pLoginStatus = false;
+						$scope.pPreloader = false;
 					}
 				}).error(function(data, status) {
 					console.log(data);
@@ -91,6 +95,10 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 						console.log($cookieStore)
 					}else{
 						console.log(data.error_text);
+						$scope.error_text = data.error_text;
+						$scope.pLoginView = 2;
+						$scope.pLoginStatus = false;
+						$scope.pPreloader = false;
 					}
 				}).error(function(data, status) {
 					console.log(data);
