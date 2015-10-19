@@ -74,8 +74,8 @@
 			</span>
 			<span ng-if="pLoginView == 2">
 				<p ng-if="pForgetStatus == true" > סיסמה חדשה נשלחה  למייל שלך </p>
-				<p ng-if="pForgetStatus == false" ></p>
-				<p ng-if="pLoginStatus == false" ></p>
+				<p ng-if="pForgetStatus == false" >{{error_text}}</p>
+				<p ng-if="pLoginStatus == false" >{{error_text}}</p>
 				<button ng-click="hidePopup()" class="button" >סגור</button>
 			</span>
 			<p ng-if="errorMes == true" style="color:red" >תמלה שדות</p>
