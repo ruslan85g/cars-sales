@@ -98,7 +98,9 @@ public class SearchServlet {
 			searchResponseMeta.setVolume(car.getVolume());
 			User user = db.load(User.class, car.getUser_id());
 			searchResponseMeta.setUser(user);
+			log.info("Start set Car Photo");
 			searchResponseMeta.setImage(car.getImage());
+			log.info(" set Car Photo SUCSESS");
 			searchResponseMetaList.add(searchResponseMeta);
 		}
 
