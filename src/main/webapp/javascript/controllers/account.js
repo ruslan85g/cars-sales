@@ -116,12 +116,12 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	}
 	$scope.getCarsList();
 	
-	function readImage(input,e) {
+	function readImage(input,s) {
     if ( input.files && input.files[0] ) {
         var FR= new FileReader();
         FR.onload = function(e) {
-            if(e==0){$scope.dataFile = e.target.result;}
-			if(e==1){$scope.newImage = e.target.result;$scope.oldImg = 0}
+            if(s==0){$scope.dataFile = e.target.result;}
+			if(s==1){$scope.newImage = e.target.result;$scope.oldImg = 0}
         };       
         FR.readAsDataURL( input.files[0] );
     }
@@ -263,7 +263,8 @@ console.log($scope.newAdJson)
 								"km" : $scope.updCar.km,         //ק"מ
 								"color" : $scope.updCar.color,
 								"price" : $scope.updCar.price,
-								"car_url"  :""  
+								"car_url"  :"" ,
+								"file"  : $scope.newImage
 							};
 			console.log($scope.updateAdJson);
 			
