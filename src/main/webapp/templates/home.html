@@ -81,8 +81,8 @@
 				<div class="adDetailsR" >
 					<div class="adTitle" >פרטים</div>
 					<ul class="adDetailList" >
-						<li><label class="labelKey" >יצרן:</label><label>{{val.typeName}}</label></li>
-						<li><label class="labelKey" >דגם:</label><label>{{val.modName}}</label></li>
+						<li><label class="labelKey" >יצרן:</label><label>{{val.car_type_name}}</label></li>
+						<li><label class="labelKey" >דגם:</label><label>{{val.car_model_name}}</label></li>
 						<li><label class="labelKey" >שנה:</label><label>{{val.year}}</label></li>
 						<li><label class="labelKey" >תיבת הילוכים:</label><label>{{val.type_geare}}</label></li>
 						<li><label class="labelKey" >נפח:</label><label>{{val.volume}}</label></li>
@@ -94,13 +94,13 @@
 				<div class="adDetailsL" >
 					<div class="adTitle" >צור קשר</div>
 					<ul class="adDetailList" >
-						<li><label class="labelKey" >איש קשר:</label><label>{{val.user.name}}</label></li>
-						<li><label class="labelKey" >טלפון:</label><label>{{val.user.phone}}</label></li>
+						<li><label class="labelKey" >איש קשר:</label><label>{{val.user.user_name}}</label></li>
+						<li><label class="labelKey" >טלפון:</label><label>{{val.user.mobilePhone}}</label></li>
 						<li><label class="labelKey" >דוא"ל:</label><label>{{val.user.email}}</label></li>
 					</ul>
 				</div>
 				<div class="adDetailsPic" >
-					<img src="images/car.jpg" style="width:100%" />
+					<img src="{{val.file}}" style="width:100%" />
 				</div>
 			</div>
 			<hr />

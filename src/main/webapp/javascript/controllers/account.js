@@ -77,6 +77,7 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 		success(function(data, status) {
 			var typeName = "typeName";
 			var modName = "modName";
+			var viewImg = "viewImg";
 			$.each(data, function (key,val){
 			console.log($scope.man_opts);
 				if(val.car_type_id){
@@ -101,6 +102,9 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 					}).error(function(data, status) {console.log(data);});
 		
 				}
+				if(val.image != '' && val.image != 'undefined'){
+					val.viewImg = 1;
+				}
 			});
 		console.log($scope.mod_opts)
 			$scope.viewAdsJson = data;
@@ -112,7 +116,23 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	}
 	$scope.getCarsList();
 	
-	
+	function readImage(input,e) {
+    if ( input.files && input.files[0] ) {
+        var FR= new FileReader();
+        FR.onload = function(e) {
+            if(e==0){$scope.dataFile = e.target.result;}
+			if(e==1){$scope.newImage = e.target.result;$scope.oldImg = 0}
+        };       
+        FR.readAsDataURL( input.files[0] );
+    }
+}
+
+$("#Upload").change(function(){
+    readImage( this ,0);
+});
+$("#newImg").change(function(){
+    readImage( this ,1);
+});
 	$scope.newCar = {	
 						"car_type" : "",
 						"model" : "",
@@ -142,7 +162,8 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 								"km" : $scope.newCar.km,         //ק"מ
 								"color" : $scope.newCar.color,
 								"price" : $scope.newCar.price,
-								"car_url"  :""  
+								"car_url"  :"" ,
+								"file"  : $scope.dataFile
 							};
 console.log($scope.newAdJson)
 		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.newAdJson).
@@ -205,7 +226,7 @@ console.log($scope.newAdJson)
 					}
 	}
 	
-	/*$scope.updateAd = function(id){
+	$scope.updateAd = function(id){
 		
 		$.each($scope.viewAdsJson, function (key,val){
 			if($scope.viewAdsJson.car_id == id){
@@ -229,7 +250,7 @@ console.log($scope.newAdJson)
 				if(!$scope.updCar.color){$scope.updCar.color = val.color;}
 				if(!$scope.updCar.price){$scope.updCar.price = val.price;}
 			}
-		}
+		})
 		
 		$scope.updateAdJson = {	"car_id" : id,
 								"user_id" : $rootScope.cookieUserID,
@@ -256,7 +277,7 @@ console.log($scope.newAdJson)
 				console.log(data);
 				
 			});
-	}*/
+	}
 	
 	$scope.deleteAd = function(id){
 		
@@ -296,7 +317,7 @@ console.log($scope.newAdJson)
 		}
 	}
 	
-	*/
+	
 	
 	$scope.getForm = function(){
 		$http.get(''+$rootScope.mainurl+'/api/cars/uploadFile').
@@ -307,6 +328,6 @@ console.log($scope.newAdJson)
 				console.log(data);
 				
 			});
-	}
+	}*/
 
 }
