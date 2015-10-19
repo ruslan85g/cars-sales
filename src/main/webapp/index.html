@@ -37,7 +37,7 @@
 		<div id="popupBack" ng-if="pBack == true" ></div>
 		<div id="popupReg" ng-if="pReg == true" >
 			<div class="popup_title" ><span class="close" ng-click="hidePopup()" ></span>הרשמה</div>
-			<div ng-if="pPreloader == false" class="preloader" ><img src="images/preloader.gif" class="preloaderImgB" /></div>
+			<div ng-if="pPreloader == true" class="preloader" ><img src="images/preloader.gif" class="preloaderImgB" /></div>
 			<span ng-if="pRegView == 0" >
 				<input type="text" placeholder="שם" ng-model="userReg.name" />
 				<input type="mail" placeholder='דוא"ל' ng-model="userReg.email" />
