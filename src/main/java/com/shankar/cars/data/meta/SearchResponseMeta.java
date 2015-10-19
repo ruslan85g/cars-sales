@@ -3,6 +3,7 @@ package com.shankar.cars.data.meta;
 import lombok.Getter;
 import lombok.Setter;
 
+import com.googlecode.objectify.annotation.Index;
 import com.shankar.cars.data.User;
 
 public class SearchResponseMeta {
@@ -26,6 +27,11 @@ public class SearchResponseMeta {
 	@Getter
 	@Setter
 	public Long year;
+	
+	@Index
+	@Getter
+	@Setter
+	protected String image;
 
 	@Getter
 	@Setter
