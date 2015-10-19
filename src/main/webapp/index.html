@@ -61,7 +61,7 @@
 			<span ng-if="pLoginView == 0" >
 				<input type="mail" placeholder='דוא"ל' ng-model="loginJson.email" />
 				<input type="text" placeholder="סיסמא" ng-model="loginJson.activationCode" />
-				<div style="text-align: right;margin-top: 5px;" ><span ng-click="changeView(1)" class="forget" >שכחתי סיסמה</span></div>
+				<div style="text-align: right;margin-top: 5px;" ><span ng-click="changeView(1);" class="forget" >שכחתי סיסמה</span></div>
 				<button ng-click="login()" class="button login" >כניסה</button>
 			</span>
 			<span ng-if="pLoginView == 1">
@@ -69,10 +69,10 @@
 				<button ng-click="changeView(0)" class="button" >ביטול</button>
 				<button ng-click="forget()" class="button login" >שלך</button>
 			</span>
-			<p ng-if="pForgetStatus == true" style="color:red" > סיסמה חדשה נשלחה  למייל שלך </p>
-			<p ng-if="pForgetStatus == false" style="color:red" >{{error_text}}</p>
-			<p ng-if="pLoginStatus == false" style="color:red" >{{error_text}}</p>
-			<p ng-if="errorMes == true" style="color:red" >מלא את השדות</p>
+			<p ng-if="pForgetStatus == true" class="red" > סיסמה חדשה נשלחה  למייל שלך </p>
+			<p ng-if="pForgetStatus == false" class="red" >{{error_text}}</p>
+			<p ng-if="pLoginStatus == false" class="red" >{{error_text}}</p>
+			<p ng-if="errorMes == true" class="red" >מלא את השדות</p>
 		</div>
 		<div id="popupChengeP" ng-if="pChengeP == true" >
 			<div class="popup_title" ><span class="close" ng-click="hidePopup()" ></span>שינוי סיסמא</div>
@@ -80,9 +80,9 @@
 			<input type="text" placeholder="סיסמא נוכחות" ng-model="chengePJson.currentPassword" />
 			<input type="text" placeholder="סיסמא חדשה" ng-model="chengePJson.newPassword" />
 			<button ng-click="chengeP()" class="button login" >שלך</button>
-			<p ng-if="pChengePStatus == true" style="color:red" >שינית את הסיסמא בהצלחה</p>
-			<p ng-if="pChengePStatus == false" style="color:red" >{{error_text}}</p>
-			<p ng-if="errorMes == true" style="color:red" >מלא את השדות</p>
+			<p ng-if="pChengePStatus == true" class="red" >שינית את הסיסמא בהצלחה</p>
+			<p ng-if="pChengePStatus == false" class="red" >{{error_text}}</p>
+			<p ng-if="errorMes == true" class="red" >מלא את השדות</p>
 		</div>
 		
 	</body>

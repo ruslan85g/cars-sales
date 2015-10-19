@@ -17,6 +17,8 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 	
 	$scope.changeView = function(n){
 		$scope.pLoginView = n;
+		$scope.error_text='';
+		$scope.pLoginStatus='';
 	}
 	
 	$scope.pRegView = 0;
