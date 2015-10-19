@@ -30,5 +30,10 @@ function popupFunctions($scope,$http, $rootScope, $location, $route,$cookieStore
 		$scope.pReg = false;
 		$scope.pLogin = false;
 		$scope.pChengeP = false;
+		$scope.error_text = '';
+		$scope.changeView(0);
+		$scope.pRegView = 0;
+		$scope.pLoginView = 0;
+		$scope.pChengePView = 0;
 	}
 }

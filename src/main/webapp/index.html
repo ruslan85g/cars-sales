@@ -51,8 +51,8 @@
 				<button ng-click="hidePopup()" class="button" >סגור</button>
 				<button ng-click="activ()" class="button login" >כניסה</button>
 			</span>
-			<p ng-if="pRegStatus == false" class="red" ></p>
-			<p ng-if="pActivStatus == false" class="red" ></p>
+			<p ng-if="pRegStatus == false" class="red" >{{error_text}}</p>
+			<p ng-if="pActivStatus == false" class="red" >{{error_text}}</p>
 			<p ng-if="errorMes == true" class="red" >מייל שדה חובה</p>
 		</div>
 		<div id="popupLogin" ng-if="pLogin == true" >
@@ -80,8 +80,8 @@
 			<input type="text" placeholder="סיסמא נוכחות" ng-model="chengePJson.currentPassword" />
 			<input type="text" placeholder="סיסמא חדשה" ng-model="chengePJson.newPassword" />
 			<button ng-click="chengeP()" class="button login" >שלך</button>
-			<p ng-if="pChengePStatus == true" ></p>
-			<p ng-if="pChengePStatus == false" ></p>
+			<p ng-if="pChengePStatus == true" style="color:red" >שינית את הסיסמא בהצלחה</p>
+			<p ng-if="pChengePStatus == false" style="color:red" >{{error_text}}</p>
 			<p ng-if="errorMes == true" style="color:red" >מלא את השדות</p>
 		</div>
 		
