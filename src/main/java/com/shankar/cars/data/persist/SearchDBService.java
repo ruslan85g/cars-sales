@@ -37,7 +37,7 @@ public class SearchDBService extends DBService {
 		Collection<Filter> subFilters = new ArrayList<Filter>();
 		Collection<Filter> subFiltersPrice = new ArrayList<Filter>();
 		Collection<Filter> subFiltersYear = new ArrayList<Filter>();
-		
+
 		List<Car> carsList = new ArrayList<Car>();
 
 		Calendar c = new GregorianCalendar();
@@ -45,7 +45,7 @@ public class SearchDBService extends DBService {
 
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
-		
+
 		if (searchMeta == null) {
 			throw new RuntimeException("searchMeta cannot be null");
 		}
@@ -111,7 +111,7 @@ public class SearchDBService extends DBService {
 			log.info("Start q_year: ");
 			q_year = setFilter(q_year, subFiltersYear);
 			PreparedQuery pq = datastore.prepare(q_year);
-			//pq.countEntities(FetchOptions.Builder.withLimit(5));
+			// pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("Query: " + q_year.toString());
 			result_year = pq.asList(FetchOptions.Builder.withLimit(5));
 		}
@@ -120,7 +120,7 @@ public class SearchDBService extends DBService {
 			log.info("Start q_price: ");
 			q_price = setFilter(q_price, subFiltersPrice);
 			PreparedQuery pq = datastore.prepare(q_price);
-			//pq.countEntities(FetchOptions.Builder.withLimit(5));
+			// pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("Query: " + q_price.toString());
 			result_price = pq.asList(FetchOptions.Builder.withLimit(5));
 		}
@@ -129,7 +129,7 @@ public class SearchDBService extends DBService {
 			log.info("Start q: ");
 			q = setFilter(q, subFilters);
 			PreparedQuery pq = datastore.prepare(q);
-			//pq.countEntities(FetchOptions.Builder.withLimit(5));
+			// pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("startInsertCarsFromSearch: " + pq.asIterable().toString());
 			log.info("Query: " + q.toString());
 			results = pq.asList(FetchOptions.Builder.withLimit(5));
@@ -177,7 +177,7 @@ public class SearchDBService extends DBService {
 				car.setUpdate_time((Long) result.getProperty("update_time"));
 				car.setVolume((String) result.getProperty("volume"));
 				car.setYear((Long) result.getProperty("year"));
-				car.setImage((String) result.getProperty("image"));
+				// car.setImage((String) result.getProperty("image"));
 				log.info("carsList.add(getCar_model_id): "
 						+ car.getCar_model_id());
 				if (!carsList.contains(car)) {
