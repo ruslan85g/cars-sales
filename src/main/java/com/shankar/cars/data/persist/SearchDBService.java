@@ -177,6 +177,7 @@ public class SearchDBService extends DBService {
 				car.setUpdate_time((Long) result.getProperty("update_time"));
 				car.setVolume((String) result.getProperty("volume"));
 				car.setYear((Long) result.getProperty("year"));
+				car.setImage((String) result.getProperty("image"));
 				log.info("carsList.add(getCar_model_id): "
 						+ car.getCar_model_id());
 				if (!carsList.contains(car)) {
