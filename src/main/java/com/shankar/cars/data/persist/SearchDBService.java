@@ -118,7 +118,8 @@ public class SearchDBService extends DBService {
 			log.info("startInsertCarsFromSearch q_year: "
 					+ pq.asIterable().toString());
 			log.info("Query: " + q_year.toString());
-			result_year = pq.asList(FetchOptions.Builder.withLimit(5));
+//			result_year = pq.asList(FetchOptions.Builder.withLimit(5));
+			result_year = pq.asQueryResultList(FetchOptions.Builder.withLimit(5));
 			int num = pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("result_year size: " + result_year.size());
 			log.info("result_year num: " + num);
