@@ -82,11 +82,10 @@ public class SearchServlet {
 						+ carModel.getModel_name();
 				log.info("try find Car per Car_id ");
 				Car newCar = db.loadOne(Car.class, "car_url", car_url);
-				if(newCar!=null){
+				if (newCar != null) {
 					log.info(" find Car SUCSESS");
 					searchResponseMeta.setCar_id(newCar.getCar_id());
-				}
-				else {
+				} else {
 					log.info(" find Car FAILED");
 				}
 			}
@@ -99,6 +98,7 @@ public class SearchServlet {
 			searchResponseMeta.setVolume(car.getVolume());
 			User user = db.load(User.class, car.getUser_id());
 			searchResponseMeta.setUser(user);
+			searchResponseMeta.setImage(car.getImage());
 			searchResponseMetaList.add(searchResponseMeta);
 		}
 
