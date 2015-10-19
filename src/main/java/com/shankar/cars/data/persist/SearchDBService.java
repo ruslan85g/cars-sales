@@ -54,15 +54,13 @@ public class SearchDBService extends DBService {
 
 			if (searchMeta.getYearF() != null) {
 				subFiltersYear.add(new FilterPredicate("year",
-						FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta
-								.getYearF()));
-				log.info("find cars per yearF " + subFilters.size());
+						FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta.getYearF()));
+				log.info("find cars per yearF " + subFiltersYear.size());
 			}
 			if (searchMeta.getYearT() != null) {
 				subFiltersYear.add(new FilterPredicate("year",
-						FilterOperator.LESS_THAN_OR_EQUAL, searchMeta
-								.getYearT()));
-				log.info("find cars per yearT " + subFilters.size());
+						FilterOperator.LESS_THAN_OR_EQUAL, searchMeta.getYearT()));
+				log.info("find cars per yearT " + subFiltersYear.size());
 			}
 			q_year = new Query("Car");
 		}
@@ -71,14 +69,14 @@ public class SearchDBService extends DBService {
 
 			if (searchMeta.getPriceF() != null) {
 				subFiltersPrice.add(new FilterPredicate("price",
-						FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta
-								.getPriceF()));
+						FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta.getPriceF()));
+				log.info("find cars per getPriceF " + subFiltersPrice.size());
 			}
 
 			if (searchMeta.getPriceT() != null) {
 				subFiltersPrice.add(new FilterPredicate("price",
-						FilterOperator.LESS_THAN_OR_EQUAL, searchMeta
-								.getPriceT()));
+						FilterOperator.LESS_THAN_OR_EQUAL, searchMeta.getPriceT()));
+				log.info("find cars per getPriceT " + subFiltersPrice.size());
 			}
 			q_price = new Query("Car");
 		}
