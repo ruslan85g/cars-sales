@@ -109,7 +109,7 @@ public class SearchDBService extends DBService {
 					FilterOperator.EQUAL, searchMeta.getType_geare()));
 		}
 
-		if (q_year != null && subFiltersYear != null) {
+		if (q_year != null) {
 			log.info("Start q_year: ");
 			q_year = setFilter(q_year, subFiltersYear);
 			PreparedQuery pq = datastore.prepare(q_year);
@@ -118,8 +118,9 @@ public class SearchDBService extends DBService {
 			log.info("startInsertCarsFromSearch q_year: "
 					+ pq.asIterable().toString());
 			log.info("Query: " + q_year.toString());
-//			result_year = pq.asList(FetchOptions.Builder.withLimit(5));
-			result_year = pq.asQueryResultList(FetchOptions.Builder.withLimit(5));
+			// result_year = pq.asList(FetchOptions.Builder.withLimit(5));
+			result_year = pq.asQueryResultList(FetchOptions.Builder
+					.withLimit(5));
 			int num = pq.countEntities(FetchOptions.Builder.withLimit(5));
 			log.info("result_year size: " + result_year.size());
 			log.info("result_year num: " + num);
@@ -217,10 +218,9 @@ public class SearchDBService extends DBService {
 				car.setYear((Long) result.getProperty("year"));
 				log.info("carsList.add(getCar_model_id): "
 						+ car.getCar_model_id());
-				if (!carsList.contains(car)) {
-					carsList.add(car);
-				}
-
+				// if (!carsList.contains(car)) {
+				carsList.add(car);
+				// }
 			}
 		}
 
@@ -236,6 +236,63 @@ public class SearchDBService extends DBService {
 			query.setFilter(CompositeFilterOperator.and(subFilters));
 		}
 		return query;
+	}
+
+	public List<Car> loadPerYearT(Class<Car> class1, SearchMeta searchMeta) {
+		log.info(" Start SearchDBService.loadPerYearT");
+		Query q_year = null;
+		List<Entity> result_year = null;
+		List<Car> carsList = new ArrayList<Car>();
+		Collection<Filter> subFiltersYear = new ArrayList<Filter>();
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		if (searchMeta.getYearT() != null) {
+			subFiltersYear.add(new FilterPredicate("year",
+					FilterOperator.LESS_THAN_OR_EQUAL, searchMeta.getYearT()));
+			log.info("find cars per yearT " + subFiltersYear.size());
+		}
+		q_year = new Query("Car");
+
+		if (q_year != null) {
+			log.info("Start q_year: ");
+			q_year = setFilter(q_year, subFiltersYear);
+			PreparedQuery pq = datastore.prepare(q_year);
+			log.info("pq: in q_year " + pq);
+			// pq.countEntities(FetchOptions.Builder.withLimit(5));
+			log.info("startInsertCarsFromSearch q_year: "
+					+ pq.asIterable().toString());
+			log.info("Query: " + q_year.toString());
+			// result_year = pq.asList(FetchOptions.Builder.withLimit(5));
+			result_year = pq.asQueryResultList(FetchOptions.Builder
+					.withLimit(5));
+			int num = pq.countEntities(FetchOptions.Builder.withLimit(5));
+			log.info("result_year size: " + result_year.size());
+			log.info("result_year num: " + num);
+		}
+		if (result_year != null) {
+			log.info("Start set for results");
+			for (Entity result : result_year) {
+				Car car = new Car();
+				car.setCar_id((Long) result.getProperty("car_id"));// car_id
+				log.info("getCar_id " + car.getCar_id());
+				car.setCar_model_id((Long) result.getProperty("car_model_id"));
+				car.setCar_type_id((Long) result.getProperty("car_type_id"));
+				car.setColor((String) result.getProperty("color"));
+				car.setCreated_time((Long) result.getProperty("created_time"));
+				car.setUpdate_time((Long) result.getProperty("updated_time"));
+				car.setKm((Long) result.getProperty("km"));
+				car.setPrice((Long) result.getProperty("price"));
+				car.setType_geare((String) result.getProperty("type_geare"));
+				car.setUser_id((Long) result.getProperty("user_id"));
+				car.setUpdate_time((Long) result.getProperty("update_time"));
+				car.setVolume((String) result.getProperty("volume"));
+				car.setYear((Long) result.getProperty("year"));
+				log.info("carsList.add(getCar_model_id): "
+						+ car.getCar_model_id());
+				carsList.add(car);
+			}
+		}
+		return carsList;
 	}
 
 }

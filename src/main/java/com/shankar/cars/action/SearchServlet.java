@@ -47,6 +47,18 @@ public class SearchServlet {
 		log.info("Start search ");
 
 		List<SearchResponseMeta> searchResponseMetaList = new ArrayList<>();
+		if (searchMeta.getCar_model_id() == null
+				&& searchMeta.getCar_type_id() == null
+				&& searchMeta.getPriceF() == null
+				&& searchMeta.getPriceT() == null
+				&& searchMeta.getType_geare() == null
+				&& searchMeta.getVolume() == null
+				&& searchMeta.getYearF() == null
+				&& searchMeta.getYearT() != null) {
+			
+			List<Car> cars = searchDBService.loadPerYearT(Car.class, searchMeta);
+
+		}
 		List<Car> cars = searchDBService.load(Car.class, searchMeta);
 		log.info("find : " + cars.size() + "cars");
 		UserDBService db = new UserDBService();
