@@ -123,6 +123,7 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 	
 	$scope.forgetJson = {"email" : ""};
 	$scope.forget = function(){
+	$scope.pLoginStatus = '';
 		if($scope.loginJson.email != ""){
 		$scope.forgetJson = {"email" : $scope.loginJson.email};
 		$scope.pPreloader = true;
