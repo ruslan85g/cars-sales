@@ -87,7 +87,7 @@ public class CarsServlet {
 		Map<String, String> resp = new HashMap<String, String>();
 		Car car = null;
 		String car_url = carMeta.getUser_id().toString()
-				+ carMeta.getCar_model();
+				+ carMeta.getCar_model_id() + carMeta.getCar_type_id();
 		User user = userDBService.load(User.class, carMeta.getUser_id());
 		if (user == null) {
 			Response.serverError().status(Response.Status.BAD_REQUEST)
@@ -101,12 +101,11 @@ public class CarsServlet {
 				car = carDBService.load(Car.class, carMeta.getCar_id());
 				car.setUpdate_time(System.currentTimeMillis());
 				car.setCar_id(carMeta.getCar_id());
-				car.setImage(carMeta.getFile());
+				// car.setImage(carMeta.getFile());
 			}
 			if (car == null) {
 				car = new Car();
 				car.setCreated_time(System.currentTimeMillis());
-				car.setImage(carMeta.getFile());
 				log.info("Create New Car");
 			}
 			log.info("start sets");
@@ -123,6 +122,7 @@ public class CarsServlet {
 			car.setYear(carMeta.getYear());
 			car.setVolume(carMeta.getVolume());
 			car.setCar_url(car_url);
+			car.setImage(carMeta.getFile());
 			log.info("pre save car in db");
 			carDBService.save(car);
 			log.info("save car in db");
