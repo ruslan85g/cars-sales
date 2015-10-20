@@ -135,10 +135,15 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 $("#Upload").change(function(){
     readImage( this ,0);
 });
-$("#newImg").change(function(){
-console.log('5555555555555')
+	$scope.koko = function(){
+		console.log('5555555555555')
+	}
+/*$(".newImg55").change(function(){
+    console.log('5555555555555')
     readImage( this ,1);
-});
+});*/
+
+
 	$scope.newCar = {	
 						"car_type" : "",
 						"model" : "",
@@ -175,9 +180,7 @@ console.log($scope.newAdJson)
 		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.newAdJson).
 			success(function(data, status) {
 				console.log(data);
-				$scope.newCarID = data.car_id;
-				$("#Upload").click();
-				setTimeout(function() {console.log('3000');$scope.getCarsList();}, 3000)
+				$scope.getCarsList();
 			}).error(function(data, status) {
 				console.log(data);
 				
@@ -233,7 +236,7 @@ console.log($scope.newAdJson)
 	}
 	
 	$scope.updateAd = function(id){
-		
+		console.log($scope.updCar)
 		$.each($scope.viewAdsJson, function (key,val){
 			if($scope.viewAdsJson.car_id == id){
 				if(!$scope.updCar.model){
@@ -275,7 +278,7 @@ console.log($scope.newAdJson)
 			console.log($scope.updateAdJson);
 			
 	
-		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.updateAdJson).
+		/*$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.updateAdJson).
 			success(function(data, status) {
 				console.log(data);
 				$scope.getCarsList();
@@ -283,7 +286,7 @@ console.log($scope.newAdJson)
 			}).error(function(data, status) {
 				console.log(data);
 				
-			});
+			});*/
 	}
 	
 	$scope.deleteAd = function(id){

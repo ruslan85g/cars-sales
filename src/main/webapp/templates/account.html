@@ -93,7 +93,7 @@
 				</li>
 				<li style="margin-top: 10px;" >
 					<label>תמונה</label>
-					<input type="file" name="file" id="Upload"/>  
+					<input type="file" id="Upload" />  
 				</li>
 			</ul>
 			<ul class="adBut" style="width: 100%" >
@@ -178,8 +178,7 @@
 				</li>
 				<li style="margin-top: 10px;" >
 					<label>תמונה</label>
-					   <input type="file" name="file" id="newImg" />
-					</form>
+					   <input type="file" class="newImg55" onchange="angular.element(this).scope().koko(this)" />
 				</li>
 			</ul>
 			<img src="{{val.image}}" style="width: 100px" ng-if="oldImg = 1" />
