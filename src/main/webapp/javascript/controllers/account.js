@@ -117,11 +117,16 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	$scope.getCarsList();
 	
 	function readImage(input,s) {
+	console.log(s)
     if ( input.files && input.files[0] ) {
         var FR= new FileReader();
         FR.onload = function(e) {
             if(s==0){$scope.dataFile = e.target.result;}
-			if(s==1){$scope.newImage = e.target.result;$scope.oldImg = 0}
+			if(s==1){
+				$scope.newImage = e.target.result;
+				$scope.oldImg = 0;
+				console.log($scope.newImage)
+			}
         };       
         FR.readAsDataURL( input.files[0] );
     }
@@ -131,6 +136,7 @@ $("#Upload").change(function(){
     readImage( this ,0);
 });
 $("#newImg").change(function(){
+console.log('5555555555555')
     readImage( this ,1);
 });
 	$scope.newCar = {	
