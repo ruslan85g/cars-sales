@@ -1,6 +1,6 @@
 function AccountCtrl($scope,$http, $rootScope, $location, $route) {
-	$scope.addView = 0;
-	$scope.editView =0;
+
+/****************************************** GET and UPDATE USER DATA *********************************************/	
 	$scope.userID = {"user_id" : $rootScope.cookieUserID,"user_name" :"","mobilePhone" :"","email" :"" };
 	console.log($rootScope.cookieUserID)
 	$http.post(''+$rootScope.mainurl+'/api/users/get', $scope.userID).
@@ -70,9 +70,12 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 			$scope.userData.dataEmail.edit = 0;
 		}
 	}
+	
+/******************************************************* GET CARS BY USER *******************************************/
 	$scope.user = {"user_id" : $rootScope.cookieUserID};
 	console.log($scope.user)
 	$scope.getCarsList = function(){
+	$scope.newImage='';
 	$http.post(''+$rootScope.mainurl+'/api/cars/getCarsByUserId',$scope.user).
 		success(function(data, status) {
 			var typeName = "typeName";
@@ -116,48 +119,49 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	}
 	$scope.getCarsList();
 	
-	function readImage(input,s) {
+/***************************************************** UPLOAD PIC *********************************************/	
+$scope.dataFile = '';
+$scope.$watch(function() {
+	return $scope.dataFile;
+});
+
+$scope.newImage = '';
+$scope.$watch(function() {
+	return $scope.newImage;
+});
+
+function readImage(input,s) {
 	console.log(input)
     if ( input.files && input.files[0] ) {
         var FR= new FileReader();
         FR.onload = function(e) {
-            if(s==0){$scope.dataFile = e.target.result;}
+            if(s==0){
+				$scope.dataFile = e.target.result;
+				$scope.$apply();
+			}
 			if(s==1){
-				$scope.changePicView(e.target.result);
+				$scope.newImage = e.target.result;
+				$scope.$apply();
 			}
         };       
         FR.readAsDataURL( input.files[0] );
     }
 }
-$scope.newImage = '';
-$scope.$watch(function() {
-		return $scope.newImage;
-	});
+
 $("#Upload").change(function(){
     readImage( this ,0);
 });
 
-$scope.changePicView = function(data){
-		
-		$scope.newImage = data;
-		$rootScope.oldImg = 0;
-		console.log($scope.newImage)
-		$scope.$apply();
-
+$scope.changePic = function(th){
+		readImage( th ,1);
 	}
-
-	$scope.newCar = {	
-						"car_type" : "",
-						"model" : "",
-						"year" : 0,
-						"type" : "",  
-						"volume" : 0,  
-						"km" : 0,    
-						"color" :"",
-						"price" : 0,
-						"text" : ""
-					}
+/*********************************************** NEW CAR *********************************************/	
+	$scope.addView = 0;
+	$scope.newCarPreloader = false;
+	$scope.newCar = {"car_type" : "","model" : "","year" : 0,"type" : "","volume" : 0,"km" : 0,"color" :"","price" : 0,"text" : ""};
+				
 	$scope.newAd = function(){
+	$scope.newCarPreloader = true;
 		$.each($scope.mod_opts, function (key,val){
 			if(val.model_name == $scope.newCar.model){
 				$scope.newCar_type = val.car_type_id;
@@ -182,30 +186,23 @@ console.log($scope.newAdJson)
 		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.newAdJson).
 			success(function(data, status) {
 				console.log(data);
+				$scope.addView = 0;
+				$scope.newCar = {"car_type" : "","model" : "","year" : 0,"type" : "","volume" : 0,"km" : 0,"color" :"","price" : 0,"text" : ""};
+				$scope.newAdJson = {};
+				$scope.newCarPreloader == false;
 				$scope.getCarsList();
 			}).error(function(data, status) {
 				console.log(data);
-				
+				$scope.addView = 0;
+				$scope.newCar = {"car_type" : "","model" : "","year" : 0,"type" : "","volume" : 0,"km" : 0,"color" :"","price" : 0,"text" : ""};
+				$scope.newAdJson = {};
+				$scope.newCarPreloader == false;
 			});
 	}
-	
-	$scope.userAds = [
-						{
-							"car_type" : ""+$scope.newCar.car_type+"",
-							"model" : ""+$scope.newCar.model+"",
-							"year" : $scope.newCar.year,
-							"type" : ""+$scope.newCar.type+"",  //תיבת הילוכים
-							"volume" : $scope.newCar.volume,     //נפח 
-							"km" : $scope.newCar.km,         //ק"מ
-							"color" : ""+$scope.newCar.color+"",
-							"price" : $scope.newCar.price,
-							"text" : ""+$scope.newCar.text+""
-						}
-					]
 
-	
+/***************************************************  UPDATE CAR ****************************************/	
 	$scope.getNewTypeId = function(id){
-	$scope.getListModel(id);
+		$scope.getListModel(id);
 		if(id != "בחר יצרן"){
 			$.each($scope.man_opts, function (key,val){
 				if(val.name == id){
@@ -213,62 +210,55 @@ console.log($scope.newAdJson)
 				}
 			});
 			$scope.listModel = {"carType_id" : $scope.updCar_type,"carType_Name":""};
-					$http.post(''+$rootScope.mainurl+'/api/carmodels/get',$scope.listModel).
-						success(function(data, status) {
-							$scope.mod_opts = data;
-					}).error(function(data, status) {console.log(data);});
-		
-			
+				$http.post(''+$rootScope.mainurl+'/api/carmodels/get',$scope.listModel).
+					success(function(data, status) {
+						$scope.mod_opts = data;
+						console.log(data)
+				}).error(function(data, status) {console.log(data);});
 		}
 	}
 	
 	$scope.reset = function(){
+		$scope.editView =0;
+		$scope.newImage = '';
 		$scope.updateAdJson = {};
-		$scope.updCar = {	
-						"car_type" : "",
-						"model" : "",
-						"year" : 0,
-						"type" : "",  
-						"volume" : 0,  
-						"km" : 0,    
-						"color" :"",
-						"price" : 0,
-						"text" : ""
-					}
+		$scope.updCar = {"car_type" : "","model" : "","year" : '',"type" : "","volume" : '',"km" : '',"color" :"","price" : '',"text" : ""};
 	}
 	
-	$scope.changePic = function(th){
-		readImage( th ,1);
-	}
-	
-	$rootScope.oldImg = 1;
-	$scope.oldImg = function() {
-        return $rootScope.oldImg;             
-    }
-	
+	$scope.editView =0;
+		
 	$scope.updateAd = function(id){
 		console.log($scope.updCar)
 		$.each($scope.viewAdsJson, function (key,val){
-			if($scope.viewAdsJson.car_id == id){
-				if(!$scope.updCar.model){
-					$scope.updCar_mod = $scope.viewAdsJson.car_model_id;
-					if(!$scope.updCar_type){
-						$scope.updCar_type = $scope.viewAdsJson.car_type_id;	
-					}
-				}else{
-					$.each($scope.mod_opts, function (key,val){
-						if(val.model_name == $scope.updCar.model){
-							$scope.updCar_type = val.car_type_id;
-							$scope.updCar_mod = val.car_model_id;
+			if(val.car_id == id){
+				if($scope.updCar_type != "" && $scope.updCar_type != "בחר יצרן"){
+					$.each($scope.man_opts, function (k,v){
+						if($scope.updCar_type == v.name){
+							$scope.updCar_type = v.id;
 						}
 					});
+					
+					if($scope.updCar.model != "" && $scope.updCar.model != "בחר דגם"){
+						$.each($scope.mod_opts, function (k,v){
+							if(v.model_name == $scope.updCar.model){
+								$scope.updCar_mod = v.car_model_id;
+							}
+						});
+					}else{
+						$scope.updCar_mod = '';
+					}
+				}else{
+					$scope.updCar_type = val.car_type_id;
+					$scope.updCar_mod = val.car_model_id;
 				}
+
 				if(!$scope.updCar.year){$scope.updCar.year = val.year;}
 				if(!$scope.updCar.type){$scope.updCar.type = val.type_geare;}
 				if(!$scope.updCar.volume){$scope.updCar.volume = val.volume;}
 				if(!$scope.updCar.km){$scope.updCar.km = val.km;}
 				if(!$scope.updCar.color){$scope.updCar.color = val.color;}
 				if(!$scope.updCar.price){$scope.updCar.price = val.price;}
+				if($scope.newImage == ''){$scope.newImage = val.image;}
 			}
 		})
 		
@@ -289,17 +279,19 @@ console.log($scope.newAdJson)
 			console.log($scope.updateAdJson);
 			
 	
-		/*$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.updateAdJson).
+		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.updateAdJson).
 			success(function(data, status) {
 				console.log(data);
+				$scope.reset();
 				$scope.getCarsList();
 				
 			}).error(function(data, status) {
 				console.log(data);
+				$scope.reset();
 				
-			});*/
+			});
 	}
-	
+/******************************************************* DELETE CAR ***************************************************/	
 	$scope.deleteAd = function(id){
 		
 		$scope.deleteAdJson = {	
@@ -315,40 +307,5 @@ console.log($scope.newAdJson)
 				
 			});
 	}
-	
-	/*$scope.file = function() {
-		var fileInput = document.getElementById('file');
-		fd = new FormData(fileInput.files[0]);
-		fd.append( 'file', fileInput.files[0] );
-		if(fileInput.files[0].size < 20*1024*1024){
-			var xhr = new XMLHttpRequest;
-			xhr.open('POST', '/upload/regular', true);
-			xhr.onload = function (e) {
-			  if (xhr.readyState === 4) {
-				if (xhr.status === 200) {
-					console.log(xhr.responseText);
-				} else {
-					$scope.showMessage('Error uploading image.');
-				}
-			  }
-			}
-			xhr.send(fd);
-		}else{
-			$scope.showMessage('Image too large (over 20 MB).');
-		}
-	}
-	
-	
-	
-	$scope.getForm = function(){
-		$http.get(''+$rootScope.mainurl+'/api/cars/uploadFile').
-			success(function(data, status) {
-				console.log(data);
-				$('#newCarForm').html(data);
-			}).error(function(data, status) {
-				console.log(data);
-				
-			});
-	}*/
 
 }

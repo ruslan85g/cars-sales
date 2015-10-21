@@ -142,5 +142,6 @@ font-weight: bold;border-radius: 2px;}
 .red{color:red;padding-top: 10px;}
 .preloader{background: #FFFFFF;    position: absolute;    width: 100%;    height: calc(100% - 30px);    opacity: 0.5;}
 .preloaderImgB{    margin-top: 50px;}
+.preloaderImgS{    width: 20px;}
 
 

@@ -1,4 +1,5 @@
 <div class="box" style="margin-bottom: 30px;" >
+	<!--                       USER DATA                 -->
 	<div style="border: 1px solid #1ba4ab;width: 100%; border-radius: 2px;display: inline-block;" >
 		<div class="boxTitle" >פרטים אישיים</div>
 		<div class="userDetails" >
@@ -41,36 +42,41 @@
 			</ul>
 		</div>
 	</div>
+	<!--                  END USER DATA                 -->
+	
 	<div style="border: 1px solid #1ba4ab;width: 100%; border-radius: 2px;display: inline-block;margin-top: 30px;" >
 		<div class="boxTitle" >מודעות שלי</div>
 		<button class="button" style="float:left;margin:20px 0 0 20px" ng-show="addView == 0" ng-click="getForm();addView = 1" >להוסיף מודעה</button>
+		
+		<!--                  NEW CAR                    -->
 		<div id="newCarForm" ng-show="addView == 1" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;">
+			<div ng-if="newCarPreloader == true" class="preloader" ><img src="images/preloader.gif" class="preloaderImgB" /></div>
 			<ul class="searchBar" >
 				<li>
 					<label>יצרן</label>
 					<select ng-model="newCar.car_type" ng-change="getListModel(newCar.car_type);" >
-						<option ng-selected="true" >בחר יצרן</option>
+						<option ng-selected="true" style="display:none" value="" >בחר יצרן</option>
 						<option ng-repeat="(k,v) in man_opts track by $index"  >{{v.name}}</option>							
 					</select>
 				</li>
 				<li>
 					<label>דגם</label>
 					<select ng-model="newCar.model" >
-						<option ng-selected="true" >בחר דגם</option>
+						<option ng-selected="true" style="display:none" value="" >בחר דגם</option>
 						<option ng-repeat="(k,v) in mod_opts track by $index" >{{v.model_name}}</option>							
 					</select>
 				</li>
 				<li>
 					<label>שנה</label>
 					<select ng-model="newCar.year" >
-						<option ng-selected="true" >שנה</option>
+						<option ng-selected="true" style="display:none" value="" >שנה</option>
 						<option ng-repeat="year in years" >{{year}}</option>							
 					</select>
 				</li>
 				<li>
 					<label>תיבת הילוכים</label>
 					<select ng-model="newCar.type" >
-						<option ng-selected="true" >בחר</option>
+						<option ng-selected="true" style="display:none" value="" >בחר</option>
 						<option>ידנית</option>
 						<option>אוטומט</option>
 					</select>
@@ -96,11 +102,15 @@
 					<input type="file" id="Upload" />  
 				</li>
 			</ul>
+			<img ng-if="dataFile != ''" src="{{dataFile}}" style="width: 100px;float: right;" />
 			<ul class="adBut" style="width: 100%" >
 				<li><button ng-click="addView = 0" class="button" >ביטול</button></li>
 				<li><button class="button" ng-click="newAd()" >להוסיף מודעה</button><li>
 			</ul>	
 		</div>
+		<!--                 END NEW CAR                    -->
+		
+		<!--                 LIST CARS                      -->
 		<ul>
 		<li ng-repeat="(key,val) in viewAdsJson" >
 		<div ng-show="editView == 0" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;" >
@@ -119,15 +129,17 @@
 				<li><button class="button" ng-click="editView = 1;reset();" >עידקון</button></li>
 				<li><button class="button" ng-click="deleteAd(val.car_id)" >למחוק</button></li>
 			</ul>
-			<img src="{{val.image}}" style="width: 100px" />
+			<img src="{{val.image}}" style="width: 100px;float: right;" />
 		</div>
+		
+		<!--                 EDIT CAR                      -->
 		<div ng-show="editView == 1" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;">
 			<ul class="searchBar" >
 				<li>
 					<label>יצרן</label>
 					<label>{{val.typeName}}</label>
 					<select ng-model="updCar.car_type" ng-change="getNewTypeId(updCar.car_type);" >
-						<option ng-selected="true" >בחר יצרן</option>
+						<option ng-selected="true" style="display:none" value="" >בחר יצרן</option>
 						<option ng-repeat="(k,v) in man_opts track by $index"  >{{v.name}}</option>							
 					</select>
 				</li>
@@ -135,7 +147,7 @@
 					<label>דגם</label>
 					<label>{{val.modName}}</label>
 					<select ng-model="updCar.model" >
-						<option ng-selected="true" >בחר דגם</option>
+						<option ng-selected="true" style="display:none" value="" >בחר דגם</option>
 						<option ng-repeat="(k,v) in mod_opts track by $index" >{{v.model_name}}</option>							
 					</select>
 				</li>
@@ -143,7 +155,7 @@
 					<label>שנה</label>
 					<label>{{val.year}}</label>
 					<select ng-model="updCar.year" >
-						<option ng-selected="true" >שנה</option>
+						<option ng-selected="true" style="display:none" value="" >שנה</option>
 						<option ng-repeat="year in years" >{{year}}</option>							
 					</select>
 				</li>
@@ -151,7 +163,7 @@
 					<label>תיבת הילוכים</label>
 					<label>{{val.type_geare}}</label>
 					<select ng-model="updCar.type" >
-						<option ng-selected="true" >בחר</option>
+						<option ng-selected="true" style="display:none" value="" >בחר</option>
 						<option>ידנית</option>
 						<option>אוטומט</option>
 					</select>
@@ -181,15 +193,16 @@
 					   <input type="file" id="newImg55" onchange="angular.element(this).scope().changePic(this)" />
 				</li>
 			</ul>
-			{{newImage}}
-			<img src="{{val.image}}" style="width: 100px" />
+			<img ng-if="newImage == ''" src="{{val.image}}" style="width: 100px" />
 			<div ng-if="newImage != ''" ><img src="{{newImage}}" style="width: 100px" /></div>
 			<ul class="adBut" style="width: 100%" >
 				<li><button ng-click="editView = 0" class="button" >ביטול</button></li>
 				<li><button class="button" ng-click="updateAd(val.car_id)" >שמור</button></li>
 			</ul>	
 		</div>
+		<!--                END EDIT CAR                      -->
 		</li>
 		</ul>
+		<!--                END LIST CARS                     -->
 	</div>
 </div>
