@@ -117,32 +117,34 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 	$scope.getCarsList();
 	
 	function readImage(input,s) {
-	console.log(s)
+	console.log(input)
     if ( input.files && input.files[0] ) {
         var FR= new FileReader();
         FR.onload = function(e) {
             if(s==0){$scope.dataFile = e.target.result;}
 			if(s==1){
-				$scope.newImage = e.target.result;
-				$scope.oldImg = 0;
-				console.log($scope.newImage)
+				$scope.changePicView(e.target.result);
 			}
         };       
         FR.readAsDataURL( input.files[0] );
     }
 }
-
+$scope.newImage = '';
+$scope.$watch(function() {
+		return $scope.newImage;
+	});
 $("#Upload").change(function(){
     readImage( this ,0);
 });
-	$scope.koko = function(){
-		console.log('5555555555555')
-	}
-/*$(".newImg55").change(function(){
-    console.log('5555555555555')
-    readImage( this ,1);
-});*/
 
+$scope.changePicView = function(data){
+		
+		$scope.newImage = data;
+		$rootScope.oldImg = 0;
+		console.log($scope.newImage)
+		$scope.$apply();
+
+	}
 
 	$scope.newCar = {	
 						"car_type" : "",
@@ -234,6 +236,15 @@ console.log($scope.newAdJson)
 						"text" : ""
 					}
 	}
+	
+	$scope.changePic = function(th){
+		readImage( th ,1);
+	}
+	
+	$rootScope.oldImg = 1;
+	$scope.oldImg = function() {
+        return $rootScope.oldImg;             
+    }
 	
 	$scope.updateAd = function(id){
 		console.log($scope.updCar)

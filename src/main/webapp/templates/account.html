@@ -178,11 +178,12 @@
 				</li>
 				<li style="margin-top: 10px;" >
 					<label>תמונה</label>
-					   <input type="file" class="newImg55" onchange="angular.element(this).scope().koko(this)" />
+					   <input type="file" id="newImg55" onchange="angular.element(this).scope().changePic(this)" />
 				</li>
 			</ul>
-			<img src="{{val.image}}" style="width: 100px" ng-if="oldImg = 1" />
-			<img src="{{newImage}}" style="width: 100px" ng-if="oldImg = 0" />
+			{{newImage}}
+			<img src="{{val.image}}" style="width: 100px" />
+			<div ng-if="newImage != ''" ><img src="{{newImage}}" style="width: 100px" /></div>
 			<ul class="adBut" style="width: 100%" >
 				<li><button ng-click="editView = 0" class="button" >ביטול</button></li>
 				<li><button class="button" ng-click="updateAd(val.car_id)" >שמור</button></li>
