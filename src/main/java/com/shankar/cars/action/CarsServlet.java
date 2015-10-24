@@ -87,7 +87,8 @@ public class CarsServlet {
 		Map<String, String> resp = new HashMap<String, String>();
 		Car car = null;
 		String car_url = carMeta.getUser_id().toString()
-				+ carMeta.getCar_model_id() + carMeta.getCar_type_id();
+				+ carMeta.getCar_model_id().toString()
+				+ carMeta.getCar_type_id().toString();
 		User user = userDBService.load(User.class, carMeta.getUser_id());
 		if (user == null) {
 			Response.serverError().status(Response.Status.BAD_REQUEST)
