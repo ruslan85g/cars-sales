@@ -158,6 +158,7 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 			$scope.pPreloader = true;
 			$http.post(''+$rootScope.mainurl+'/api/users/changePassword', $scope.chengePJson).
 				success(function(data, status) {
+				$scope.chengePJson = {"user_id" : $rootScope.cookieUserID,"currentPassword" : "","newPassword" : ""};
 					console.log(data);
 					if(data.status == "success"){
 						$scope.pChengePStatus = true;
@@ -168,6 +169,7 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 						$scope.pPreloader = false;
 					}
 				}).error(function(data, status) {
+					$scope.chengePJson = {"user_id" : $rootScope.cookieUserID,"currentPassword" : "","newPassword" : ""};
 					console.log(data);
 					$scope.error_text = "שגיאה, נסה שוב בעוד מספר דקות";
 					$scope.pChengePStatus = false;

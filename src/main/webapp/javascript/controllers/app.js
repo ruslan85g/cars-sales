@@ -48,6 +48,10 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 			console.log(data)
 		}).error(function(data, status) {console.log(data);});
 		
+		$scope.showHideDet = function(i){
+			if($scope.listCars[i].viewDet == 0){$scope.listCars[i].viewDet = 1}
+			else{$scope.listCars[i].viewDet = 0}
+		}
 		
 /************************************************ search *****************************************/		
 	$scope.selectedModel = function(name){
