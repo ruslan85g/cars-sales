@@ -110,6 +110,9 @@ public class SearchDBService extends DBService {
 		}
 
 		if (q_year != null) {
+			if (subFiltersYear.size() > 0) {
+				log.info("subFiltersYear.size() " + subFiltersYear.size());
+			}
 			log.info("Start q_year: ");
 			q_year = setFilter(q_year, subFiltersYear);
 			PreparedQuery pq = datastore.prepare(q_year);
