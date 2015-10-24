@@ -143,5 +143,7 @@ font-weight: bold;border-radius: 2px;}
 .preloader{background: #FFFFFF;    position: absolute;    width: 100%;    height: calc(100% - 30px);    opacity: 0.5;}
 .preloaderImgB{    margin-top: 50px;}
 .preloaderImgS{    width: 20px;}
+.carBox{width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;position:relative}
+
 
 

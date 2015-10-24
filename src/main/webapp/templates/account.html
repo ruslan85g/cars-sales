@@ -49,8 +49,8 @@
 		<button class="button" style="float:left;margin:20px 0 0 20px" ng-show="addView == 0" ng-click="getForm();addView = 1" >להוסיף מודעה</button>
 		
 		<!--                  NEW CAR                    -->
-		<div id="newCarForm" ng-show="addView == 1" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;">
-			<div ng-if="newCarPreloader == true" class="preloader" ><img src="images/preloader.gif" class="preloaderImgB" /></div>
+		<div id="newCarForm" ng-show="addView == 1" class="carBox">
+			<div ng-if="newCarPreloader == true" style="text-align: center;" class="preloader" ><img src="images/preloader.gif" class="preloaderImgB" /></div>
 			<ul class="searchBar" >
 				<li>
 					<label>יצרן</label>
@@ -104,7 +104,7 @@
 			</ul>
 			<img ng-if="dataFile != ''" src="{{dataFile}}" style="width: 100px;float: right;" />
 			<ul class="adBut" style="width: 100%" >
-				<li><button ng-click="addView = 0" class="button" >ביטול</button></li>
+				<li><button ng-click="reset('a');" class="button" >ביטול</button></li>
 				<li><button class="button" ng-click="newAd()" >להוסיף מודעה</button><li>
 			</ul>	
 		</div>
@@ -133,7 +133,8 @@
 		</div>
 		
 		<!--                 EDIT CAR                      -->
-		<div ng-show="editView == 1" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;">
+		<div ng-show="editView == 1" class="carBox">
+			<div ng-if="editCarPreloader == true" style="text-align: center;" class="preloader" ><img src="images/preloader.gif" class="preloaderImgB" /></div>
 			<ul class="searchBar" >
 				<li>
 					<label>יצרן</label>
@@ -196,7 +197,7 @@
 			<img ng-if="newImage == ''" src="{{val.image}}" style="width: 100px" />
 			<div ng-if="newImage != ''" ><img src="{{newImage}}" style="width: 100px" /></div>
 			<ul class="adBut" style="width: 100%" >
-				<li><button ng-click="editView = 0" class="button" >ביטול</button></li>
+				<li><button ng-click="reset('u');" class="button" >ביטול</button></li>
 				<li><button class="button" ng-click="updateAd(val.car_id)" >שמור</button></li>
 			</ul>	
 		</div>

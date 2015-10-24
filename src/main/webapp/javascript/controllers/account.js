@@ -158,7 +158,7 @@ $scope.changePic = function(th){
 /*********************************************** NEW CAR *********************************************/	
 	$scope.addView = 0;
 	$scope.newCarPreloader = false;
-	$scope.newCar = {"car_type" : "","model" : "","year" : 0,"type" : "","volume" : 0,"km" : 0,"color" :"","price" : 0,"text" : ""};
+	$scope.newCar = {"car_type" : "","model" : "","year" : "","type" : "","volume" : "","km" : "","color" :"","price" : "","text" : ""};
 				
 	$scope.newAd = function(){
 	$scope.newCarPreloader = true;
@@ -186,20 +186,30 @@ console.log($scope.newAdJson)
 		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.newAdJson).
 			success(function(data, status) {
 				console.log(data);
-				$scope.addView = 0;
-				$scope.newCar = {"car_type" : "","model" : "","year" : 0,"type" : "","volume" : 0,"km" : 0,"color" :"","price" : 0,"text" : ""};
-				$scope.newAdJson = {};
-				$scope.newCarPreloader == false;
 				$scope.getCarsList();
+				$scope.reset('a');
 			}).error(function(data, status) {
 				console.log(data);
-				$scope.addView = 0;
-				$scope.newCar = {"car_type" : "","model" : "","year" : 0,"type" : "","volume" : 0,"km" : 0,"color" :"","price" : 0,"text" : ""};
-				$scope.newAdJson = {};
-				$scope.newCarPreloader == false;
+				$scope.reset('a');
 			});
 	}
-
+	
+/*******************************************************************************************************/
+$scope.reset = function(e){
+	if(e == 'a'){
+		$scope.addView = 0;
+		$scope.newCar = {"car_type" : "","model" : "","year" : "","type" : "","volume" : "","km" : "","color" :"","price" : "","text" : ""};
+		$scope.newAdJson = {};
+		$scope.dataFile = '';
+		$scope.newCarPreloader = false;
+	}else{
+		$scope.editCarPreloader = false;
+		$scope.editView =0;
+		$scope.newImage = '';
+		$scope.updateAdJson = {};
+		$scope.updCar = {"car_type" : "","model" : "","year" : '',"type" : "","volume" : '',"km" : '',"color" :"","price" : '',"text" : ""};
+	}
+}
 /***************************************************  UPDATE CAR ****************************************/	
 	$scope.getNewTypeId = function(id){
 		$scope.getListModel(id);
@@ -218,16 +228,11 @@ console.log($scope.newAdJson)
 		}
 	}
 	
-	$scope.reset = function(){
-		$scope.editView =0;
-		$scope.newImage = '';
-		$scope.updateAdJson = {};
-		$scope.updCar = {"car_type" : "","model" : "","year" : '',"type" : "","volume" : '',"km" : '',"color" :"","price" : '',"text" : ""};
-	}
-	
 	$scope.editView =0;
-		
+	$scope.editCarPreloader = false;
+	
 	$scope.updateAd = function(id){
+	$scope.editCarPreloader = true;
 		console.log($scope.updCar)
 		$.each($scope.viewAdsJson, function (key,val){
 			if(val.car_id == id){
@@ -282,13 +287,12 @@ console.log($scope.newAdJson)
 		$http.post(''+$rootScope.mainurl+'/api/cars/save', $scope.updateAdJson).
 			success(function(data, status) {
 				console.log(data);
-				$scope.reset();
 				$scope.getCarsList();
+				$scope.reset('u');
 				
 			}).error(function(data, status) {
 				console.log(data);
-				$scope.reset();
-				
+				$scope.reset('u');
 			});
 	}
 /******************************************************* DELETE CAR ***************************************************/	
