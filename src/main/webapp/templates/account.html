@@ -122,8 +122,8 @@
 				<li><label>{{val.type_geare}}</label></li>
 				<li><label ng-if="val.price != 0" >{{val.price}}</label></li>
 				<li style="width: 75px;" ><label>תמונה </label>
-				<span class="symbolV_s icon-tick"></span>
-				<!-- span class="symbolX_s icon-error"></span --></li>
+				<span ng-if="val.image" class="symbolV_s icon-tick"></span>
+				<span ng-if="!val.image" class="symbolX_s icon-error"></span></li>
 			</ul>
 			<ul class="adBut" >
 				<li><button class="button" ng-click="editView = 1;reset();" >עידקון</button></li>

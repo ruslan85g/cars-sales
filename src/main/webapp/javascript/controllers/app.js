@@ -9,10 +9,10 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 	$scope.man_opts = [];
 	$scope.mod_opts = [];
 	
-	$scope.getListModel = function(id){
-	//console.log(id)
+	$scope.getListModel = function(id,text){
+	console.log(ttt.SJmanuf)
 	
-		if(id != "בחר יצרן"){
+		if(text.SJmanuf != "בחר יצרן"){
 			$.each($scope.man_opts, function (key,val){
 				if(val.name == id){
 					$scope.typeId = val.id;
@@ -54,22 +54,22 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 		}
 		
 /************************************************ search *****************************************/		
-	$scope.selectedModel = function(name){
-		if(name != "בחר דגם" && name != ""){
+	$scope.selectedModel = function(name,text){
+		if(text.SJmodel != "בחר דגם" && name != ""){
 			$.each($scope.mod_opts, function (key,val){
 				if(val.model_name == name){$scope.SJmodelId = val.car_model_id;}
 			});
 		}
 	};
 	
-	$scope.selectedYearF = function(year){
-		if(year != "משנה" && year != ""){
+	$scope.selectedYearF = function(year,text){
+		if(text.SJyearF != "משנה" && year != ""){
 			$scope.SJyearFrom = year;
 		}
 	};
 	
-	$scope.selectedYearT = function(year){
-		if(year != "עד שנה" && year != ""){
+	$scope.selectedYearT = function(year,text){
+		if(text.SJyearT != "עד שנה" && year != ""){
 			$scope.SJyearTo = year;
 		}
 	};

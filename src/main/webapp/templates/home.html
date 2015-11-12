@@ -5,28 +5,28 @@
 	<ul class="searchBar" >
 		<li>
 			<label>יצרן</label>
-			<select ng-model="SJmanuf" ng-change="getListModel(SJmanuf);" >
+			<select ng-model="SJmanuf" ng-change="getListModel(SJmanuf, this);" >
 				<option ng-selected="true" >בחר יצרן</option>
 				<option ng-repeat="(k,v) in man_opts track by $index" >{{v.name}}</option>							
 			</select>
 		</li>
 		<li>
 			<label>דגם</label>
-			<select ng-model="SJmodel" ng-change="selectedModel(SJmodel);" >
+			<select ng-model="SJmodel" ng-change="selectedModel(SJmodel, this);" >
 				<option ng-selected="true" >בחר דגם</option>
 				<option ng-repeat="(k,v) in mod_opts track by $index" >{{v.model_name}}</option>							
 			</select>
 		</li>
 		<li>
 			<label>משנה</label>
-			<select ng-model="SJyearF" ng-change="selectedYearF(SJyearF);" >
+			<select ng-model="SJyearF" ng-change="selectedYearF(SJyearF, this);" >
 				<option ng-selected="true" >משנה</option>
 				<option ng-repeat="year in years" >{{year}}</option>							
 			</select>
 		</li>
 		<li>
 			<label>עד שנה</label>
-			<select ng-model="SJyearT" ng-change="selectedYearT(SJyearT);" >
+			<select ng-model="SJyearT" ng-change="selectedYearT(SJyearT, this);" >
 				<option ng-selected="true" >עד שנה</option>
 				<option ng-repeat="year in years" >{{year}}</option>							
 			</select>
@@ -81,7 +81,7 @@
 			<div class="adDetails" ng-if="val.viewDet == 1"  >
 				<div class="adDetailsR" >
 					<div class="adTitle" >פרטים</div>
-					<ul class="adDetailList" >
+					<ul class="" >
 						<li><label class="labelKey" >יצרן:</label><label>{{val.car_type_name}}</label></li>
 						<li><label class="labelKey" >דגם:</label><label>{{val.car_model_name}}</label></li>
 						<li><label class="labelKey" >שנה:</label><label>{{val.year}}</label></li>
