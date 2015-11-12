@@ -28,9 +28,9 @@ public class SearchDBService extends DBService {
 
 		// Get the Datastore Service
 		log.info(" Start SearchDBService.load");
-		Query q_year =  new Query("Car");
-		Query q_price =  new Query("Car");
-		Query q =  new Query("Car");
+		Query q_year = new Query("Car");
+		Query q_price = new Query("Car");
+		Query q = new Query("Car");
 		List<Entity> results = null;
 		List<Entity> result_year = null;
 		List<Entity> result_price = null;
@@ -43,38 +43,41 @@ public class SearchDBService extends DBService {
 		if (searchMeta == null) {
 			throw new RuntimeException("searchMeta cannot be null");
 		}
-		
-		setSubFiltersYear( searchMeta , subFiltersYear );
-		setSubFiltersPrice( searchMeta , subFiltersPrice);
-		
-		if(subFiltersYear.size() == 0 && subFiltersPrice.size() == 0){
-			setSubFiltersCommon( searchMeta , subFilters);
+
+		setSubFiltersYear(searchMeta, subFiltersYear);
+		setSubFiltersPrice(searchMeta, subFiltersPrice);
+
+		if (subFiltersYear.size() == 0 && subFiltersPrice.size() == 0) {
+			setSubFiltersCommon(searchMeta, subFilters);
 		}
-		
 
 		if (subFiltersYear.size() > 0) {
-			result_year = loadCars(q_year,subFiltersYear);
-			buildCarsList(result_year,carsList);
+			result_year = loadCars(q_year, subFiltersYear);
+			buildCarsList(result_year, carsList);
 		}
 
 		if (subFiltersPrice.size() > 0) {
-			result_price = loadCars(q_price,subFiltersPrice);
+			result_price = loadCars(q_price, subFiltersPrice);
 			buildCarsList(result_price, carsList);
 		}
 
 		if (subFilters.size() > 0) {
-			results = loadCars(q,subFilters);
-			buildCarsList(results,carsList);
+			results = loadCars(q, subFilters);
+			buildCarsList(results, carsList);
 		}
-		
+		if ((result_year.size() == 0 && subFiltersYear.size() > 0)
+				|| (result_price.size() == 0 && subFiltersPrice.size() > 0)
+				|| (results.size() == 0 && subFilters.size() > 0)) {
+//			List<Car> carsListNew = new ArrayList<Car>();
+			/*return*/ carsList.clear();
+		}
 		return carsList;
 	}
 
-	private List<Entity> loadCars(Query query,
-			Collection<Filter> subFilters) {
+	private List<Entity> loadCars(Query query, Collection<Filter> subFilters) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
-		List<Entity> results=null;
+		List<Entity> results = null;
 		log.info("subFiltersYear.size() " + subFilters.size());
 		log.info("Start q_year: ");
 		query = setFilter(query, subFilters);
@@ -86,8 +89,7 @@ public class SearchDBService extends DBService {
 				+ pq.asIterable().toString());
 		log.info("Query: " + query.toString());
 		// result_year = pq.asList(FetchOptions.Builder.withLimit(5));
-		results = pq.asQueryResultList(FetchOptions.Builder
-				.withLimit(5));
+		results = pq.asQueryResultList(FetchOptions.Builder.withLimit(5));
 		int num = pq.countEntities(FetchOptions.Builder.withLimit(5));
 		log.info("result_year num: " + num);
 		log.info("result_year size: " + results.size());
@@ -126,14 +128,15 @@ public class SearchDBService extends DBService {
 			Collection<Filter> subFilters) {
 		Calendar c = new GregorianCalendar();
 		c.add(Calendar.DATE, -30);
-		
+
 		subFilters.add(new FilterPredicate("created_time",
 				FilterOperator.GREATER_THAN, c.getTimeInMillis()));
-		
-		addOtherSubFilters(searchMeta,subFilters);
+
+		addOtherSubFilters(searchMeta, subFilters);
 	}
 
-	private void setSubFiltersPrice(SearchMeta searchMeta, Collection<Filter> subFiltersPrice) {
+	private void setSubFiltersPrice(SearchMeta searchMeta,
+			Collection<Filter> subFiltersPrice) {
 		if (searchMeta.getPriceF() != null || searchMeta.getPriceT() != null) {
 
 			if (searchMeta.getPriceF() != null) {
@@ -149,16 +152,16 @@ public class SearchDBService extends DBService {
 								.getPriceT()));
 				log.info("find cars per getPriceT " + subFiltersPrice.size());
 			}
-			addOtherSubFilters(searchMeta,subFiltersPrice);
+			addOtherSubFilters(searchMeta, subFiltersPrice);
 		}
 
-		
 	}
 
-	private void setSubFiltersYear(SearchMeta searchMeta, Collection<Filter> subFiltersYear) {
+	private void setSubFiltersYear(SearchMeta searchMeta,
+			Collection<Filter> subFiltersYear) {
 		if (searchMeta.getYearF() != null || searchMeta.getYearT() != null) {
 
-			//q_year = new Query("Car");
+			// q_year = new Query("Car");
 			if (searchMeta.getYearF() != null) {
 				subFiltersYear.add(new FilterPredicate("year",
 						FilterOperator.GREATER_THAN_OR_EQUAL, searchMeta
@@ -171,10 +174,10 @@ public class SearchDBService extends DBService {
 								.getYearT()));
 				log.info("find cars per yearT " + subFiltersYear.size());
 			}
-			addOtherSubFilters(searchMeta,subFiltersYear);
-			
+			addOtherSubFilters(searchMeta, subFiltersYear);
+
 		}
-		
+
 	}
 
 	private void addOtherSubFilters(SearchMeta searchMeta,
@@ -199,7 +202,7 @@ public class SearchDBService extends DBService {
 	private Query setFilter(Query query, Collection<Filter> subFilters) {
 		if (subFilters.size() == 1) {
 			// strs.iterator().next();
-		
+
 			query.setFilter(subFilters.iterator().next());
 
 		} else {
