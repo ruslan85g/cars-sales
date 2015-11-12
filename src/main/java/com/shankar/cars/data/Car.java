@@ -42,6 +42,7 @@ public class Car {
 	@Setter
 	protected String image;
 	
+	@Index
 	@Getter
 	@Setter
 	public Long year;
@@ -51,14 +52,17 @@ public class Car {
 	@Setter
 	public String type_geare;
 
+	@Index
 	@Getter
 	@Setter
 	public String volume;
 	
+	@Index
 	@Getter
 	@Setter
 	public Long km;
 	
+	@Index
 	@Getter
 	@Setter
 	public String color;
