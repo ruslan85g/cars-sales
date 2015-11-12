@@ -108,6 +108,7 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 
 		$http.post(''+$rootScope.mainurl+'/api/search/searchResult', $scope.searchJson).
 			success(function(data, status) {
+			$scope.clearFun();
 				var typeName = "typeName";
 				var modName = "modName";
 				$.each(data, function (key,val){
@@ -133,8 +134,18 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 				});
 				$scope.sPreloader = false;
 				$scope.listCars = data;
-			}).error(function(data, status) {console.log(data);$scope.sPreloader = false;});
+			}).error(function(data, status) {console.log(data);$scope.clearFun();$scope.sPreloader = false;});
 	}
+	$scope.clearFun = function(){
+		$scope.typeId = "";
+		$scope.SJmodelId = "";
+		$scope.SJyearFrom = "";
+		$scope.SJyearTo = "";
+		$scope.SJsontypeGear = "";
+		$scope.SJpriceFrom = "";
+		$scope.SJpriceTo = "";
+	}
+	
 	
 	$scope.showMessage = function(){
 	
