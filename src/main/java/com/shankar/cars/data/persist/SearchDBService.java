@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import lombok.extern.java.Log;
 
@@ -31,15 +33,15 @@ public class SearchDBService extends DBService {
 		Query q_year = new Query("Car");
 		Query q_price = new Query("Car");
 		Query q = new Query("Car");
-		List<Entity> results = null;
-		List<Entity> result_year = null;
-		List<Entity> result_price = null;
+		List<Entity> results = new ArrayList<Entity>();
+		List<Entity> result_year = new ArrayList<Entity>();
+		List<Entity> result_price = new ArrayList<Entity>();
 		Collection<Filter> subFilters = new ArrayList<Filter>();
 		Collection<Filter> subFiltersPrice = new ArrayList<Filter>();
 		Collection<Filter> subFiltersYear = new ArrayList<Filter>();
 
 		List<Car> carsList = new ArrayList<Car>();
-
+		 Collection<Car>  carsCollection = new HashSet<Car>();
 		if (searchMeta == null) {
 			throw new RuntimeException("searchMeta cannot be null");
 		}
@@ -53,24 +55,31 @@ public class SearchDBService extends DBService {
 
 		if (subFiltersYear.size() > 0) {
 			result_year = loadCars(q_year, subFiltersYear);
-			buildCarsList(result_year, carsList);
+			buildCarsList(result_year, carsCollection);
 		}
 
 		if (subFiltersPrice.size() > 0) {
 			result_price = loadCars(q_price, subFiltersPrice);
-			buildCarsList(result_price, carsList);
+			buildCarsList(result_price, carsCollection);
 		}
 
 		if (subFilters.size() > 0) {
 			results = loadCars(q, subFilters);
-			buildCarsList(results, carsList);
+			buildCarsList(results, carsCollection);
 		}
-		if ((result_year.size() == 0 && subFiltersYear.size() > 0)
-				|| (result_price.size() == 0 && subFiltersPrice.size() > 0)
-				|| (results.size() == 0 && subFilters.size() > 0)) {
-//			List<Car> carsListNew = new ArrayList<Car>();
-			/*return*/ carsList.clear();
+		
+		
+		
+				
+		if ((result_year.isEmpty() && !subFiltersYear.isEmpty())
+				|| (result_price.isEmpty() && !subFiltersPrice.isEmpty())
+				|| (results.isEmpty() && !subFilters.isEmpty())) {
+			//carsList.clear();
+		}else{
+			carsList = new ArrayList<Car>(carsCollection );
 		}
+		
+		
 		return carsList;
 	}
 
@@ -96,7 +105,7 @@ public class SearchDBService extends DBService {
 		return results;
 	}
 
-	private void buildCarsList(List<Entity> resultList, List<Car> carsList) {
+	private void buildCarsList(List<Entity> resultList, Collection<Car> carsCollection) {
 		if (resultList != null) {
 			log.info("Start set for result_year");
 			for (Entity result : resultList) {
@@ -117,10 +126,11 @@ public class SearchDBService extends DBService {
 				car.setYear((Long) result.getProperty("year"));
 				log.info("carsList.add(getCar_model_id): "
 						+ car.getCar_model_id());
-				// if (!carsList.contains(car)) {
-				carsList.add(car);
-				// }
+				if (!carsCollection.contains(car)) {
+					carsCollection.add(car);
+				}
 			}
+			
 		}
 	}
 
