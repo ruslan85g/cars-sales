@@ -141,7 +141,8 @@ font-weight: bold;border-radius: 2px;}
      border-radius: 2px;    font-weight: bold;     text-align: center;  font-size: 15px;}
 .red{color:red;padding-top: 10px;}
 .preloader{background: #FFFFFF;    position: absolute;    width: 100%;    height: calc(100% - 30px);    opacity: 0.5;}
-.preloaderImgB{    margin-top: 50px;}
+/*.preloader_search{background: #FFFFFF;    position: absolute;    width: 100%;    height: calc(100% - 30px);    opacity: 0.5;}
+**/.preloaderImgB{    margin-top: 50px;}
 .preloaderImgS{    width: 20px;}
 .carBox{width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;position:relative}
 
