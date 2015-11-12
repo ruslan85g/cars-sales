@@ -168,4 +168,9 @@
         <property name="type_geare" direction="asc"/>
         <property name="price" direction="asc"/>
     </datastore-index>
+      <datastore-index kind="Car" ancestor="false" source="manual">
+        <property name="type_geare" direction="asc"/>
+        <property name="year" direction="asc"/>
+    </datastore-index>
+    
 </datastore-indexes>

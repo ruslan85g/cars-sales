@@ -31,9 +31,9 @@ public class SearchDBService extends DBService {
 		Query q_year = new Query("Car");
 		Query q_price = new Query("Car");
 		Query q = new Query("Car");
-		List<Entity> results = null;
-		List<Entity> result_year = null;
-		List<Entity> result_price = null;
+		List<Entity> results = new ArrayList<Entity>();
+		List<Entity> result_year = new ArrayList<Entity>();
+		List<Entity> result_price = new ArrayList<Entity>();
 		Collection<Filter> subFilters = new ArrayList<Filter>();
 		Collection<Filter> subFiltersPrice = new ArrayList<Filter>();
 		Collection<Filter> subFiltersYear = new ArrayList<Filter>();
@@ -65,11 +65,10 @@ public class SearchDBService extends DBService {
 			results = loadCars(q, subFilters);
 			buildCarsList(results, carsList);
 		}
-		if ((result_year.size() == 0 && subFiltersYear.size() > 0)
-				|| (result_price.size() == 0 && subFiltersPrice.size() > 0)
-				|| (results.size() == 0 && subFilters.size() > 0)) {
-//			List<Car> carsListNew = new ArrayList<Car>();
-			/*return*/ carsList.clear();
+		if ((result_year.isEmpty() && !subFiltersYear.isEmpty())
+				|| (result_price.isEmpty() && !subFiltersPrice.isEmpty())
+				|| (results.isEmpty() && !subFilters.isEmpty())) {
+			carsList.clear();
 		}
 		return carsList;
 	}
