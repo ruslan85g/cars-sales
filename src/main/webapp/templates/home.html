@@ -73,8 +73,8 @@
 				<li><label>{{val.year}}</label></li>
 				<li><label>{{val.type_geare}}</label></li>
 				<li><label>{{val.price}}</label></li>
-				<li style="width: 146px;" ><span class="symbolV_l icon-tick"></span>
-				<!-- span class="symbolX_l icon-error"></span --></li>
+				<li style="width: 146px;" ><span ng-if="val.image" class="symbolV_l icon-tick"></span>
+				<span ng-if="!val.image" class="symbolX_l icon-error"></span></li>
 			</ul>
 			<hr />
 			<div class="adDetails" ng-if="val.viewDet == 1"  >

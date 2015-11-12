@@ -236,9 +236,10 @@ $scope.reset = function(e){
 		console.log($scope.updCar)
 		$.each($scope.viewAdsJson, function (key,val){
 			if(val.car_id == id){
-				if($scope.updCar_type != "" && $scope.updCar_type != "בחר יצרן"){
+			//console.log(val)
+				if($scope.updCar.car_type != "" && $scope.updCar.car_type != "בחר יצרן" && $scope.updCar.car_type != "undefined"){
 					$.each($scope.man_opts, function (k,v){
-						if($scope.updCar_type == v.name){
+						if($scope.updCar.car_type == v.name){
 							$scope.updCar_type = v.id;
 						}
 					});
@@ -255,6 +256,8 @@ $scope.reset = function(e){
 				}else{
 					$scope.updCar_type = val.car_type_id;
 					$scope.updCar_mod = val.car_model_id;
+					console.log(val.car_type_id);
+					console.log($scope.updCar_type);
 				}
 
 				if(!$scope.updCar.year){$scope.updCar.year = val.year;}
