@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import lombok.extern.java.Log;
 
@@ -41,7 +39,7 @@ public class SearchDBService extends DBService {
 		Collection<Filter> subFiltersYear = new ArrayList<Filter>();
 
 		List<Car> carsList = new ArrayList<Car>();
-		 Collection<Car>  carsCollection = new HashSet<Car>();
+
 		if (searchMeta == null) {
 			throw new RuntimeException("searchMeta cannot be null");
 		}
@@ -55,31 +53,23 @@ public class SearchDBService extends DBService {
 
 		if (subFiltersYear.size() > 0) {
 			result_year = loadCars(q_year, subFiltersYear);
-			buildCarsList(result_year, carsCollection);
+			buildCarsList(result_year, carsList);
 		}
 
 		if (subFiltersPrice.size() > 0) {
 			result_price = loadCars(q_price, subFiltersPrice);
-			buildCarsList(result_price, carsCollection);
+			buildCarsList(result_price, carsList);
 		}
 
 		if (subFilters.size() > 0) {
 			results = loadCars(q, subFilters);
-			buildCarsList(results, carsCollection);
+			buildCarsList(results, carsList);
 		}
-		
-		
-		
-				
 		if ((result_year.isEmpty() && !subFiltersYear.isEmpty())
 				|| (result_price.isEmpty() && !subFiltersPrice.isEmpty())
 				|| (results.isEmpty() && !subFilters.isEmpty())) {
-			//carsList.clear();
-		}else{
-			carsList = new ArrayList<Car>(carsCollection );
+			carsList.clear();
 		}
-		
-		
 		return carsList;
 	}
 
@@ -105,7 +95,7 @@ public class SearchDBService extends DBService {
 		return results;
 	}
 
-	private void buildCarsList(List<Entity> resultList, Collection<Car> carsCollection) {
+	private void buildCarsList(List<Entity> resultList, List<Car> carsList) {
 		if (resultList != null) {
 			log.info("Start set for result_year");
 			for (Entity result : resultList) {
@@ -126,11 +116,10 @@ public class SearchDBService extends DBService {
 				car.setYear((Long) result.getProperty("year"));
 				log.info("carsList.add(getCar_model_id): "
 						+ car.getCar_model_id());
-				if (!carsCollection.contains(car)) {
-					carsCollection.add(car);
-				}
+				// if (!carsList.contains(car)) {
+				carsList.add(car);
+				// }
 			}
-			
 		}
 	}
 
