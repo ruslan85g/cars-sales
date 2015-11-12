@@ -83,9 +83,10 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 	$scope.model = {};
 	$scope.model.SJpriceF;
 	$scope.model.SJpriceT;
+	$scope.sPreloader = false;
 	
 	$scope.search = function(){
-		
+		$scope.sPreloader = true;
 		if($scope.model.SJpriceF != "ממחיר" && $scope.model.SJpriceF != ""){
 			$scope.SJpriceFrom = $scope.model.SJpriceF;
 		}
@@ -128,8 +129,9 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 						}).error(function(data, status) {console.log(data);});
 					}
 				});
+				$scope.sPreloader = false;
 				$scope.listCars = data;
-			}).error(function(data, status) {console.log(data);});
+			}).error(function(data, status) {console.log(data);$scope.sPreloader = false;});
 	}
 	
 	$scope.showMessage = function(){

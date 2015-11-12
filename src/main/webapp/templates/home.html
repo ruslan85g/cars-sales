@@ -1,6 +1,7 @@
 <div class="box" >
-	<div style="border: 1px solid #1ba4ab;width: 100%; border-radius: 2px;display: inline-block;" >
+	<div style="border: 1px solid #1ba4ab;width: 100%; border-radius: 2px;display: inline-block;position:relative;" >
 	<div class="boxTitle" >חיפוש במודעות</div>
+	<div ng-if="sPreloader == true" class="preloader" style="text-align: center;" ><img src="images/preloader.gif" class="preloaderImgB" /></div>
 	<ul class="searchBar" >
 		<li>
 			<label>יצרן</label>
@@ -68,8 +69,8 @@
 		</ul>
 		<div><ul style="width:100%" ><li ng-repeat="(key,val) in listCars" ng-click="showHideDet($index);" >
 			<ul class="ad" >
-				<li><label>{{val.typeName}}</label></li>
-				<li><label>{{val.modName}}</label></li>
+				<li><label>{{val.car_type_name}}</label></li>
+				<li><label>{{val.car_model_name}}</label></li>
 				<li><label>{{val.year}}</label></li>
 				<li><label>{{val.type_geare}}</label></li>
 				<li><label>{{val.price}}</label></li>

@@ -73,7 +73,7 @@ a.buttonFFF:active {
 .resultTitle li{float: right;  padding-top:3px;  height: 27px;    color: #FFFFFF;    font-weight: bold;    text-align: center;}
 .resultTitle li label{width: 144px;display:block}
 .ad{cursor:pointer;display:inline-block;width:100%;}
-.ad li{float:right;width:148px;text-align: center;}
+.ad li{float:right;width:148px;text-align: center;    height: 18px;}
 .ad li label{cursor:pointer}
 hr{background-color: #1ba4ab;    height: 1px;    border: none;margin:0}
 .adDetails{width:100%;background-color:#DFE0E0;display: inline-block;}
@@ -141,7 +141,8 @@ font-weight: bold;border-radius: 2px;}
      border-radius: 2px;    font-weight: bold;     text-align: center;  font-size: 15px;}
 .red{color:red;padding-top: 10px;}
 .preloader{background: #FFFFFF;    position: absolute;    width: 100%;    height: calc(100% - 30px);    opacity: 0.5;}
-.preloaderImgB{    margin-top: 50px;}
+/*.preloader_search{background: #FFFFFF;    position: absolute;    width: 100%;    height: calc(100% - 30px);    opacity: 0.5;}
+**/.preloaderImgB{    margin-top: 50px;}
 .preloaderImgS{    width: 20px;}
 .carBox{width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;position:relative}
 
