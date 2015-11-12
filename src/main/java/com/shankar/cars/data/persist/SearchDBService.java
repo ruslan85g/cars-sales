@@ -116,9 +116,9 @@ public class SearchDBService extends DBService {
 				car.setYear((Long) result.getProperty("year"));
 				log.info("carsList.add(getCar_model_id): "
 						+ car.getCar_model_id());
-				// if (!carsList.contains(car)) {
-				carsList.add(car);
-				// }
+				if (!carsList.contains(car)) {
+					carsList.add(car);
+				}
 			}
 		}
 	}
