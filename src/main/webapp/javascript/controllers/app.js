@@ -10,7 +10,8 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 	$scope.mod_opts = [];
 	
 	$scope.getListModel = function(id,text){
-	console.log(ttt.SJmanuf)
+	console.log(id)
+	console.log(text.SJmanuf)
 	
 		if(text.SJmanuf != "בחר יצרן"){
 			$.each($scope.man_opts, function (key,val){
@@ -19,6 +20,7 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 				}
 			});
 			$scope.listModel = {"carType_id" : $scope.typeId,"carType_Name":""};
+			console.log($scope.listModel)
 			$http.post(''+$rootScope.mainurl+'/api/carmodels/get',$scope.listModel).
 			success(function(data, status) {
 				//console.log(data);
