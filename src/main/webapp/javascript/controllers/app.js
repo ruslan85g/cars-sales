@@ -83,7 +83,7 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 	$scope.model = {};
 	$scope.model.SJpriceF;
 	$scope.model.SJpriceT;
-	$scope.sPreloader = true;
+	$scope.sPreloader = false;
 	
 	$scope.search = function(){
 		$scope.sPreloader = true;
