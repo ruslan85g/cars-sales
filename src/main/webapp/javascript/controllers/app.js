@@ -28,6 +28,8 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 					$scope.mod_opts = data;
 //console.log($scope.mod_opts);
 			}).error(function(data, status) {console.log(data);})
+		}else{
+			$scope.typeId = "";
 		}
 	}
 	$scope.man_opts = [];
@@ -61,18 +63,24 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 			$.each($scope.mod_opts, function (key,val){
 				if(val.model_name == name){$scope.SJmodelId = val.car_model_id;}
 			});
+		}else{
+			$scope.SJmodelId = "";
 		}
 	};
 	
 	$scope.selectedYearF = function(year,text){
 		if(text.SJyearF != "משנה" && year != ""){
 			$scope.SJyearFrom = year;
+		}else{
+			$scope.SJyearFrom = "";
 		}
 	};
 	
 	$scope.selectedYearT = function(year,text){
 		if(text.SJyearT != "עד שנה" && year != ""){
 			$scope.SJyearTo = year;
+		}else{
+			$scope.SJyearTo = "";
 		}
 	};
 	
