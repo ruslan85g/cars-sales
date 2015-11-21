@@ -30,6 +30,7 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 			}).error(function(data, status) {console.log(data);})
 		}else{
 			$scope.typeId = "";
+			$scope.mod_opts = [];
 		}
 	}
 	$scope.man_opts = [];
@@ -84,9 +85,11 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 		}
 	};
 	
-	$scope.selectedTypeGear = function(type){
-		if(type != "בחר" && type != ""){
+	$scope.selectedTypeGear = function(type,text){
+		if(text.SJtypeGear != "בחר" && type != ""){
 			$scope.SJsontypeGear = type;
+		}else{
+			$scope.SJsontypeGear = "";
 		}
 	};
 	
