@@ -6,7 +6,7 @@
 			<ul class="userDetailsUL" ng-if="userData.dataName.edit == 0" >
 				<li><label class="bold" >שם המשתמש:</label></li>
 				<li><label>{{userData.dataName.name}}</label></li>
-				<li><button ng-click="userData.dataName.edit = 1" class="button" >עידקון</button></li>
+				<li><button ng-click="userData.dataName.edit = 1" class="button" >עדכון</button></li>
 			</ul>
 			<ul class="userDetailsUL" ng-if="userData.dataName.edit == 1">
 				<li><label class="bold" >שם המשתמש:</label></li>
@@ -19,7 +19,7 @@
 			<ul class="userDetailsUL" ng-if="userData.dataPhone.edit == 0" >
 				<li><label class="bold" >מ'ס טלפון:</label></li>
 				<li><label>{{userData.dataPhone.phone}}</label></li>
-				<li><button ng-click="userData.dataPhone.edit = 1" class="button" >עידקון</button></li>
+				<li><button ng-click="userData.dataPhone.edit = 1" class="button" >עדכון</button></li>
 			</ul>
 			<ul class="userDetailsUL" ng-if="userData.dataPhone.edit == 1" >
 				<li><label class="bold" >מ'ס טלפון:</label></li>
@@ -32,7 +32,7 @@
 			<ul class="userDetailsUL" ng-if="userData.dataEmail.edit == 0" >
 				<li><label class="bold" >דואר אלקטרוני:</label></li>
 				<li><label>{{userData.dataEmail.email}}</label></li>
-				<li><button ng-click="userData.dataEmail.edit = 1" class="button" >עידקון</button></li>
+				<li><button ng-click="userData.dataEmail.edit = 1" class="button" >עדכון</button></li>
 			</ul>
 			<ul class="userDetailsUL" ng-if="userData.dataEmail.edit == 1" >
 				<li><label class="bold" >דואר אלקטרוני:</label></li>
@@ -126,7 +126,7 @@
 				<span ng-if="!val.image" class="symbolX_s icon-error"></span></li>
 			</ul>
 			<ul class="adBut" >
-				<li><button class="button" ng-click="editView = 1;reset();" >עידקון</button></li>
+				<li><button class="button" ng-click="editView = 1;reset();" >עדכון</button></li>
 				<li><button class="button" ng-click="deleteAd(val.car_id)" >למחוק</button></li>
 			</ul>
 			<img src="{{val.image}}" style="width: 100px;float: right;" />

@@ -42,10 +42,10 @@
 				<input type="text" placeholder="שם" ng-model="userReg.name" />
 				<input type="mail" placeholder='דוא"ל' ng-model="userReg.email" />
 				<input type="text" placeholder="טלפון" ng-model="userReg.phone"/>
-				<button ng-click="reg();" class="button reg" >שלך</button>
+				<button ng-click="reg();" class="button reg" >שלח</button>
 			</span>
 			<span ng-if="pRegView == 1" >
-				<p>תודה, קוד הפעלה נשלח למייל שלך</p>
+				<p>תודה, קוד הפעלה נשלח למייל שלח</p>
 				<input type="mail" placeholder='דוא"ל' ng-model="userAct.email" />
 				<input type="text" placeholder="קוד הפעלה" ng-model="userAct.activCode" />
 				<button ng-click="hidePopup()" class="button" >סגור</button>
@@ -67,9 +67,9 @@
 			<span ng-if="pLoginView == 1">
 				<input type="mail" placeholder='דוא"ל' ng-model="loginJson.email" />
 				<button ng-click="changeView(0)" class="button" >ביטול</button>
-				<button ng-click="forget()" class="button login" >שלך</button>
+				<button ng-click="forget()" class="button login" >שלח</button>
 			</span>
-			<p ng-if="pForgetStatus == true" class="red" > סיסמה חדשה נשלחה  למייל שלך </p>
+			<p ng-if="pForgetStatus == true" class="red" > סיסמה חדשה נשלחה  למייל שלח </p>
 			<p ng-if="pForgetStatus == false" class="red" >{{error_text}}</p>
 			<p ng-if="pLoginStatus == false" class="red" >{{error_text}}</p>
 			<p ng-if="errorMes == true" class="red" >מלא את השדות</p>
@@ -79,7 +79,7 @@
 			<div ng-if="pPreloader == true" class="preloader" ><img src="images/preloader.gif" class="preloaderImgB" /></div>
 			<input type="text" placeholder="סיסמא נוכחות" ng-model="chengePJson.currentPassword" />
 			<input type="text" placeholder="סיסמא חדשה" ng-model="chengePJson.newPassword" />
-			<button ng-click="chengeP()" class="button login" >שלך</button>
+			<button ng-click="chengeP()" class="button login" >שלח</button>
 			<p ng-if="pChengePStatus == true" class="red" >שינית את הסיסמא בהצלחה</p>
 			<p ng-if="pChengePStatus == false" class="red" >{{error_text}}</p>
 			<p ng-if="errorMes == true" class="red" >מלא את השדות</p>
