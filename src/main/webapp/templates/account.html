@@ -113,7 +113,7 @@
 		<!--                 LIST CARS                      -->
 		<ul>
 		<li ng-repeat="(key,val) in viewAdsJson" >
-		<div ng-show="editView == 0" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;" >
+		<div ng-show="editView() == 0" style="width: 91%;display: inline-block;margin: 20px 3%;border: 1px solid #1ba4ab;padding: 15px;" >
 			<ul class="adUP bold" >
 				<li style="width: 45px;margin-right: 25px;" ><label>{{$index+1}}.</label></li>
 				<li><label>{{val.typeName}}</label></li>
@@ -126,14 +126,14 @@
 				<span ng-if="!val.image" class="symbolX_s icon-error"></span></li>
 			</ul>
 			<ul class="adBut" >
-				<li><button class="button" ng-click="editView = 1;" >עדכון</button></li>
+				<li><button class="button" ng-click="editView() = 1;" >עדכון</button></li>
 				<li><button class="button" ng-click="deleteAd(val.car_id)" >למחוק</button></li>
 			</ul>
 			<img src="{{val.image}}" style="width: 100px;float: right;" />
 		</div>
 		
 		<!--                 EDIT CAR                      -->
-		<div ng-show="editView == 1" class="carBox">{{editView}}
+		<div ng-show="editView() == 1" class="carBox">{{editView()}}
 			<div ng-if="editCarPreloader == true" style="text-align: center;" class="preloader" ><img src="images/preloader.gif" class="preloaderImgB" /></div>
 			<ul class="searchBar" >
 				<li>
