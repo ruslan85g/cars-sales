@@ -227,9 +227,9 @@ $scope.reset = function(e){
 				}).error(function(data, status) {console.log(data);});
 		}
 	}
-	
+	$rootScope.editView = 0;
 	$scope.editView = function(){
-		$rootScope.editView = 0;
+		return $rootScope.editView;
 	};
 	$scope.editCarPreloader = false;
 	
