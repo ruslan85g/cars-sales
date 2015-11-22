@@ -81,11 +81,9 @@ public class SearchServlet {
 				// String car_url = car.getUser_id().toString()
 				// + carModel.getModel_name();
 				String car_url = car.getUser_id().toString()
-						+ carModel.getCar_model_id().toString()
-						+ car.getCar_type_id().toString();
+						+ carModel.getCar_model_id().toString() + car.getCar_type_id().toString();
 				log.info("try find Car per Car_id ");
-				Car newCar = carDBService
-						.loadOne(Car.class, "car_url", car_url);
+				Car newCar = carDBService.loadOne(Car.class, "car_url", car_url);
 				if (newCar != null) {
 					log.info(" find Car SUCSESS");
 					searchResponseMeta.setCar_id(newCar.getCar_id());
@@ -110,25 +108,9 @@ public class SearchServlet {
 			}
 			searchResponseMetaList.add(searchResponseMeta);
 		}
-		// removeDuplicate(searchResponseMetaList);
+
 		log.info("End search");
-		return removeDuplicate(searchResponseMetaList);
-	}
-
-	private List<SearchResponseMeta> removeDuplicate(
-			List<SearchResponseMeta> list) {
-		log.info("list size before short " + list.size());
-		List<SearchResponseMeta> newList = new ArrayList<>();
-
-		for (int i = 1; i < list.size(); i++) {
-			for (SearchResponseMeta searchResponseMeta : list) {
-				if (!newList.contains(searchResponseMeta)) {
-					newList.add(searchResponseMeta);
-				}
-			}
-		}
-		log.info("newList size after short " + newList.size());
-		return newList;
+		return searchResponseMetaList;
 	}
 
 }
