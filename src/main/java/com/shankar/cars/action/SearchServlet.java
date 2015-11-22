@@ -1,9 +1,7 @@
 package com.shankar.cars.action;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -119,14 +117,18 @@ public class SearchServlet {
 
 	private List<SearchResponseMeta> removeDuplicate(
 			List<SearchResponseMeta> list) {
+		log.info("list size before short " + list.size());
+		List<SearchResponseMeta> newList = new ArrayList<>();
 
-		List<SearchResponseMeta> al = list;
-		// add elements to al, including duplicates
-		Set<SearchResponseMeta> hs = new HashSet<>();
-		hs.addAll(al);
-		al.clear();
-		al.addAll(hs);
-		return al;
+		for (int i = 1; i < list.size(); i++) {
+			for (SearchResponseMeta searchResponseMeta : list) {
+				if (!newList.contains(searchResponseMeta)) {
+					newList.add(searchResponseMeta);
+				}
+			}
+		}
+		log.info("newList size after short " + newList.size());
+		return newList;
 	}
 
 }
