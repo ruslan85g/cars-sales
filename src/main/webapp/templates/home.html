@@ -52,7 +52,8 @@
 </div></div>
 
 <div class="box" style="margin-bottom: 30px;" >
-	<div style="border: 1px solid #1ba4ab;width: 100%;    display: inline-block;" >
+<p ng-if="listCars.length == 0" >נמצאו 0 מודעות</p>
+	<div ng-if="listCars.length > 0" style="border: 1px solid #1ba4ab;width: 100%;    display: inline-block;" >
 		
 		<ul class="resultTitle" >
 			<li><label>יצרן</label></li>

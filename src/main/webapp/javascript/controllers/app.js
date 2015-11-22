@@ -119,7 +119,7 @@ function MainCntl($scope,$http, $rootScope, $location, $route,$cookieStore) {
 
 		$http.post(''+$rootScope.mainurl+'/api/search/searchResult', $scope.searchJson).
 			success(function(data, status) {
-			$scope.clearFun();
+			//$scope.clearFun();
 				var typeName = "typeName";
 				var modName = "modName";
 				$.each(data, function (key,val){
