@@ -204,7 +204,7 @@ $scope.reset = function(e){
 		$scope.newCarPreloader = false;
 	}else{
 		$scope.editCarPreloader = false;
-		$scope.editView =0;
+		$scope.editView = 0;
 		$scope.newImage = '';
 		$scope.updateAdJson = {};
 		$scope.updCar = {"car_type" : "","model" : "","year" : '',"type" : "","volume" : '',"km" : '',"color" :"","price" : '',"text" : ""};
