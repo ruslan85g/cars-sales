@@ -202,7 +202,7 @@ $scope.reset = function(e){
 		$scope.newAdJson = {};
 		$scope.dataFile = '';
 		$scope.newCarPreloader = false;
-	}else{
+	}else{console.log(e)
 		$scope.editCarPreloader = false;
 		$scope.editView = 0;
 		$scope.newImage = '';
