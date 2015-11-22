@@ -121,11 +121,14 @@ public class SearchServlet {
 		System.out.println("List" + list);
 
 		for (int i = 1; i < list.size(); i++) {
-			Long a1 = list.get(i).getCar_id();
-			Long a2 = list.get(i - 1).getCar_id();
-			log.info("a1 = " + a1 + " a2 = " + a2);
-			if (a1 == a2) {
-				list.remove(a1);
+			String a1 = list.get(i).getCar_model_name();
+			String a2 = list.get(i - 1).getCar_model_name();
+			String t1 = list.get(i).getCar_type_name();
+			String t2 = list.get(i - 1).getCar_type_name();
+			log.info("a1 = " + a1 + " a2 = " + a2 + "t1 = " + t1 + " t2 = "
+					+ t2);
+			if (a1.equals(a2) && t1.equals(t2)) {
+				list.remove(list.get(i));
 			}
 		}
 		log.info("List size after short " + list.size());
