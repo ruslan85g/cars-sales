@@ -210,6 +210,12 @@ $scope.reset = function(e){
 		$scope.updCar = {"car_type" : "","model" : "","year" : '',"type" : "","volume" : '',"km" : '',"color" :"","price" : '',"text" : ""};
 	}
 }
+
+$scope.editViewFun = function(n){
+	$scope.reset('u');
+	$rootScope.editView = 1;
+	
+}
 /***************************************************  UPDATE CAR ****************************************/	
 	$scope.getNewTypeId = function(id){
 		$scope.getListModel(id);
@@ -227,9 +233,9 @@ $scope.reset = function(e){
 				}).error(function(data, status) {console.log(data);});
 		}
 	}
-	
+	$rootScope.editView = 0;
 	$scope.editView = function(){
-		$rootScope.editView = 0;
+		return $rootScope.editView;
 	};
 	$scope.editCarPreloader = false;
 	
