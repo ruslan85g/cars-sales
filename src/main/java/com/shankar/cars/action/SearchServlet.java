@@ -123,12 +123,12 @@ public class SearchServlet {
 		for (int i = 1; i < list.size(); i++) {
 			Long a1 = list.get(i).getCar_id();
 			Long a2 = list.get(i - 1).getCar_id();
-			if (a1.equals(a2)) {
+			log.info("a1 = " + a1 + " a2 = " + a2);
+			if (a1 == a2) {
 				list.remove(a1);
 			}
 		}
 		log.info("List size after short " + list.size());
-		System.out.println("List after short" + list);
 		return list;
 	}
 
