@@ -48,10 +48,37 @@ public class SearchDBService extends DBService {
 		setSubFiltersPrice(searchMeta, subFiltersPrice);
 
 		if (subFiltersYear.size() == 0 && subFiltersPrice.size() == 0) {
+			log.info("Start loadCars(q, subFilters): ");
 			setSubFiltersCommon(searchMeta, subFilters);
+			results = loadCars(q, subFilters);
+			buildCarsList(results, carsList);
+			
+		}else{
+			
+			if (subFiltersYear.size() > 0) {
+				log.info("Start loadCars(q_year, subFiltersYear): ");
+				result_year = loadCars(q_year, subFiltersYear);
+			}
+
+			if (subFiltersPrice.size() > 0) {
+				log.info("Start loadCars(q_price, subFiltersPrice): ");
+				result_price = loadCars(q_price, subFiltersPrice);
+			}
+			
+			if(!result_year.isEmpty() && !result_price.isEmpty()){
+				log.info("Start buildCarsList(result_year, result_price, carsList,searchMeta)");
+				buildCarsList(result_year, result_price, carsList,searchMeta);	
+			}else{
+				log.info("Start buildCarsList(result_year, carsList)");
+				buildCarsList(result_year, carsList);	
+				log.info("Start buildCarsList(result_price, carsList)");
+				buildCarsList(result_price, carsList);
+			}
+			
+			
 		}
 
-		if (subFiltersYear.size() > 0) {
+		/*if (subFiltersYear.size() > 0) {
 			result_year = loadCars(q_year, subFiltersYear);
 			buildCarsList(result_year, carsList);
 		}
@@ -64,7 +91,7 @@ public class SearchDBService extends DBService {
 		if (subFilters.size() > 0) {
 			results = loadCars(q, subFilters);
 			buildCarsList(results, carsList);
-		}
+		}*/
 		if ((result_year.isEmpty() && !subFiltersYear.isEmpty())
 				|| (result_price.isEmpty() && !subFiltersPrice.isEmpty())
 				|| (results.isEmpty() && !subFilters.isEmpty())) {
@@ -73,31 +100,98 @@ public class SearchDBService extends DBService {
 		return carsList;
 	}
 
+	private void buildCarsList(List<Entity> result_year,
+			List<Entity> result_price, List<Car> carsList, SearchMeta searchMeta) {
+		log.info("Start buildCarsList");
+		Long year = null;
+		Long price = null;
+		
+		if (result_year != null && result_price != null) {
+			log.info("Start set for result_year");
+			
+			for (Entity res_year : result_year) {
+				price = (Long) res_year.getProperty("price");
+				log.info("price in query = " + price);
+				if(price!= null 
+						&& ( searchMeta.getPriceF()!=null && price>= searchMeta.getPriceF())  
+						||	( searchMeta.getPriceT()!=null && price <= searchMeta.getPriceT()) ){
+					Car car = new Car();
+					car.setCar_id((Long) res_year.getProperty("Name"));// car_id
+					log.info("getCar_id " + car.getCar_id());
+					car.setCar_model_id((Long) res_year.getProperty("car_model_id"));
+					car.setCar_type_id((Long) res_year.getProperty("car_type_id"));
+					car.setColor((String) res_year.getProperty("color"));
+					car.setCreated_time((Long) res_year.getProperty("created_time"));
+					car.setUpdate_time((Long) res_year.getProperty("updated_time"));
+					car.setKm((Long) res_year.getProperty("km"));
+					car.setPrice((Long) res_year.getProperty("price"));
+					car.setType_geare((String) res_year.getProperty("type_geare"));
+					car.setUser_id((Long) res_year.getProperty("user_id"));
+					car.setUpdate_time((Long) res_year.getProperty("update_time"));
+					car.setVolume((String) res_year.getProperty("volume"));
+					car.setYear((Long) res_year.getProperty("year"));
+					log.info("carsList.add(car of price array): ");
+					if (!carsList.contains(car)) {
+					carsList.add(car);
+					}
+				}
+			}
+		for (Entity res_price : result_price) {
+				year = (Long) res_price.getProperty("year");
+				log.info("year in query = " + year);
+				if(year!=null
+						&& (searchMeta.getYearF()!=null && year>= searchMeta.getYearF())
+						|| (searchMeta.getYearT() != null && year <= searchMeta.getYearT()) ){
+					Car car = new Car();
+					car.setCar_id((Long) res_price.getProperty("Name"));// car_id
+					log.info("getCar_id " + car.getCar_id());
+					car.setCar_model_id((Long) res_price.getProperty("car_model_id"));
+					car.setCar_type_id((Long) res_price.getProperty("car_type_id"));
+					car.setColor((String) res_price.getProperty("color"));
+					car.setCreated_time((Long) res_price.getProperty("created_time"));
+					car.setUpdate_time((Long) res_price.getProperty("updated_time"));
+					car.setKm((Long) res_price.getProperty("km"));
+					car.setPrice((Long) res_price.getProperty("price"));
+					car.setType_geare((String) res_price.getProperty("type_geare"));
+					car.setUser_id((Long) res_price.getProperty("user_id"));
+					car.setUpdate_time((Long) res_price.getProperty("update_time"));
+					car.setVolume((String) res_price.getProperty("volume"));
+					car.setYear((Long) res_price.getProperty("year"));
+					log.info("carsList.add(car of year array): ");
+					if (!carsList.contains(car)) {
+					carsList.add(car);
+					 }
+			}
+		}
+			
+		}
+		
+	}
+
 	private List<Entity> loadCars(Query query, Collection<Filter> subFilters) {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		List<Entity> results = null;
-		log.info("subFiltersYear.size() " + subFilters.size());
-		log.info("Start q_year: ");
+		log.info("subFilters.size() " + subFilters.size());
 		query = setFilter(query, subFilters);
-		log.info("q_year " + query);
+		log.info("query " + query);
 		PreparedQuery pq = datastore.prepare(query);
-		log.info("pq: in q_year " + pq);
+		log.info("pq: in query " + pq);
 		// pq.countEntities(FetchOptions.Builder.withLimit(5));
-		log.info("startInsertCarsFromSearch q_year: "
+		log.info("startInsertCarsFromSearch query: "
 				+ pq.asIterable().toString());
 		log.info("Query: " + query.toString());
 		// result_year = pq.asList(FetchOptions.Builder.withLimit(5));
 		results = pq.asQueryResultList(FetchOptions.Builder.withLimit(5));
 		int num = pq.countEntities(FetchOptions.Builder.withLimit(5));
-		log.info("result_year num: " + num);
-		log.info("result_year size: " + results.size());
+		log.info("results num: " + num);
+		log.info("results size: " + results.size());
 		return results;
 	}
 
 	private void buildCarsList(List<Entity> resultList, List<Car> carsList) {
 		if (resultList != null) {
-			log.info("Start set for result_year");
+			log.info("Start buildCarsList");
 			for (Entity result : resultList) {
 				Car car = new Car();
 				car.setCar_id((Long) result.getProperty("Name"));// car_id
