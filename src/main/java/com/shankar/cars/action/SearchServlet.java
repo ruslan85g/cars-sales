@@ -78,8 +78,6 @@ public class SearchServlet {
 			if (car.getCar_id() != null) {
 				searchResponseMeta.setCar_id(car.getCar_id());
 			} else {
-				// String car_url = car.getUser_id().toString()
-				// + carModel.getModel_name();
 				String car_url = car.getUser_id().toString()
 						+ carModel.getCar_model_id().toString()
 						+ car.getCar_type_id().toString();
@@ -90,6 +88,7 @@ public class SearchServlet {
 					log.info(" find Car SUCSESS");
 					searchResponseMeta.setCar_id(newCar.getCar_id());
 					searchResponseMeta.setImage(newCar.getImage());
+					searchResponseMeta.setCar(newCar);
 					log.info("newCar.getCar_id() = " + newCar.getCar_id());
 				} else {
 					log.info(" find Car FAILED");
@@ -104,6 +103,7 @@ public class SearchServlet {
 			searchResponseMeta.setVolume(car.getVolume());
 			User user = db.load(User.class, car.getUser_id());
 			searchResponseMeta.setUser(user);
+			searchResponseMeta.setCar(car);
 			if (car.getImage() != null) {
 				log.info("Start set Car Photo");
 				searchResponseMeta.setImage(car.getImage());

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import com.googlecode.objectify.annotation.Index;
+import com.shankar.cars.data.Car;
 import com.shankar.cars.data.User;
 
 public class SearchResponseMeta {
@@ -52,6 +53,10 @@ public class SearchResponseMeta {
 	@Getter
 	@Setter
 	public Long price;
+	
+	@Getter
+	@Setter
+	protected Car car;
 
 	
 	
