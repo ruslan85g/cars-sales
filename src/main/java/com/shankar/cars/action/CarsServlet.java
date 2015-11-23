@@ -227,4 +227,24 @@ public class CarsServlet {
 		return true;
 	}
 
+	@Path("/getAllCars")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<Car> getAllCars() throws Exception {
+		log.info("Start newApplication ");
+		List<Car> carMetas = new ArrayList<>();
+		CarDBService cardb = new CarDBService();
+
+		carMetas = cardb.loadAll(Car.class);
+
+		if (carMetas == null) {
+			log.info("CarsNotFouds ");
+			throw new Exception("CarsNotFouds");
+
+		}
+		log.info("End newApplication");
+		return carMetas;
+	}
+
 }
