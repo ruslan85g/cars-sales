@@ -39,7 +39,7 @@ public class SearchDBService extends DBService {
 		Collection<Filter> subFiltersYear = new ArrayList<Filter>();
 
 		List<Car> carsList = new ArrayList<Car>();
-
+		List<Car> resultCarList = new ArrayList<Car>();
 		if (searchMeta == null) {
 			throw new RuntimeException("searchMeta cannot be null");
 		}
@@ -77,27 +77,31 @@ public class SearchDBService extends DBService {
 			
 			
 		}
-
-		/*if (subFiltersYear.size() > 0) {
-			result_year = loadCars(q_year, subFiltersYear);
-			buildCarsList(result_year, carsList);
+		Boolean flag;
+		
+		for(Car car:carsList){
+			
+			flag = false;
+			
+			for(Car car1:resultCarList){
+				if( car.getCar_id().equals(car1.getCar_id()) ){
+					flag = true;
+					break;
+				}
+			}
+			
+			if(!flag){
+				log.info("resultCarList.add(car): car.getCar_id() = " + car.getCar_id());
+				resultCarList.add(car);
+			}
 		}
-
-		if (subFiltersPrice.size() > 0) {
-			result_price = loadCars(q_price, subFiltersPrice);
-			buildCarsList(result_price, carsList);
-		}
-
-		if (subFilters.size() > 0) {
-			results = loadCars(q, subFilters);
-			buildCarsList(results, carsList);
-		}*/
+		
 		if ((result_year.isEmpty() && !subFiltersYear.isEmpty())
 				|| (result_price.isEmpty() && !subFiltersPrice.isEmpty())
 				|| (results.isEmpty() && !subFilters.isEmpty())) {
-			carsList.clear();
+			resultCarList.clear();
 		}
-		return carsList;
+		return resultCarList;
 	}
 
 	private void buildCarsList(List<Entity> result_year,
@@ -116,8 +120,7 @@ public class SearchDBService extends DBService {
 						&& ( searchMeta.getPriceF()!=null && price>= searchMeta.getPriceF())  
 						||	( searchMeta.getPriceT()!=null && price <= searchMeta.getPriceT()) ){
 					Car car = new Car();
-					car.setCar_id((Long) res_year.getProperty("Car id"));// car_id//Name//-Name/ID-Car id:5111418835697664
-					log.info("getCar_id " + car.getCar_id());
+					car.setCar_id((Long) res_year.getKey().getId() );
 					car.setCar_model_id((Long) res_year.getProperty("car_model_id"));
 					car.setCar_type_id((Long) res_year.getProperty("car_type_id"));
 					car.setColor((String) res_year.getProperty("color"));
@@ -143,8 +146,7 @@ public class SearchDBService extends DBService {
 						&& (searchMeta.getYearF()!=null && year>= searchMeta.getYearF())
 						|| (searchMeta.getYearT() != null && year <= searchMeta.getYearT()) ){
 					Car car = new Car();
-					car.setCar_id((Long) res_price.getProperty("car_id"));// car_id
-					log.info("getCar_id " + car.getCar_id());
+					car.setCar_id((Long) res_price.getKey().getId() );
 					car.setCar_model_id((Long) res_price.getProperty("car_model_id"));
 					car.setCar_type_id((Long) res_price.getProperty("car_type_id"));
 					car.setColor((String) res_price.getProperty("color"));
@@ -194,7 +196,7 @@ public class SearchDBService extends DBService {
 			log.info("Start buildCarsList");
 			for (Entity result : resultList) {
 				Car car = new Car();
-				car.setCar_id((Long) result.getProperty("Name"));// car_id
+				car.setCar_id((Long) result.getKey().getId() );
 				log.info("getCar_id " + car.getCar_id());
 				car.setCar_model_id((Long) result.getProperty("car_model_id"));
 				car.setCar_type_id((Long) result.getProperty("car_type_id"));
