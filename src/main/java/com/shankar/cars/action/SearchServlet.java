@@ -81,13 +81,16 @@ public class SearchServlet {
 				// String car_url = car.getUser_id().toString()
 				// + carModel.getModel_name();
 				String car_url = car.getUser_id().toString()
-						+ carModel.getCar_model_id().toString() + car.getCar_type_id().toString();
+						+ carModel.getCar_model_id().toString()
+						+ car.getCar_type_id().toString();
 				log.info("try find Car per Car_id ");
-				Car newCar = carDBService.loadOne(Car.class, "car_url", car_url);
-				if (newCar != null) {
+				Car newCar = carDBService
+						.loadOne(Car.class, "car_url", car_url);
+				if (newCar.getCar_id() != null) {
 					log.info(" find Car SUCSESS");
 					searchResponseMeta.setCar_id(newCar.getCar_id());
 					searchResponseMeta.setImage(newCar.getImage());
+					log.info("newCar.getCar_id() = " + newCar.getCar_id());
 				} else {
 					log.info(" find Car FAILED");
 				}
@@ -108,8 +111,9 @@ public class SearchServlet {
 			}
 			searchResponseMetaList.add(searchResponseMeta);
 		}
-
-		log.info("End search");
+		for (SearchResponseMeta car2 : searchResponseMetaList) {
+			log.info("Car_id() = " + car2.getCar_id());
+		}
 		return searchResponseMetaList;
 	}
 
