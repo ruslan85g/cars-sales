@@ -116,7 +116,7 @@ public class SearchDBService extends DBService {
 						&& ( searchMeta.getPriceF()!=null && price>= searchMeta.getPriceF())  
 						||	( searchMeta.getPriceT()!=null && price <= searchMeta.getPriceT()) ){
 					Car car = new Car();
-					car.setCar_id((Long) res_year.getProperty("Name"));// car_id
+					car.setCar_id((Long) res_year.getProperty("Car id"));// car_id//Name//-Name/ID-Car id:5111418835697664
 					log.info("getCar_id " + car.getCar_id());
 					car.setCar_model_id((Long) res_year.getProperty("car_model_id"));
 					car.setCar_type_id((Long) res_year.getProperty("car_type_id"));
@@ -143,7 +143,7 @@ public class SearchDBService extends DBService {
 						&& (searchMeta.getYearF()!=null && year>= searchMeta.getYearF())
 						|| (searchMeta.getYearT() != null && year <= searchMeta.getYearT()) ){
 					Car car = new Car();
-					car.setCar_id((Long) res_price.getProperty("Name"));// car_id
+					car.setCar_id((Long) res_price.getProperty("car_id"));// car_id
 					log.info("getCar_id " + car.getCar_id());
 					car.setCar_model_id((Long) res_price.getProperty("car_model_id"));
 					car.setCar_type_id((Long) res_price.getProperty("car_type_id"));
