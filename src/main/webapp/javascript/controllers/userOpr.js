@@ -35,6 +35,7 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 					console.log(data);
 					if(data.status == "success"){
 						$scope.pRegView = 1;
+						$scope.pRegStatus = true;
 						$scope.pPreloader = false;
 					}else{
 						$scope.error_text = data.error_text;

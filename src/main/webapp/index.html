@@ -45,7 +45,7 @@
 				<button ng-click="reg();" class="button reg" >שלח</button>
 			</span>
 			<span ng-if="pRegView == 1" >
-				<p>תודה, קוד הפעלה נשלח למייל שלח</p>
+				<p ng-if="pRegStatus == true" style="color:green" >תודה, קוד הפעלה נשלח למייל שלח</p>
 				<input type="mail" placeholder='דוא"ל' ng-model="userAct.email" />
 				<input type="text" placeholder="קוד הפעלה" ng-model="userAct.activCode" />
 				<button ng-click="hidePopup()" class="button" >סגור</button>
@@ -69,7 +69,7 @@
 				<button ng-click="changeView(0)" class="button" >ביטול</button>
 				<button ng-click="forget()" class="button login" >שלח</button>
 			</span>
-			<p ng-if="pForgetStatus == true" class="red" > סיסמה חדשה נשלחה  למייל שלח </p>
+			<p ng-if="pForgetStatus == true" class="green" > סיסמה חדשה נשלחה  למייל שלח </p>
 			<p ng-if="pForgetStatus == false" class="red" >{{error_text}}</p>
 			<p ng-if="pLoginStatus == false" class="red" >{{error_text}}</p>
 			<p ng-if="errorMes == true" class="red" >מלא את השדות</p>
@@ -77,10 +77,12 @@
 		<div id="popupChengeP" ng-if="pChengeP == true" >
 			<div class="popup_title" ><span class="close" ng-click="hidePopup()" ></span>שינוי סיסמא</div>
 			<div ng-if="pPreloader == true" class="preloader" ><img src="images/preloader.gif" class="preloaderImgB" /></div>
-			<input type="text" placeholder="סיסמא נוכחות" ng-model="chengePJson.currentPassword" />
-			<input type="text" placeholder="סיסמא חדשה" ng-model="chengePJson.newPassword" />
-			<button ng-click="chengeP()" class="button login" >שלח</button>
-			<p ng-if="pChengePStatus == true" class="red" >שינית את הסיסמא בהצלחה</p>
+			<span ng-if="pChengePStatus != false || !pChengePStatus" >
+				<input type="text" placeholder="סיסמא נוכחות" ng-model="chengePJson.currentPassword" />
+				<input type="text" placeholder="סיסמא חדשה" ng-model="chengePJson.newPassword" />
+				<button ng-click="chengeP()" class="button login" >שלח</button>
+			</span>
+			<p ng-if="pChengePStatus == true" class="green" >שינית את הסיסמא בהצלחה</p>
 			<p ng-if="pChengePStatus == false" class="red" >{{error_text}}</p>
 			<p ng-if="errorMes == true" class="red" >מלא את השדות</p>
 		</div>
