@@ -77,6 +77,8 @@ public class SearchServlet {
 			}
 			if (car.getCar_id() != null) {
 				searchResponseMeta.setCar_id(car.getCar_id());
+				Car newCar2 = carDBService.load(Car.class, car.getCar_id());
+				searchResponseMeta.setImage(newCar2.getImage());
 			} else {
 				String car_url = car.getUser_id().toString()
 						+ carModel.getCar_model_id().toString()
@@ -88,7 +90,6 @@ public class SearchServlet {
 					log.info(" find Car SUCSESS");
 					searchResponseMeta.setCar_id(newCar.getCar_id());
 					searchResponseMeta.setImage(newCar.getImage());
-					searchResponseMeta.setCar(newCar);
 					log.info("newCar.getCar_id() = " + newCar.getCar_id());
 				} else {
 					log.info(" find Car FAILED");

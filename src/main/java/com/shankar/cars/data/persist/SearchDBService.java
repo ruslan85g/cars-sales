@@ -124,6 +124,7 @@ public class SearchDBService extends DBService {
 					car.setCar_model_id((Long) res_year.getProperty("car_model_id"));
 					car.setCar_type_id((Long) res_year.getProperty("car_type_id"));
 					car.setColor((String) res_year.getProperty("color"));
+//					car.setImage((String) res_year.getProperty("image"));
 					car.setCreated_time((Long) res_year.getProperty("created_time"));
 					car.setUpdate_time((Long) res_year.getProperty("updated_time"));
 					car.setKm((Long) res_year.getProperty("km"));
@@ -150,6 +151,7 @@ public class SearchDBService extends DBService {
 					car.setCar_model_id((Long) res_price.getProperty("car_model_id"));
 					car.setCar_type_id((Long) res_price.getProperty("car_type_id"));
 					car.setColor((String) res_price.getProperty("color"));
+//					car.setImage((String) res_price.getProperty("image"));
 					car.setCreated_time((Long) res_price.getProperty("created_time"));
 					car.setUpdate_time((Long) res_price.getProperty("updated_time"));
 					car.setKm((Long) res_price.getProperty("km"));
@@ -184,8 +186,8 @@ public class SearchDBService extends DBService {
 				+ pq.asIterable().toString());
 		log.info("Query: " + query.toString());
 		// result_year = pq.asList(FetchOptions.Builder.withLimit(5));
-		results = pq.asQueryResultList(FetchOptions.Builder.withLimit(5));
-		int num = pq.countEntities(FetchOptions.Builder.withLimit(5));
+		results = pq.asQueryResultList(FetchOptions.Builder.withLimit(50));
+		int num = pq.countEntities(FetchOptions.Builder.withLimit(50));
 		log.info("results num: " + num);
 		log.info("results size: " + results.size());
 		return results;
@@ -201,6 +203,7 @@ public class SearchDBService extends DBService {
 				car.setCar_model_id((Long) result.getProperty("car_model_id"));
 				car.setCar_type_id((Long) result.getProperty("car_type_id"));
 				car.setColor((String) result.getProperty("color"));
+//				car.setImage((String) result.getProperty("image"));
 				car.setCreated_time((Long) result.getProperty("created_time"));
 				car.setUpdate_time((Long) result.getProperty("updated_time"));
 				car.setKm((Long) result.getProperty("km"));
