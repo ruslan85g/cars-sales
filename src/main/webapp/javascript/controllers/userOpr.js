@@ -18,7 +18,9 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 	$scope.changeView = function(n){
 		$scope.pLoginView = n;
 		$scope.error_text='';
+		$scope.errorMes = false;
 		$scope.pLoginStatus='';
+		$scope.pForgetStatus='';
 	}
 	
 	$scope.pRegView = 0;
@@ -157,6 +159,7 @@ function userOperations($scope,$http, $rootScope, $location, $route,$cookieStore
 	$scope.chengeP = function(){
 		if($scope.chengePJson.currentPassword != "" && $scope.chengePJson.newPassword != ""){
 			$scope.pPreloader = true;
+			$scope.errorMes = false;
 			$http.post(''+$rootScope.mainurl+'/api/users/changePassword', $scope.chengePJson).
 				success(function(data, status) {
 				$scope.chengePJson = {"user_id" : $rootScope.cookieUserID,"currentPassword" : "","newPassword" : ""};
