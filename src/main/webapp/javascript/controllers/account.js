@@ -81,7 +81,9 @@ function AccountCtrl($scope,$http, $rootScope, $location, $route) {
 			var typeName = "typeName";
 			var modName = "modName";
 			var viewImg = "viewImg";
+			var editView = "editView";
 			$.each(data, function (key,val){
+			val.editView = 0;
 			console.log($scope.man_opts);
 				if(val.car_type_id){
 					
@@ -202,9 +204,11 @@ $scope.reset = function(e){
 		$scope.newAdJson = {};
 		$scope.dataFile = '';
 		$scope.newCarPreloader = false;
-	}else{console.log(e)
+	}else{
+		$.each($scope.viewAdsJson, function (key,val){
+			val.editView = 0;
+		});
 		$scope.editCarPreloader = false;
-		$rootScope.editView = 0;
 		$scope.newImage = '';
 		$scope.updateAdJson = {};
 		$scope.updCar = {"car_type" : "","model" : "","year" : '',"type" : "","volume" : '',"km" : '',"color" :"","price" : '',"text" : ""};
@@ -213,8 +217,6 @@ $scope.reset = function(e){
 
 $scope.editViewFun = function(n){
 	$scope.reset('u');
-	$rootScope.editView = 1;
-	
 }
 /***************************************************  UPDATE CAR ****************************************/	
 	$scope.getNewTypeId = function(id){
@@ -233,10 +235,7 @@ $scope.editViewFun = function(n){
 				}).error(function(data, status) {console.log(data);});
 		}
 	}
-	$rootScope.editView = 0;
-	$scope.editView = function(){
-		return $rootScope.editView;
-	};
+	
 	$scope.editCarPreloader = false;
 	
 	$scope.updateAd = function(id){
